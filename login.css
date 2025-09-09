@@ -1,0 +1,177 @@
+/* ==========================
+   Estilos generales
+========================== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: url("img/malecon.png") no-repeat center center fixed;
+  background-size: cover;
+  backdrop-filter: blur(12px) saturate(1.5);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #333;
+}
+
+/* ==========================
+   Contenedor principal
+========================== */
+.login-section {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  animation: fadeIn 0.9s ease-in-out;
+}
+
+.login-section h1 {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  color: #27ae60;
+}
+
+/* ==========================
+   Formularios
+========================== */
+form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  transition: all 0.5s ease;
+}
+
+form h2 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: #2c3e50;
+}
+
+label {
+  margin-bottom: 0.3rem;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+input {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+input:focus {
+  border-color: #27ae60;
+  box-shadow: 0 0 5px rgba(39, 174, 96, 0.4);
+}
+
+/* ==========================
+   Botones
+========================== */
+button {
+  background: #27ae60;
+  color: #fff;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: #219150;
+  transform: scale(1.03);
+}
+
+/* ==========================
+   Enlaces
+========================== */
+.no-account,
+.back-login {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #444;
+  text-align: center;
+}
+
+.no-account a,
+.back-login a {
+  color: #27ae60;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.no-account a:hover,
+.back-login a:hover {
+  color: #219150;
+}
+
+/* ==========================
+   Transiciones de formularios
+========================== */
+.hidden-form {
+  display: none;
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.visible-form {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.5s ease;
+}
+
+/* ==========================
+   Animaciones
+========================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================
+   Responsividad
+========================== */
+@media (max-width: 500px) {
+  .login-section {
+    padding: 2rem 1.5rem;
+  }
+
+  .login-section h1 {
+    font-size: 1.5rem;
+  }
+
+  form h2 {
+    font-size: 1.2rem;
+  }
+}
+/* Forzar que cada label e input quede en bloque y separado */
+form label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+form input {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+}
