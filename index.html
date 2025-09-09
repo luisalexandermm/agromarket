@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,176 +5,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="agro.css">
     <title>Mercado de Quibdó - Productos frescos del Chocó</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: { 
-                    colors: {
-                        primary: '#030213',
-                        secondary: '#f3f4f6',
-                        accent: '#e9ebef',
-                        border: 'rgba(0, 0, 0, 0.1)',
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.css">
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    
-    <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="min-h-screen bg-white">
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-green-600 text-white p-2 rounded-lg">
-                        <i data-lucide="map-pin" class="h-6 w-6"></i>
+<body>
+    <!-- Header -->
+    <header>
+        <div>
+            <div>
+                <!-- Logo y nombre -->
+                <div>
+                    <div>
+                        <i data-lucide="map-pin"></i>
                     </div>
                     <div>
-                        <h1 class="text-xl font-medium text-green-700">Mercado de Quibdó</h1>
-                        <p class="text-sm text-gray-500">Productos frescos del Chocó</p>
+                        <h1>Mercado de Quibdó</h1>
+                        <p>Productos frescos del Chocó</p>
                     </div>
                 </div>
 
-                <div class="hidden md:flex flex-1 max-w-md mx-8">
-                    <div class="relative w-full">
+                <!-- Barra de búsqueda -->
+                <div>
+                    <div>
                         <input
                             id="search-input"
                             type="text"
                             placeholder="Buscar productos frescos..."
-                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                         />
-                        <i data-lucide="search" class="absolute left-3 top-2.5 h-5 w-5 text-gray-400"></i>
+                        <i data-lucide="search"></i>
                     </div>
                 </div>
 
-                <nav class="hidden lg:flex items-center space-x-6">
-                    <button onclick="navigateToSection('inicio')" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md transition-colors">
-                        Inicio
-                    </button>
-                    <button onclick="navigateToSection('productos')" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md transition-colors">
-                        Productos
-                    </button>
-                    <button onclick="navigateToSection('categorias')" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md transition-colors">
-                        Categorías
-                    </button>
-                    <button onclick="navigateToSection('domicilios')" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md transition-colors">
-                        Domicilios
-                    </button>
-                    <button onclick="navigateToSection('ofertas')" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md transition-colors">
-                        Ofertas
-                    </button>
-                    <button onclick="navigateToSection('contacto')" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md transition-colors">
-                        Contacto
-                    </button>
+                <!-- Navegación -->
+                <nav>
+                    <button onclick="navigateToSection('inicio')">Inicio</button>
+                    <button onclick="navigateToSection('productos')">Productos</button>
+                    <button onclick="navigateToSection('categorias')">Categorías</button>
+                    <button onclick="navigateToSection('domicilios')">Domicilios</button>
+                    <button onclick="navigateToSection('ofertas')">Ofertas</button>
+                    <button onclick="navigateToSection('contacto')">Contacto</button>
                 </nav>
 
-                <div class="flex items-center space-x-4">
-                    <div id="user-section" class="hidden">
-                        <div class="flex items-center space-x-2">
-                            <span id="user-name" class="text-sm text-gray-700"></span>
-                            <button onclick="logout()" class="text-gray-700 hover:text-red-600 p-2 rounded-md transition-colors" title="Cerrar Sesión">
-                                <i data-lucide="log-out" class="h-5 w-5"></i>
+                <!-- Carrito y usuario -->
+                <div>
+                    <div id="user-section">
+                        <div>
+                            <span id="user-name"></span>
+                            <button onclick="logout()" title="Cerrar Sesión">
+                                <i data-lucide="log-out"></i>
                             </button>
                         </div>
                     </div>
                     
-                   <a href="login.html" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md transition-colors flex items-center">
-                    <i data-lucide="user" class="h-5 w-5"></i>
-                   <span class="ml-1 hidden sm:inline">Entrar</span>
-                   </a>
-                    <button onclick="openCart()" class="relative text-gray-700 hover:text-green-600 p-2 rounded-md transition-colors">
-                        <i data-lucide="shopping-cart" class="h-5 w-5"></i>
-                        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                    <button id="login-btn" onclick="openLoginModal()">
+                        <i data-lucide="user"></i>
+                        <span>Entrar</span>
                     </button>
                     
-                    <button class="lg:hidden p-2">
-                        <i data-lucide="menu" class="h-5 w-5"></i>
+                    <button onclick="openCart()">
+                        <i data-lucide="shopping-cart"></i>
+                        <span id="cart-count">0</span>
+                    </button>
+                    
+                    <button>
+                        <i data-lucide="menu"></i>
                     </button>
                 </div>
             </div>
         </div>
     </header>
+
+    <!-- Main Content -->
     <main>
-        <section id="inicio" class="relative bg-gradient-to-br from-green-600 via-green-700 to-green-800 text-white overflow-hidden">
-            <div class="absolute inset-0">
+        <!-- Hero Section -->
+        <section id="inicio">
+            <!-- Background Image -->
+            <div>
                 <img
-                    src="img/malecon.png"
+                    src="https://images.unsplash.com/photo-1627024164662-1191227a9f3c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2xvbWJpYSUyMHJpdmVyJTIwd2F0ZXJmcm9udCUyMHRvd258ZW58MXx8fHwxNzU3MDI4OTA1fDA&ixlib=rb-4.1.0&q=80&w=1080"
                     alt="Malecón de Quibdó"
-                    class="w-full h-full object-cover opacity-20"
                 />
-                <div class="absolute inset-0 bg-gradient-to-r from-green-900/70 to-green-700/50"></div>
+                <div></div>
             </div>
 
-            <div class="relative container mx-auto px-4 py-16 lg:py-24">
-                <div class="grid lg:grid-cols-2 gap-8 items-center">
-                    <div class="space-y-6">
-                        <div class="flex items-center gap-2 text-green-200">
-                            <i data-lucide="map-pin" class="h-5 w-5"></i>
+            <div>
+                <div>
+                    <div>
+                        <div>
+                            <i data-lucide="map-pin"></i>
                             <span>Quibdó, Chocó - Colombia</span>
                         </div>
                         
-                        <h1 class="text-4xl lg:text-6xl font-medium leading-tight">
-                            Mercado de <span class="text-yellow-300">Quibdó</span>
+                        <h1>
+                            Mercado de <span>Quibdó</span>
                         </h1>
                         
-                        <p class="text-xl text-green-100 max-w-lg">
+                        <p>
                             Descubre los sabores auténticos del Pacífico colombiano. 
                             Productos frescos, orgánicos y directos del productor.
                         </p>
 
-                        <div class="flex flex-wrap gap-4 text-sm">
-                            <div class="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-full">
-                                <i data-lucide="leaf" class="h-4 w-4 text-green-300"></i>
+                        <div>
+                            <div>
+                                <i data-lucide="leaf"></i>
                                 <span>100% Orgánico</span>
                             </div>
-                            <div class="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-full">
-                                <i data-lucide="clock" class="h-4 w-4 text-yellow-300"></i>
+                            <div>
+                                <i data-lucide="clock"></i>
                                 <span>Fresco del día</span>
                             </div>
-                            <div class="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-full">
-                                <i data-lucide="map-pin" class="h-4 w-4 text-blue-300"></i>
+                            <div>
+                                <i data-lucide="map-pin"></i>
                                 <span>Domicilios en Quibdó</span>
                             </div>
                         </div>
 
-                        <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                            <button onclick="navigateToSection('productos')" class="bg-yellow-500 text-black hover:bg-yellow-400 px-8 py-3 rounded-lg font-medium transition-colors">
+                        <div>
+                            <button onclick="navigateToSection('productos')">
                                 Ver productos
-                                <i data-lucide="arrow-right" class="ml-2 h-5 w-5 inline"></i>
+                                <i data-lucide="arrow-right"></i>
                             </button>
                             
-                            <button onclick="navigateToSection('categorias')" class="border border-white text-white hover:bg-white hover:text-green-700 px-8 py-3 rounded-lg font-medium transition-colors">
+                            <button onclick="navigateToSection('categorias')">
                                 Explorar categorías
                             </button>
                         </div>
                     </div>
 
-                    <div class="hidden lg:block">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="space-y-4">
-                                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-                                    <div class="text-2xl mb-2"><a href="frutas.html"></a>🥭</div>
-                                    <h3 class="text-sm">Frutas Tropicales</h3>
+                    <div>
+                        <div>
+                            <div>
+                                <div> 
+                                    <a href="frutas.html"></a> 
+                                    <div>🥭</div>
+                                    <h3>Frutas Tropicales</h3>
                                 </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-                                    <div class="text-2xl mb-2">🐟</div>
-                                    <h3 class="text-sm">Pescado Fresco</h3>
+                                <div>
+                                    <div>🐟</div>
+                                    <h3>Pescado Fresco</h3>
                                 </div>
                             </div>
-                            <div class="space-y-4 mt-8">
-                                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-                                    <div class="text-2xl mb-2">🍌</div>
-                                    <h3 class="text-sm">Plátano Verde</h3>
+                            <div>
+                                <div>
+                                    <div>🍌</div>
+                                    <h3>Plátano Verde</h3>
                                 </div>
-                                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-                                    <div class="text-2xl mb-2">🥥</div>
-                                    <h3 class="text-sm">Coco Fresco</h3>
+                                <div>
+                                    <div>🥥</div>
+                                    <h3>Coco Fresco</h3>
                                 </div>
                             </div>
                         </div>
@@ -184,196 +160,512 @@
             </div>
         </section>
 
-        <section id="productos" class="py-16 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12">
-                    <div class="flex items-center justify-center gap-2 mb-4">
-                        <i data-lucide="star" class="h-6 w-6 text-yellow-500"></i>
-                        <h2 class="text-3xl text-gray-900">Productos Destacados</h2>
-                        <i data-lucide="star" class="h-6 w-6 text-yellow-500"></i>
+        <!-- Productos Destacados -->
+        <section id="productos">
+            <div>
+                <div>
+                    <div>
+                        <i data-lucide="star"></i>
+                        <h2>Productos Destacados</h2>
+                        <i data-lucide="star"></i>
                     </div>
-                    <p class="text-gray-600 max-w-2xl mx-auto">
+                    <p>
                         Los mejores productos frescos de la región, seleccionados especialmente para ti
                     </p>
                 </div>
 
-                <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div id="products-grid">
+                    <!-- Producto 1 -->
+                    <div>
+                        <div>
+                            <img
+                                src="https://images.unsplash.com/photo-1588746501895-b4b9807cb5d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwbGF0YW5vJTIwYmFuYW5hJTIwdHJvcGljYWwlMjBmcnVpdHxlbnwxfHx8fDE3NTcwMjgzMzJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                                alt="Plátano Verde"
+                            />
+                            <div>
+                                <span>Oferta</span>
+                                <span>Orgánico</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Plátano Verde</h3>
+                                <div>
+                                    <span>$4.000</span>
+                                    <span>$3.500</span>
+                                </div>
+                            </div>
+                            <p>Plátano verde fresco, ideal para patacones y sancocho. Cosechado esta mañana.</p>
+                            <div>
+                                <div>
+                                    <i data-lucide="map-pin"></i>
+                                    <span>Finca La Esperanza</span>
+                                </div>
+                                <span>Verduras</span>
+                            </div>
+                            <div>
+                                <div>
+                                    <i data-lucide="clock"></i>
+                                    <span>Vence: 10/09/2024</span>
+                                </div>
+                            </div>
+                            <button onclick="addToCart('1')">
+                                <i data-lucide="shopping-cart"></i>
+                                Agregar al carrito
+                            </button>
+                        </div>
                     </div>
 
-                <div id="additional-products" class="additional-products overflow-hidden">
-                    <div id="additional-products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
+                    <!-- Producto 2 -->
+                    <div>
+                        <div>
+                            <img
+                                src="https://images.unsplash.com/photo-1696425238816-60797dd15272?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmcmVzaCUyMGZpc2glMjBwYWNpZmljJTIwc2VhZm9vZHxlbnwxfHx8fDE3NTcwMjgzMzJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                                alt="Pescado Bocachico"
+                            />
                         </div>
+                        <div>
+                            <div>
+                                <h3>Pescado Bocachico</h3>
+                                <div>
+                                    <span>$18.000</span>
+                                </div>
+                            </div>
+                            <p>Bocachico fresco del río Atrato, pescado esta madrugada. Excelente para sudao.</p>
+                            <div>
+                                <div>
+                                    <i data-lucide="map-pin"></i>
+                                    <span>Río Atrato</span>
+                                </div>
+                                <span>Pescados</span>
+                            </div>
+                            <div>
+                                <div>
+                                    <i data-lucide="clock"></i>
+                                    <span>Vence: 05/09/2024</span>
+                                </div>
+                                <span>¡Últimos días!</span>
+                            </div>
+                            <button onclick="addToCart('2')">
+                                <i data-lucide="shopping-cart"></i>
+                                Agregar al carrito
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Producto 3 -->
+                    <div>
+                        <div>
+                            <img
+                                src="https://images.unsplash.com/photo-1737992468893-9c109da39f9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cm9waWNhbCUyMGZydWl0cyUyMGNvbG9tYmlhfGVufDF8fHx8MTc1NzAyODMzMnww&ixlib=rb-4.1.0&q=80&w=1080"
+                                alt="Frutas Tropicales Mix"
+                            />
+                            <div>
+                                <span>Oferta</span>
+                                <span>Orgánico</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Frutas Tropicales Mix</h3>
+                                <div>
+                                    <span>$15.000</span>
+                                    <span>$12.000</span>
+                                </div>
+                            </div>
+                            <p>Variedad de frutas tropicales: guayaba, maracuyá, lulo. Perfectas para jugos.</p>
+                            <div>
+                                <div>
+                                    <i data-lucide="map-pin"></i>
+                                    <span>Vereda El Jardín</span>
+                                </div>
+                                <span>Frutas</span>
+                            </div>
+                            <div>
+                                <div>
+                                    <i data-lucide="clock"></i>
+                                    <span>Vence: 08/09/2024</span>
+                                </div>
+                            </div>
+                            <button onclick="addToCart('3')">
+                                <i data-lucide="shopping-cart"></i>
+                                Agregar al carrito
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Producto 4 -->
+                    <div>
+                        <div>
+                            <img
+                                src="https://images.unsplash.com/photo-1728893680594-4c52d06463bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5dWNhJTIwY2Fzc2F2YSUyMHZlZ2V0YWJsZXxlbnwxfHx8fDE3NTcwMjgzMzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                                alt="Yuca Blanca"
+                            />
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Yuca Blanca</h3>
+                                <div>
+                                    <span>$2.500</span>
+                                </div>
+                            </div>
+                            <p>Yuca blanca fresca y tierna. Perfecta para hervir o hacer casabe.</p>
+                            <div>
+                                <div>
+                                    <i data-lucide="map-pin"></i>
+                                    <span>Finca San José</span>
+                                </div>
+                                <span>Verduras</span>
+                            </div>
+                            <div>
+                                <div>
+                                    <i data-lucide="clock"></i>
+                                    <span>Vence: 12/09/2024</span>
+                                </div>
+                            </div>
+                            <button onclick="addToCart('4')">
+                                <i data-lucide="shopping-cart"></i>
+                                Agregar al carrito
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Producto 5 -->
+                    <div>
+                        <div>
+                            <img
+                                src="https://images.unsplash.com/photo-1505216980056-a7b7b1c6e000?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyaWNlJTIwYXJyb3olMjBjb2xvbWJpYXxlbnwxfHx8fDE3NTcwMjgzMzV8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                                alt="Arroz del Chocó"
+                            />
+                            <div>
+                                <span>Orgánico</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Arroz del Chocó</h3>
+                                <div>
+                                    <span>$8.500</span>
+                                </div>
+                            </div>
+                            <p>Arroz de alta calidad cultivado en el Chocó. Grano largo y aromático.</p>
+                            <div>
+                                <div>
+                                    <i data-lucide="map-pin"></i>
+                                    <span>Cultivos del Bajo Atrato</span>
+                                </div>
+                                <span>Granos</span>
+                            </div>
+                            <div>
+                                <div>
+                                    <i data-lucide="clock"></i>
+                                    <span>Vence: 15/12/2024</span>
+                                </div>
+                            </div>
+                            <button onclick="addToCart('5')">
+                                <i data-lucide="shopping-cart"></i>
+                                Agregar al carrito
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Producto 6 -->
+                    <div>
+                        <div>
+                            <img
+                                src="https://images.unsplash.com/photo-1571798543828-30ea66c3f914?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2NvbnV0JTIwY29jbyUyMHRyb3BpY2FsfGVufDF8fHx8MTc1NzAyODMzNnww&ixlib=rb-4.1.0&q=80&w=1080"
+                                alt="Coco Verde"
+                            />
+                            <div>
+                                <span>Oferta</span>
+                            </div>
+                            <div>
+                                <span>Agotado</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Coco Verde</h3>
+                                <div>
+                                    <span>$5.000</span>
+                                    <span>$4.000</span>
+                                </div>
+                            </div>
+                            <p>Coco verde fresco con agua natural. Ideal para refrescarse y cocinar.</p>
+                            <div>
+                                <div>
+                                    <i data-lucide="map-pin"></i>
+                                    <span>Plantación Palmira</span>
+                                </div>
+                                <span>Frutas</span>
+                            </div>
+                            <div>
+                                <div>
+                                    <i data-lucide="clock"></i>
+                                    <span>Vence: 20/09/2024</span>
+                                </div>
+                            </div>
+                            <button disabled>
+                                <i data-lucide="shopping-cart"></i>
+                                Agotado
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Producto 7 -->
+                    <div>
+                        <div>
+                            <img
+                                src="https://images.unsplash.com/photo-1734163075572-8948e799e42c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYW5nbyUyMHRyb3BpY2FsJTIwZnJ1aXR8ZW58MXx8fHwxNzU3MDI4MzM2fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                                alt="Mango Tommy"
+                            />
+                            <div>
+                                <span>Orgánico</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Mango Tommy</h3>
+                                <div>
+                                    <span>$6.000</span>
+                                </div>
+                            </div>
+                            <p>Mango Tommy maduro y dulce. Perfecto para comer fresco o hacer jugos.</p>
+                            <div>
+                                <div>
+                                    <i data-lucide="map-pin"></i>
+                                    <span>Huerto Los Mangos</span>
+                                </div>
+                                <span>Frutas</span>
+                            </div>
+                            <div>
+                                <div>
+                                    <i data-lucide="clock"></i>
+                                    <span>Vence: 07/09/2024</span>
+                                </div>
+                                <span>¡Últimos días!</span>
+                            </div>
+                            <button onclick="addToCart('7')">
+                                <i data-lucide="shopping-cart"></i>
+                                Agregar al carrito
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Producto 8 -->
+                    <div>
+                        <div>
+                            <img
+                                src="https://images.unsplash.com/photo-1691671473605-389f2da37e55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXNzYXZhJTIweXVjYSUyMHJvb3QlMjB2ZWdldGFibGV8ZW58MXx8fHwxNzU3MDI5MTc3fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                                alt="Ñame Criollo"
+                            />
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Ñame Criollo</h3>
+                                <div>
+                                    <span>$3.000</span>
+                                </div>
+                            </div>
+                            <p>Ñame criollo de excelente calidad. Ideal para sancocho y otros platos típicos.</p>
+                            <div>
+                                <div>
+                                    <i data-lucide="map-pin"></i>
+                                    <span>Cultivo La Montaña</span>
+                                </div>
+                                <span>Verduras</span>
+                            </div>
+                            <div>
+                                <div>
+                                    <i data-lucide="clock"></i>
+                                    <span>Vence: 15/09/2024</span>
+                                </div>
+                            </div>
+                            <button onclick="addToCart('8')">
+                                <i data-lucide="shopping-cart"></i>
+                                Agregar al carrito
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="text-center mt-12">
-                    <button id="show-more-btn" onclick="toggleProducts()" class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-medium mr-4 transition-colors">
-                        <i data-lucide="eye" class="mr-2 h-5 w-5 inline"></i>
+                <div id="additional-products">
+                    <div id="additional-products-grid">
+                        <!-- Los productos adicionales se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+
+                <div>
+                    <button id="show-more-btn" onclick="toggleProducts()">
+                        <i data-lucide="eye"></i>
                         Ver más productos (16 más)
                     </button>
-                    <button onclick="navigateToSection('categorias')" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                    <button onclick="navigateToSection('categorias')">
                         Explorar por categorías
                     </button>
                 </div>
             </div>
         </section>
 
-        <section id="categorias" class="py-16 bg-gray-50">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-medium text-gray-900 mb-4">Categorías de Productos</h2>
-                    <p class="text-gray-600 max-w-2xl mx-auto">
+        <!-- Sección de Categorías -->
+        <section id="categorias">
+            <div>
+                <div>
+                    <h2>Categorías de Productos</h2>
+                    <p>
                         Explora nuestras categorías y encuentra exactamente lo que necesitas
                     </p>
                 </div>
 
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    <div class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow cursor-pointer group">
-                        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform"><a href="frutas.html"></a>🍌</div>
-                        <h3 class="font-medium text-gray-900 mb-2">Frutas</h3>
-                        <p class="text-sm text-gray-600">Frescas y tropicales</p>
+                <div>
+                    <div>
+                        <div><a href="frutas.html"></a>🍌</div>
+                        <h3>Frutas</h3>
+                        <p>Frescas y tropicales</p>
                     </div>
                     
-                    <div class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow cursor-pointer group">
-                        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform"><a href="verduras.html"></a>🥕</div>
-                        <h3 class="font-medium text-gray-900 mb-2">Verduras</h3>
-                        <p class="text-sm text-gray-600">Orgánicas y nutritivas</p>
+                    <div>
+                        <div><a href="verduras.html"></a>🥕</div>
+                        <h3>Verduras</h3>
+                        <p>Orgánicas y nutritivas</p>
                     </div>
                     
-                    <div class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow cursor-pointer group">
-                        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform">🐟</div>
-                        <h3 class="font-medium text-gray-900 mb-2">Pescados</h3>
-                        <p class="text-sm text-gray-600">Del río y mar</p>
+                    <div>
+                        <div>🐟</div>
+                        <h3>Pescados</h3>
+                        <p>Del río y mar</p>
                     </div>
                     
-                    <div class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow cursor-pointer group">
-                        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform">🌾</div>
-                        <h3 class="font-medium text-gray-900 mb-2">Granos</h3>
-                        <p class="text-sm text-gray-600">Arroz, fríjol y más</p>
+                    <div>
+                        <div>🌾</div>
+                        <h3>Granos</h3>
+                        <p>Arroz, fríjol y más</p>
                     </div>
                     
-                    <div class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow cursor-pointer group">
-                        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform">🌿</div>
-                        <h3 class="font-medium text-gray-900 mb-2">Especias</h3>
-                        <p class="text-sm text-gray-600">Condimentos naturales</p>
+                    <div>
+                        <div>🌿</div>
+                        <h3>Especias</h3>
+                        <p>Condimentos naturales</p>
                     </div>
                     
-                    <div class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow cursor-pointer group">
-                        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform">🧀</div>
-                        <h3 class="font-medium text-gray-900 mb-2">Lácteos</h3>
-                        <p class="text-sm text-gray-600">Quesos artesanales</p>
+                    <div>
+                        <div>🧀</div>
+                        <h3>Lácteos</h3>
+                        <p>Quesos artesanales</p>
                     </div>
                     
-                    <div class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow cursor-pointer group">
-                        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform">🥥</div>
-                        <h3 class="font-medium text-gray-900 mb-2">Coco</h3>
-                        <p class="text-sm text-gray-600">Verde y seco</p>
+                    <div>
+                        <div>🥥</div>
+                        <h3>Coco</h3>
+                        <p>Verde y seco</p>
                     </div>
                     
-                    <div class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow cursor-pointer group">
-                        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform">🍯</div>
-                        <h3 class="font-medium text-gray-900 mb-2">Otros</h3>
-                        <p class="text-sm text-gray-600">Productos únicos</p>
+                    <div>
+                        <div>🍯</div>
+                        <h3>Otros</h3>
+                        <p>Productos únicos</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="domicilios" class="py-16 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12">
-                    <div class="flex items-center justify-center gap-2 mb-4">
-                        <i data-lucide="truck" class="h-6 w-6 text-blue-500"></i>
-                        <h2 class="text-3xl text-gray-900">Servicio de Domicilios</h2>
-                        <i data-lucide="truck" class="h-6 w-6 text-blue-500"></i>
+        <!-- Sección de Domicilios -->
+        <section id="domicilios">
+            <div>
+                <div>
+                    <div>
+                        <i data-lucide="truck"></i>
+                        <h2>Servicio de Domicilios</h2>
+                        <i data-lucide="truck"></i>
                     </div>
-                    <p class="text-gray-600 max-w-2xl mx-auto">
+                    <p>
                         Llevamos los productos frescos del Chocó directamente a tu hogar en Quibdó
                     </p>
                 </div>
 
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div class="space-y-6">
-                        <div class="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-6">
-                            <h3 class="text-xl font-medium text-gray-900 mb-4">¿Cómo funciona?</h3>
-                            <div class="space-y-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="bg-blue-500 text-white rounded-full p-2 text-sm font-medium min-w-[2rem] h-8 flex items-center justify-center">1</div>
-                                    <span class="text-gray-700">Selecciona tus productos favoritos</span>
+                <div>
+                    <div>
+                        <div>
+                            <h3>¿Cómo funciona?</h3>
+                            <div>
+                                <div>
+                                    <div>1</div>
+                                    <span>Selecciona tus productos favoritos</span>
                                 </div>
-                                <div class="flex items-center gap-3">
-                                    <div class="bg-blue-500 text-white rounded-full p-2 text-sm font-medium min-w-[2rem] h-8 flex items-center justify-center">2</div>
-                                    <span class="text-gray-700">Agrega tu dirección de entrega</span>
+                                <div>
+                                    <div>2</div>
+                                    <span>Agrega tu dirección de entrega</span>
                                 </div>
-                                <div class="flex items-center gap-3">
-                                    <div class="bg-blue-500 text-white rounded-full p-2 text-sm font-medium min-w-[2rem] h-8 flex items-center justify-center">3</div>
-                                    <span class="text-gray-700">Confirma tu pedido y método de pago</span>
+                                <div>
+                                    <div>3</div>
+                                    <span>Confirma tu pedido y método de pago</span>
                                 </div>
-                                <div class="flex items-center gap-3">
-                                    <div class="bg-green-500 text-white rounded-full p-2 text-sm font-medium min-w-[2rem] h-8 flex items-center justify-center">4</div>
-                                    <span class="text-gray-700">Recibe tus productos frescos en casa</span>
+                                <div>
+                                    <div>4</div>
+                                    <span>Recibe tus productos frescos en casa</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-white border border-gray-200 rounded-lg p-4 text-center">
-                                <i data-lucide="clock" class="h-8 w-8 text-blue-500 mx-auto mb-2"></i>
-                                <h4 class="font-medium text-gray-900 mb-1">Tiempo de entrega</h4>
-                                <p class="text-sm text-gray-600">30-60 minutos</p>
+                        <div>
+                            <div>
+                                <i data-lucide="clock"></i>
+                                <h4>Tiempo de entrega</h4>
+                                <p>30-60 minutos</p>
                             </div>
-                            <div class="bg-white border border-gray-200 rounded-lg p-4 text-center">
-                                <i data-lucide="dollar-sign" class="h-8 w-8 text-green-500 mx-auto mb-2"></i>
-                                <h4 class="font-medium text-gray-900 mb-1">Costo domicilio</h4>
-                                <p class="text-sm text-gray-600">$3.000 - $5.000</p>
+                            <div>
+                                <i data-lucide="dollar-sign"></i>
+                                <h4>Costo domicilio</h4>
+                                <p>$3.000 - $5.000</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="space-y-6">
-                        <div class="bg-gray-50 rounded-lg p-6">
-                            <h3 class="text-xl font-medium text-gray-900 mb-4">Zonas de cobertura</h3>
-                            <div class="grid grid-cols-1 gap-3">
-                                <div class="flex items-center gap-3 p-3 bg-white rounded-lg border">
-                                    <i data-lucide="map-pin" class="h-5 w-5 text-green-500"></i>
+                    <div>
+                        <div>
+                            <h3>Zonas de cobertura</h3>
+                            <div>
+                                <div>
+                                    <i data-lucide="map-pin"></i>
                                     <div>
-                                        <span class="font-medium text-gray-900">Centro de Quibdó</span>
-                                        <p class="text-sm text-gray-600">Costo: $3.000</p>
+                                        <span>Centro de Quibdó</span>
+                                        <p>Costo: $3.000</p>
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-3 p-3 bg-white rounded-lg border">
-                                    <i data-lucide="map-pin" class="h-5 w-5 text-green-500"></i>
+                                <div>
+                                    <i data-lucide="map-pin"></i>
                                     <div>
-                                        <span class="font-medium text-gray-900">Barrio Kennedy</span>
-                                        <p class="text-sm text-gray-600">Costo: $4.000</p>
+                                        <span>Barrio Kennedy</span>
+                                        <p>Costo: $4.000</p>
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-3 p-3 bg-white rounded-lg border">
-                                    <i data-lucide="map-pin" class="h-5 w-5 text-green-500"></i>
+                                <div>
+                                    <i data-lucide="map-pin"></i>
                                     <div>
-                                        <span class="font-medium text-gray-900">Barrio Niño Jesús</span>
-                                        <p class="text-sm text-gray-600">Costo: $4.000</p>
+                                        <span>Barrio Niño Jesús</span>
+                                        <p>Costo: $4.000</p>
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-3 p-3 bg-white rounded-lg border">
-                                    <i data-lucide="map-pin" class="h-5 w-5 text-green-500"></i>
+                                <div>
+                                    <i data-lucide="map-pin"></i>
                                     <div>
-                                        <span class="font-medium text-gray-900">La Yesca</span>
-                                        <p class="text-sm text-gray-600">Costo: $5.000</p>
+                                        <span>La Yesca</span>
+                                        <p>Costo: $5.000</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-green-600 text-white rounded-lg p-6 text-center">
-                            <h3 class="text-lg font-medium mb-3">¿Listo para ordenar?</h3>
-                            <p class="text-green-100 mb-4">Contacta directamente para hacer tu pedido</p>
-                            <div class="space-y-2">
-                                <a href="https://wa.me/573001234567" class="flex items-center justify-center gap-2 bg-white text-green-600 px-4 py-2 rounded-lg font-medium hover:bg-green-50 transition-colors">
-                                    <i data-lucide="message-circle" class="h-5 w-5"></i>
+                        <div>
+                            <h3>¿Listo para ordenar?</h3>
+                            <p>Contacta directamente para hacer tu pedido</p>
+                            <div>
+                                <a href="https://wa.me/573001234567">
+                                    <i data-lucide="message-circle"></i>
                                     WhatsApp: +57 300 123 4567
                                 </a>
-                                <a href="tel:+573001234567" class="flex items-center justify-center gap-2 bg-green-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-400 transition-colors">
-                                    <i data-lucide="phone" class="h-5 w-5"></i>
+                                <a href="tel:+573001234567">
+                                    <i data-lucide="phone"></i>
                                     Llamar: +57 300 123 4567
                                 </a>
                             </div>
@@ -383,60 +675,63 @@
             </div>
         </section>
 
-        <section id="ofertas" class="py-16 bg-gradient-to-br from-red-50 to-orange-50">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12">
-                    <div class="flex items-center justify-center gap-2 mb-4">
-                        <i data-lucide="percent" class="h-6 w-6 text-red-500"></i>
-                        <h2 class="text-3xl text-gray-900">Ofertas Especiales</h2>
-                        <i data-lucide="percent" class="h-6 w-6 text-red-500"></i>
+        <!-- Sección de Ofertas -->
+        <section id="ofertas">
+            <div>
+                <div>
+                    <div>
+                        <i data-lucide="percent"></i>
+                        <h2>Ofertas Especiales</h2>
+                        <i data-lucide="percent"></i>
                     </div>
-                    <p class="text-gray-600 max-w-2xl mx-auto">
+                    <p>
                         Aprovecha nuestras ofertas limitadas en productos frescos
                     </p>
                 </div>
 
-                <div id="offers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    </div>
+                <div id="offers-grid">
+                    <!-- Las ofertas se cargarán dinámicamente aquí -->
+                </div>
             </div>
         </section>
 
-        <section class="py-16 bg-green-600 text-white">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-medium mb-4">¿Por qué elegir el Mercado de Quibdó?</h2>
-                    <p class="text-green-100 max-w-2xl mx-auto">
+        <!-- Sección de Beneficios -->
+        <section>
+            <div>
+                <div>
+                    <h2>¿Por qué elegir el Mercado de Quibdó?</h2>
+                    <p>
                         Somos más que un mercado, somos tu socio en alimentación saludable
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="text-center">
-                        <div class="bg-white/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="trophy" class="h-8 w-8 text-yellow-300"></i>
+                <div>
+                    <div>
+                        <div>
+                            <i data-lucide="trophy"></i>
                         </div>
-                        <h3 class="text-xl font-medium mb-2">Calidad Garantizada</h3>
-                        <p class="text-green-100">
+                        <h3>Calidad Garantizada</h3>
+                        <p>
                             Productos frescos y de la más alta calidad, directos del productor
                         </p>
                     </div>
 
-                    <div class="text-center">
-                        <div class="bg-white/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="star" class="h-8 w-8 text-yellow-300"></i>
+                    <div>
+                        <div>
+                            <i data-lucide="star"></i>
                         </div>
-                        <h3 class="text-xl font-medium mb-2">Productos Locales</h3>
-                        <p class="text-green-100">
+                        <h3>Productos Locales</h3>
+                        <p>
                             Apoyamos a los productores locales y la economía del Chocó
                         </p>
                     </div>
 
-                    <div class="text-center">
-                        <div class="bg-white/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="percent" class="h-8 w-8 text-yellow-300"></i>
+                    <div>
+                        <div>
+                            <i data-lucide="percent"></i>
                         </div>
-                        <h3 class="text-xl font-medium mb-2">Precios Justos</h3>
-                        <p class="text-green-100">
+                        <h3>Precios Justos</h3>
+                        <p>
                             Ofertas competitivas sin intermediarios, directo del campo a tu mesa
                         </p>
                     </div>
@@ -445,52 +740,206 @@
         </section>
     </main>
 
-    <footer id="contacto" class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <!-- Footer -->
+    <footer id="contacto">
+        <div>
+            <div>
                 <div>
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="bg-green-600 text-white p-2 rounded-lg">
-                            <i data-lucide="map-pin" class="h-6 w-6"></i>
+                    <div>
+                        <div>
+                            <i data-lucide="map-pin"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg font-medium">Mercado de Quibdó</h3>
-                            <p class="text-sm text-gray-300">Productos frescos del Chocó</p>
+                            <h3>Mercado de Quibdó</h3>
+                            <p>Productos frescos del Chocó</p>
                         </div>
                     </div>
-                    <p class="text-gray-300 text-sm">
+                    <p>
                         Tu mercado de confianza en Quibdó, donde encuentras los mejores productos frescos de la región del Chocó.
                     </p>
                 </div>
 
                 <div>
-                    <h4 class="font-medium mb-4">Navegación</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><button onclick="navigateToSection('inicio')" class="text-gray-300 hover:text-white transition-colors">Inicio</button></li>
-                        <li><button onclick="navigateToSection('productos')" class="text-gray-300 hover:text-white transition-colors">Productos</button></li>
-                        <li><button onclick="navigateToSection('categorias')" class="text-gray-300 hover:text-white transition-colors">Categorías</button></li>
-                        <li><button onclick="navigateToSection('domicilios')" class="text-gray-300 hover:text-white transition-colors">Domicilios</button></li>
-                        <li><button onclick="navigateToSection('ofertas')" class="text-gray-300 hover:text-white transition-colors">Ofertas</button></li>
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><button onclick="navigateToSection('inicio')">Inicio</button></li>
+                        <li><button onclick="navigateToSection('productos')">Productos</button></li>
+                        <li><button onclick="navigateToSection('categorias')">Categorías</button></li>
+                        <li><button onclick="navigateToSection('domicilios')">Domicilios</button></li>
+                        <li><button onclick="navigateToSection('ofertas')">Ofertas</button></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-medium mb-4">Contacto</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li class="flex items-center gap-2">
-                            <i data-lucide="phone" class="h-4 w-4"></i>
-                            <a href="tel:+573145312045" class="text-gray-300 hover:text-white transition-colors">+57 3145312045</a>
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li>
+                            <i data-lucide="phone"></i>
+                            <a href="tel:+573001234567">+57 300 123 4567</a>
                         </li>
-                        <li class="flex items-center gap-2">
-                            <i data-lucide="message-circle" class="h-4 w-4"></i>
-                            <a href="https://wa.me/573145312045" class="text-gray-300 hover:text-white transition-colors">WhatsApp</a>
+                        <li>
+                            <i data-lucide="message-circle"></i>
+                            <a href="https://wa.me/573001234567">WhatsApp</a>
+                        </li>
+                        <li>
+                            <i data-lucide="mail"></i>
+                            <a href="mailto:info@mercadoquibdo.com">info@mercadoquibdo.com</a>
+                        </li>
+                        <li>
+                            <i data-lucide="map-pin"></i>
+                            <span>Centro de Quibdó, Chocó</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4>Horarios</h4>
+                    <ul>
+                        <li>
+                            <span>Lunes - Viernes:</span>
+                            <span>6:00 AM - 6:00 PM</span>
+                        </li>
+                        <li>
+                            <span>Sábados:</span>
+                            <span>6:00 AM - 4:00 PM</span>
+                        </li>
+                        <li>
+                            <span>Domingos:</span>
+                            <span>7:00 AM - 2:00 PM</span>
                         </li>
                     </ul>
                 </div>
             </div>
+
+            <div>
+                <p>&copy; 2024 Mercado de Quibdó. Todos los derechos reservados.</p>
+                <p>Desarrollado con ❤️ para la comunidad de Quibdó, Chocó</p>
+            </div>
         </div>
     </footer>
-    
-    <script src="agro.js"></script>
+
+    <!-- Carrito Sidebar -->
+    <div id="cart-sidebar">
+        <div>
+            <div>
+                <div>
+                    <h3>Mi Carrito</h3>
+                    <button onclick="closeCart()">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <div id="cart-items">
+                    <!-- Los items del carrito se cargarán aquí -->
+                </div>
+                
+                <div id="empty-cart">
+                    <i data-lucide="shopping-cart"></i>
+                    <p>Tu carrito está vacío</p>
+                    <button onclick="closeCart()">
+                        Continuar comprando
+                    </button>
+                </div>
+            </div>
+
+            <div id="cart-footer">
+                <div>
+                    <div>
+                        <p>Total:</p>
+                        <p id="cart-total">$0</p>
+                    </div>
+                    <p>Envío calculado al finalizar compra</p>
+                </div>
+                <button onclick="checkout()">
+                    Finalizar Compra
+                </button>
+                <button onclick="closeCart()">
+                    Continuar comprando
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Login/Registro -->
+    <div id="login-modal">
+        <div>
+            <div>
+                <h3 id="modal-title">Iniciar Sesión</h3>
+                <button onclick="closeLoginModal()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form">
+                <form onsubmit="handleLogin(event)">
+                    <div>
+                        <div>
+                            <label for="login-email">Correo electrónico</label>
+                            <input type="email" id="login-email" required>
+                        </div>
+                        <div>
+                            <label for="login-password">Contraseña</label>
+                            <div>
+                                <input type="password" id="login-password" required>
+                                <button type="button" onclick="togglePassword('login-password')">
+                                    <i data-lucide="eye-off"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit">
+                        Iniciar Sesión
+                    </button>
+                </form>
+                <p>
+                    ¿No tienes cuenta? 
+                    <button onclick="showRegisterForm()">Regístrate aquí</button>
+                </p>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form">
+                <form onsubmit="handleRegister(event)">
+                    <div>
+                        <div>
+                            <label for="register-name">Nombre completo</label>
+                            <input type="text" id="register-name" required>
+                        </div>
+                        <div>
+                            <label for="register-email">Correo electrónico</label>
+                            <input type="email" id="register-email" required>
+                        </div>
+                        <div>
+                            <label for="register-password">Contraseña</label>
+                            <div>
+                                <input type="password" id="register-password" required>
+                                <button type="button" onclick="togglePassword('register-password')">
+                                    <i data-lucide="eye-off"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit">
+                        Registrarse
+                    </button>
+                </form>
+                <p>
+                    ¿Ya tienes cuenta? 
+                    <button onclick="showLoginForm()">Inicia sesión aquí</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay para cerrar modal/carrito -->
+    <div id="overlay" onclick="closeAll()"></div>
+
+    <!-- Botón Scroll to Top -->
+    <button id="scroll-top-btn" onclick="scrollToTop()">
+        <i data-lucide="arrow-up"></i>
+    </button>
 </body>
 </html>
