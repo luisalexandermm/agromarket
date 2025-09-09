@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (loginUser(username, password)) {
         alert("¡Bienvenido " + username + "! ✅");
-        window.location.href = "agromarket.html"; // Página principal
+        window.location.href = "index.html"; // Página principal
       } else {
         alert("Usuario o contraseña incorrectos ❌");
       }
