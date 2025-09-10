@@ -4,70 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="agro.css">
+    <script src="agro.js"></script>
     <title>Mercado de Quibdó - Productos frescos del Chocó</title>
 </head>
 
-<body>
+<body class="min-h-screen bg-white">
     <!-- Header -->
-    <header>
-        <div>
-            <div>
+    <header class="header">
+        <div class="container header-container">
+            <div class="header-main">
                 <!-- Logo y nombre -->
-                <div>
-                    <div>
-                        <i data-lucide="map-pin"></i>
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i data-lucide="map-pin" class="icon"></i>
                     </div>
-                    <div>
+                    <div class="logo-text">
                         <h1>Mercado de Quibdó</h1>
                         <p>Productos frescos del Chocó</p>
                     </div>
                 </div>
 
                 <!-- Barra de búsqueda -->
-                <div>
-                    <div>
+                <div class="search-section">
+                    <div class="search-input-container">
                         <input
                             id="search-input"
                             type="text"
                             placeholder="Buscar productos frescos..."
+                            class="form-input search-input"
                         />
-                        <i data-lucide="search"></i>
+                        <i data-lucide="search" class="search-icon icon"></i>
                     </div>
                 </div>
 
                 <!-- Navegación -->
-                <nav>
-                    <button onclick="navigateToSection('inicio')">Inicio</button>
-                    <button onclick="navigateToSection('productos')">Productos</button>
-                    <button onclick="navigateToSection('categorias')">Categorías</button>
-                    <button onclick="navigateToSection('domicilios')">Domicilios</button>
-                    <button onclick="navigateToSection('ofertas')">Ofertas</button>
-                    <button onclick="navigateToSection('contacto')">Contacto</button>
+                <nav class="nav-section">
+                    <button onclick="navigateToSection('inicio')" class="btn btn-ghost">Inicio</button>
+                    <button onclick="navigateToSection('productos')" class="btn btn-ghost">Productos</button>
+                    <button onclick="navigateToSection('categorias')" class="btn btn-ghost">Categorías</button>
+                    <button onclick="navigateToSection('domicilios')" class="btn btn-ghost">Domicilios</button>
+                    <button onclick="navigateToSection('ofertas')" class="btn btn-ghost">Ofertas</button>
+                    <button onclick="navigateToSection('contacto')" class="btn btn-ghost">Contacto</button>
                 </nav>
 
                 <!-- Carrito y usuario -->
-                <div>
-                    <div id="user-section">
-                        <div>
-                            <span id="user-name"></span>
-                            <button onclick="logout()" title="Cerrar Sesión">
-                                <i data-lucide="log-out"></i>
+                <div class="user-cart-section">
+                    <div id="user-section" class="user-section hidden">
+                        <div class="user-info">
+                            <span id="user-name" class="user-name"></span>
+                            <button onclick="logout()" class="btn btn-ghost btn-sm logout-btn" title="Cerrar Sesión">
+                                <i data-lucide="log-out" class="icon"></i>
                             </button>
                         </div>
                     </div>
                     
-                    <button id="login-btn" onclick="openLoginModal()">
-                        <i data-lucide="user"></i>
-                        <span>Entrar</span>
+                    <button id="login-btn" onclick="openLoginModal()" class="btn btn-ghost btn-sm login-btn">
+                        <i data-lucide="user" class="icon"></i>
+                        <span class="login-text">Entrar</span>
                     </button>
                     
-                    <button onclick="openCart()">
-                        <i data-lucide="shopping-cart"></i>
-                        <span id="cart-count">0</span>
+                    <button onclick="openCart()" class="btn btn-ghost btn-sm cart-button">
+                        <i data-lucide="shopping-cart" class="icon"></i>
+                        <span id="cart-count" class="cart-count hidden">0</span>
                     </button>
                     
-                    <button>
-                        <i data-lucide="menu"></i>
+                    <button class="btn btn-ghost btn-sm menu-btn">
+                        <i data-lucide="menu" class="icon"></i>
                     </button>
                 </div>
             </div>
@@ -77,81 +79,80 @@
     <!-- Main Content -->
     <main>
         <!-- Hero Section -->
-        <section id="inicio">
-            <!-- Background Image -->
-            <div>
+        <section id="inicio" class="hero-section">
+            <div class="hero-bg-container">
                 <img
                     src="https://images.unsplash.com/photo-1627024164662-1191227a9f3c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2xvbWJpYSUyMHJpdmVyJTIwd2F0ZXJmcm9udCUyMHRvd258ZW58MXx8fHwxNzU3MDI4OTA1fDA&ixlib=rb-4.1.0&q=80&w=1080"
                     alt="Malecón de Quibdó"
+                    class="hero-bg"
                 />
-                <div></div>
+                <div class="hero-overlay"></div>
             </div>
 
-            <div>
-                <div>
-                    <div>
-                        <div>
-                            <i data-lucide="map-pin"></i>
+            <div class="container hero-content">
+                <div class="hero-grid">
+                    <div class="hero-text">
+                        <div class="hero-location">
+                            <i data-lucide="map-pin" class="icon"></i>
                             <span>Quibdó, Chocó - Colombia</span>
                         </div>
                         
-                        <h1>
-                            Mercado de <span>Quibdó</span>
+                        <h1 class="hero-title">
+                            Mercado de <span class="hero-title-accent">Quibdó</span>
                         </h1>
                         
-                        <p>
+                        <p class="hero-description">
                             Descubre los sabores auténticos del Pacífico colombiano. 
                             Productos frescos, orgánicos y directos del productor.
                         </p>
 
-                        <div>
-                            <div>
-                                <i data-lucide="leaf"></i>
+                        <div class="hero-features">
+                            <div class="hero-feature">
+                                <i data-lucide="leaf" class="icon hero-feature-icon"></i>
                                 <span>100% Orgánico</span>
                             </div>
-                            <div>
-                                <i data-lucide="clock"></i>
+                            <div class="hero-feature">
+                                <i data-lucide="clock" class="icon hero-feature-icon"></i>
                                 <span>Fresco del día</span>
                             </div>
-                            <div>
-                                <i data-lucide="map-pin"></i>
+                            <div class="hero-feature">
+                                <i data-lucide="map-pin" class="icon hero-feature-icon"></i>
                                 <span>Domicilios en Quibdó</span>
                             </div>
                         </div>
 
-                        <div>
-                            <button onclick="navigateToSection('productos')">
+                        <div class="hero-buttons">
+                            <button onclick="navigateToSection('productos')" class="btn btn-primary btn-lg hero-btn-primary">
                                 Ver productos
-                                <i data-lucide="arrow-right"></i>
+                                <i data-lucide="arrow-right" class="icon icon-sm"></i>
                             </button>
                             
-                            <button onclick="navigateToSection('categorias')">
+                            <button onclick="navigateToSection('categorias')" class="btn btn-secondary btn-lg hero-btn-secondary">
                                 Explorar categorías
                             </button>
                         </div>
                     </div>
 
-                    <div>
-                        <div>
-                            <div>
-                                <div> 
-                                    <a href="frutas.html"></a> 
-                                    <div>🥭</div>
-                                    <h3>Frutas Tropicales</h3>
+                    <div class="hero-showcase">
+                        <div class="hero-showcase-grid">
+                            <div class="hero-showcase-column">
+                                <div class="hero-showcase-item">
+                                    <div class="hero-showcase-emoji">🥭</div>
+                                    <h3 class="hero-showcase-text">Frutas Tropicales</h3>
                                 </div>
-                                <div>
-                                    <div>🐟</div>
-                                    <h3>Pescado Fresco</h3>
+                                <div class="hero-showcase-item">
+                                    <div class="hero-showcase-emoji">🐟</div>
+                                    <h3 class="hero-showcase-text">Pescado Fresco</h3>
                                 </div>
                             </div>
-                            <div>
-                                <div>
-                                    <div>🍌</div>
-                                    <h3>Plátano Verde</h3>
+                            <div class="hero-showcase-column hero-showcase-column-offset">
+                                <div class="hero-showcase-item">
+                                    <div class="hero-showcase-emoji">🍌</div>
+                                    <h3 class="hero-showcase-text">Plátano Verde</h3>
                                 </div>
-                                <div>
-                                    <div>🥥</div>
-                                    <h3>Coco Fresco</h3>
+                                <div class="hero-showcase-item">
+                                    <div class="hero-showcase-emoji">🥥</div>
+                                    <h3 class="hero-showcase-text">Coco Fresco</h3>
                                 </div>
                             </div>
                         </div>
@@ -161,346 +162,35 @@
         </section>
 
         <!-- Productos Destacados -->
-        <section id="productos">
-            <div>
-                <div>
-                    <div>
-                        <i data-lucide="star"></i>
+        <section id="productos" class="products-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i data-lucide="star" class="icon section-title-icon"></i>
                         <h2>Productos Destacados</h2>
-                        <i data-lucide="star"></i>
+                        <i data-lucide="star" class="icon section-title-icon"></i>
                     </div>
-                    <p>
+                    <p class="section-description">
                         Los mejores productos frescos de la región, seleccionados especialmente para ti
                     </p>
                 </div>
 
-                <div id="products-grid">
-                    <!-- Producto 1 -->
-                    <div>
-                        <div>
-                            <img
-                                src="https://images.unsplash.com/photo-1588746501895-b4b9807cb5d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwbGF0YW5vJTIwYmFuYW5hJTIwdHJvcGljYWwlMjBmcnVpdHxlbnwxfHx8fDE3NTcwMjgzMzJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                                alt="Plátano Verde"
-                            />
-                            <div>
-                                <span>Oferta</span>
-                                <span>Orgánico</span>
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <h3>Plátano Verde</h3>
-                                <div>
-                                    <span>$4.000</span>
-                                    <span>$3.500</span>
-                                </div>
-                            </div>
-                            <p>Plátano verde fresco, ideal para patacones y sancocho. Cosechado esta mañana.</p>
-                            <div>
-                                <div>
-                                    <i data-lucide="map-pin"></i>
-                                    <span>Finca La Esperanza</span>
-                                </div>
-                                <span>Verduras</span>
-                            </div>
-                            <div>
-                                <div>
-                                    <i data-lucide="clock"></i>
-                                    <span>Vence: 10/09/2024</span>
-                                </div>
-                            </div>
-                            <button onclick="addToCart('1')">
-                                <i data-lucide="shopping-cart"></i>
-                                Agregar al carrito
-                            </button>
-                        </div>
-                    </div>
+                <div id="products-grid" class="products-grid">
+                    <!-- Los productos se cargarán dinámicamente aquí -->
+                </div>
 
-                    <!-- Producto 2 -->
-                    <div>
-                        <div>
-                            <img
-                                src="https://images.unsplash.com/photo-1696425238816-60797dd15272?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmcmVzaCUyMGZpc2glMjBwYWNpZmljJTIwc2VhZm9vZHxlbnwxfHx8fDE3NTcwMjgzMzJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                                alt="Pescado Bocachico"
-                            />
-                        </div>
-                        <div>
-                            <div>
-                                <h3>Pescado Bocachico</h3>
-                                <div>
-                                    <span>$18.000</span>
-                                </div>
-                            </div>
-                            <p>Bocachico fresco del río Atrato, pescado esta madrugada. Excelente para sudao.</p>
-                            <div>
-                                <div>
-                                    <i data-lucide="map-pin"></i>
-                                    <span>Río Atrato</span>
-                                </div>
-                                <span>Pescados</span>
-                            </div>
-                            <div>
-                                <div>
-                                    <i data-lucide="clock"></i>
-                                    <span>Vence: 05/09/2024</span>
-                                </div>
-                                <span>¡Últimos días!</span>
-                            </div>
-                            <button onclick="addToCart('2')">
-                                <i data-lucide="shopping-cart"></i>
-                                Agregar al carrito
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Producto 3 -->
-                    <div>
-                        <div>
-                            <img
-                                src="https://images.unsplash.com/photo-1737992468893-9c109da39f9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cm9waWNhbCUyMGZydWl0cyUyMGNvbG9tYmlhfGVufDF8fHx8MTc1NzAyODMzMnww&ixlib=rb-4.1.0&q=80&w=1080"
-                                alt="Frutas Tropicales Mix"
-                            />
-                            <div>
-                                <span>Oferta</span>
-                                <span>Orgánico</span>
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <h3>Frutas Tropicales Mix</h3>
-                                <div>
-                                    <span>$15.000</span>
-                                    <span>$12.000</span>
-                                </div>
-                            </div>
-                            <p>Variedad de frutas tropicales: guayaba, maracuyá, lulo. Perfectas para jugos.</p>
-                            <div>
-                                <div>
-                                    <i data-lucide="map-pin"></i>
-                                    <span>Vereda El Jardín</span>
-                                </div>
-                                <span>Frutas</span>
-                            </div>
-                            <div>
-                                <div>
-                                    <i data-lucide="clock"></i>
-                                    <span>Vence: 08/09/2024</span>
-                                </div>
-                            </div>
-                            <button onclick="addToCart('3')">
-                                <i data-lucide="shopping-cart"></i>
-                                Agregar al carrito
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Producto 4 -->
-                    <div>
-                        <div>
-                            <img
-                                src="https://images.unsplash.com/photo-1728893680594-4c52d06463bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5dWNhJTIwY2Fzc2F2YSUyMHZlZ2V0YWJsZXxlbnwxfHx8fDE3NTcwMjgzMzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                                alt="Yuca Blanca"
-                            />
-                        </div>
-                        <div>
-                            <div>
-                                <h3>Yuca Blanca</h3>
-                                <div>
-                                    <span>$2.500</span>
-                                </div>
-                            </div>
-                            <p>Yuca blanca fresca y tierna. Perfecta para hervir o hacer casabe.</p>
-                            <div>
-                                <div>
-                                    <i data-lucide="map-pin"></i>
-                                    <span>Finca San José</span>
-                                </div>
-                                <span>Verduras</span>
-                            </div>
-                            <div>
-                                <div>
-                                    <i data-lucide="clock"></i>
-                                    <span>Vence: 12/09/2024</span>
-                                </div>
-                            </div>
-                            <button onclick="addToCart('4')">
-                                <i data-lucide="shopping-cart"></i>
-                                Agregar al carrito
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Producto 5 -->
-                    <div>
-                        <div>
-                            <img
-                                src="https://images.unsplash.com/photo-1505216980056-a7b7b1c6e000?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyaWNlJTIwYXJyb3olMjBjb2xvbWJpYXxlbnwxfHx8fDE3NTcwMjgzMzV8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                                alt="Arroz del Chocó"
-                            />
-                            <div>
-                                <span>Orgánico</span>
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <h3>Arroz del Chocó</h3>
-                                <div>
-                                    <span>$8.500</span>
-                                </div>
-                            </div>
-                            <p>Arroz de alta calidad cultivado en el Chocó. Grano largo y aromático.</p>
-                            <div>
-                                <div>
-                                    <i data-lucide="map-pin"></i>
-                                    <span>Cultivos del Bajo Atrato</span>
-                                </div>
-                                <span>Granos</span>
-                            </div>
-                            <div>
-                                <div>
-                                    <i data-lucide="clock"></i>
-                                    <span>Vence: 15/12/2024</span>
-                                </div>
-                            </div>
-                            <button onclick="addToCart('5')">
-                                <i data-lucide="shopping-cart"></i>
-                                Agregar al carrito
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Producto 6 -->
-                    <div>
-                        <div>
-                            <img
-                                src="https://images.unsplash.com/photo-1571798543828-30ea66c3f914?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2NvbnV0JTIwY29jbyUyMHRyb3BpY2FsfGVufDF8fHx8MTc1NzAyODMzNnww&ixlib=rb-4.1.0&q=80&w=1080"
-                                alt="Coco Verde"
-                            />
-                            <div>
-                                <span>Oferta</span>
-                            </div>
-                            <div>
-                                <span>Agotado</span>
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <h3>Coco Verde</h3>
-                                <div>
-                                    <span>$5.000</span>
-                                    <span>$4.000</span>
-                                </div>
-                            </div>
-                            <p>Coco verde fresco con agua natural. Ideal para refrescarse y cocinar.</p>
-                            <div>
-                                <div>
-                                    <i data-lucide="map-pin"></i>
-                                    <span>Plantación Palmira</span>
-                                </div>
-                                <span>Frutas</span>
-                            </div>
-                            <div>
-                                <div>
-                                    <i data-lucide="clock"></i>
-                                    <span>Vence: 20/09/2024</span>
-                                </div>
-                            </div>
-                            <button disabled>
-                                <i data-lucide="shopping-cart"></i>
-                                Agotado
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Producto 7 -->
-                    <div>
-                        <div>
-                            <img
-                                src="https://images.unsplash.com/photo-1734163075572-8948e799e42c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYW5nbyUyMHRyb3BpY2FsJTIwZnJ1aXR8ZW58MXx8fHwxNzU3MDI4MzM2fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                                alt="Mango Tommy"
-                            />
-                            <div>
-                                <span>Orgánico</span>
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <h3>Mango Tommy</h3>
-                                <div>
-                                    <span>$6.000</span>
-                                </div>
-                            </div>
-                            <p>Mango Tommy maduro y dulce. Perfecto para comer fresco o hacer jugos.</p>
-                            <div>
-                                <div>
-                                    <i data-lucide="map-pin"></i>
-                                    <span>Huerto Los Mangos</span>
-                                </div>
-                                <span>Frutas</span>
-                            </div>
-                            <div>
-                                <div>
-                                    <i data-lucide="clock"></i>
-                                    <span>Vence: 07/09/2024</span>
-                                </div>
-                                <span>¡Últimos días!</span>
-                            </div>
-                            <button onclick="addToCart('7')">
-                                <i data-lucide="shopping-cart"></i>
-                                Agregar al carrito
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Producto 8 -->
-                    <div>
-                        <div>
-                            <img
-                                src="https://images.unsplash.com/photo-1691671473605-389f2da37e55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXNzYXZhJTIweXVjYSUyMHJvb3QlMjB2ZWdldGFibGV8ZW58MXx8fHwxNzU3MDI5MTc3fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                                alt="Ñame Criollo"
-                            />
-                        </div>
-                        <div>
-                            <div>
-                                <h3>Ñame Criollo</h3>
-                                <div>
-                                    <span>$3.000</span>
-                                </div>
-                            </div>
-                            <p>Ñame criollo de excelente calidad. Ideal para sancocho y otros platos típicos.</p>
-                            <div>
-                                <div>
-                                    <i data-lucide="map-pin"></i>
-                                    <span>Cultivo La Montaña</span>
-                                </div>
-                                <span>Verduras</span>
-                            </div>
-                            <div>
-                                <div>
-                                    <i data-lucide="clock"></i>
-                                    <span>Vence: 15/09/2024</span>
-                                </div>
-                            </div>
-                            <button onclick="addToCart('8')">
-                                <i data-lucide="shopping-cart"></i>
-                                Agregar al carrito
-                            </button>
-                        </div>
+                <div id="additional-products" class="additional-products">
+                    <div id="additional-products-grid" class="products-grid">
+                        <!-- Los productos adicionales se cargarán aquí -->
                     </div>
                 </div>
 
-                <div id="additional-products">
-                    <div id="additional-products-grid">
-                        <!-- Los productos adicionales se cargarán aquí dinámicamente -->
-                    </div>
-                </div>
-
-                <div>
-                    <button id="show-more-btn" onclick="toggleProducts()">
-                        <i data-lucide="eye"></i>
+                <div class="products-actions">
+                    <button id="show-more-btn" onclick="toggleProducts()" class="btn btn-primary btn-lg products-btn-more">
+                        <i data-lucide="eye" class="icon icon-sm"></i>
                         Ver más productos (16 más)
                     </button>
-                    <button onclick="navigateToSection('categorias')">
+                    <button onclick="navigateToSection('categorias')" class="btn btn-primary btn-lg products-btn-categories">
                         Explorar por categorías
                     </button>
                 </div>
@@ -508,164 +198,164 @@
         </section>
 
         <!-- Sección de Categorías -->
-        <section id="categorias">
-            <div>
-                <div>
+        <section id="categorias" class="categories-section">
+            <div class="container">
+                <div class="section-header">
                     <h2>Categorías de Productos</h2>
-                    <p>
+                    <p class="section-description">
                         Explora nuestras categorías y encuentra exactamente lo que necesitas
                     </p>
                 </div>
 
-                <div>
-                    <div>
-                        <div><a href="frutas.html"></a>🍌</div>
-                        <h3>Frutas</h3>
-                        <p>Frescas y tropicales</p>
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <div class="category-emoji">🍌</div>
+                        <h3 class="category-name">Frutas</h3>
+                        <p class="category-description">Frescas y tropicales</p>
                     </div>
                     
-                    <div>
-                        <div><a href="verduras.html"></a>🥕</div>
-                        <h3>Verduras</h3>
-                        <p>Orgánicas y nutritivas</p>
+                    <div class="category-card">
+                        <div class="category-emoji">🥕</div>
+                        <h3 class="category-name">Verduras</h3>
+                        <p class="category-description">Orgánicas y nutritivas</p>
                     </div>
                     
-                    <div>
-                        <div>🐟</div>
-                        <h3>Pescados</h3>
-                        <p>Del río y mar</p>
+                    <div class="category-card">
+                        <div class="category-emoji">🐟</div>
+                        <h3 class="category-name">Pescados</h3>
+                        <p class="category-description">Del río y mar</p>
                     </div>
                     
-                    <div>
-                        <div>🌾</div>
-                        <h3>Granos</h3>
-                        <p>Arroz, fríjol y más</p>
+                    <div class="category-card">
+                        <div class="category-emoji">🌾</div>
+                        <h3 class="category-name">Granos</h3>
+                        <p class="category-description">Arroz, fríjol y más</p>
                     </div>
                     
-                    <div>
-                        <div>🌿</div>
-                        <h3>Especias</h3>
-                        <p>Condimentos naturales</p>
+                    <div class="category-card">
+                        <div class="category-emoji">🌿</div>
+                        <h3 class="category-name">Especias</h3>
+                        <p class="category-description">Condimentos naturales</p>
                     </div>
                     
-                    <div>
-                        <div>🧀</div>
-                        <h3>Lácteos</h3>
-                        <p>Quesos artesanales</p>
+                    <div class="category-card">
+                        <div class="category-emoji">🧀</div>
+                        <h3 class="category-name">Lácteos</h3>
+                        <p class="category-description">Quesos artesanales</p>
                     </div>
                     
-                    <div>
-                        <div>🥥</div>
-                        <h3>Coco</h3>
-                        <p>Verde y seco</p>
+                    <div class="category-card">
+                        <div class="category-emoji">🥥</div>
+                        <h3 class="category-name">Coco</h3>
+                        <p class="category-description">Verde y seco</p>
                     </div>
                     
-                    <div>
-                        <div>🍯</div>
-                        <h3>Otros</h3>
-                        <p>Productos únicos</p>
+                    <div class="category-card">
+                        <div class="category-emoji">🍯</div>
+                        <h3 class="category-name">Otros</h3>
+                        <p class="category-description">Productos únicos</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Sección de Domicilios -->
-        <section id="domicilios">
-            <div>
-                <div>
-                    <div>
-                        <i data-lucide="truck"></i>
+        <section id="domicilios" class="delivery-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i data-lucide="truck" class="icon section-title-icon"></i>
                         <h2>Servicio de Domicilios</h2>
-                        <i data-lucide="truck"></i>
+                        <i data-lucide="truck" class="icon section-title-icon"></i>
                     </div>
-                    <p>
+                    <p class="section-description">
                         Llevamos los productos frescos del Chocó directamente a tu hogar en Quibdó
                     </p>
                 </div>
 
-                <div>
-                    <div>
-                        <div>
+                <div class="delivery-content">
+                    <div class="delivery-info">
+                        <div class="how-it-works">
                             <h3>¿Cómo funciona?</h3>
-                            <div>
-                                <div>
-                                    <div>1</div>
-                                    <span>Selecciona tus productos favoritos</span>
+                            <div class="steps-list">
+                                <div class="step-item">
+                                    <div class="step-number">1</div>
+                                    <span class="step-text">Selecciona tus productos favoritos</span>
                                 </div>
-                                <div>
-                                    <div>2</div>
-                                    <span>Agrega tu dirección de entrega</span>
+                                <div class="step-item">
+                                    <div class="step-number">2</div>
+                                    <span class="step-text">Agrega tu dirección de entrega</span>
                                 </div>
-                                <div>
-                                    <div>3</div>
-                                    <span>Confirma tu pedido y método de pago</span>
+                                <div class="step-item">
+                                    <div class="step-number">3</div>
+                                    <span class="step-text">Confirma tu pedido y método de pago</span>
                                 </div>
-                                <div>
-                                    <div>4</div>
-                                    <span>Recibe tus productos frescos en casa</span>
+                                <div class="step-item">
+                                    <div class="step-number step-final">4</div>
+                                    <span class="step-text">Recibe tus productos frescos en casa</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div>
-                            <div>
-                                <i data-lucide="clock"></i>
+                        <div class="delivery-info-cards">
+                            <div class="info-card">
+                                <i data-lucide="clock" class="info-card-icon icon icon-2xl"></i>
                                 <h4>Tiempo de entrega</h4>
                                 <p>30-60 minutos</p>
                             </div>
-                            <div>
-                                <i data-lucide="dollar-sign"></i>
+                            <div class="info-card">
+                                <i data-lucide="dollar-sign" class="info-card-icon icon icon-2xl"></i>
                                 <h4>Costo domicilio</h4>
                                 <p>$3.000 - $5.000</p>
                             </div>
                         </div>
                     </div>
 
-                    <div>
-                        <div>
+                    <div class="delivery-zones-section">
+                        <div class="delivery-zones">
                             <h3>Zonas de cobertura</h3>
-                            <div>
-                                <div>
-                                    <i data-lucide="map-pin"></i>
-                                    <div>
-                                        <span>Centro de Quibdó</span>
-                                        <p>Costo: $3.000</p>
+                            <div class="zones-list">
+                                <div class="zone-item">
+                                    <i data-lucide="map-pin" class="zone-icon icon"></i>
+                                    <div class="zone-info">
+                                        <span class="zone-name">Centro de Quibdó</span>
+                                        <p class="zone-cost">Costo: $3.000</p>
                                     </div>
                                 </div>
-                                <div>
-                                    <i data-lucide="map-pin"></i>
-                                    <div>
-                                        <span>Barrio Kennedy</span>
-                                        <p>Costo: $4.000</p>
+                                <div class="zone-item">
+                                    <i data-lucide="map-pin" class="zone-icon icon"></i>
+                                    <div class="zone-info">
+                                        <span class="zone-name">Barrio Kennedy</span>
+                                        <p class="zone-cost">Costo: $4.000</p>
                                     </div>
                                 </div>
-                                <div>
-                                    <i data-lucide="map-pin"></i>
-                                    <div>
-                                        <span>Barrio Niño Jesús</span>
-                                        <p>Costo: $4.000</p>
+                                <div class="zone-item">
+                                    <i data-lucide="map-pin" class="zone-icon icon"></i>
+                                    <div class="zone-info">
+                                        <span class="zone-name">Barrio Niño Jesús</span>
+                                        <p class="zone-cost">Costo: $4.000</p>
                                     </div>
                                 </div>
-                                <div>
-                                    <i data-lucide="map-pin"></i>
-                                    <div>
-                                        <span>La Yesca</span>
-                                        <p>Costo: $5.000</p>
+                                <div class="zone-item">
+                                    <i data-lucide="map-pin" class="zone-icon icon"></i>
+                                    <div class="zone-info">
+                                        <span class="zone-name">La Yesca</span>
+                                        <p class="zone-cost">Costo: $5.000</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div>
+                        <div class="delivery-contact">
                             <h3>¿Listo para ordenar?</h3>
                             <p>Contacta directamente para hacer tu pedido</p>
-                            <div>
-                                <a href="https://wa.me/573001234567">
-                                    <i data-lucide="message-circle"></i>
+                            <div class="contact-buttons">
+                                <a href="https://wa.me/573001234567" class="contact-btn-whatsapp">
+                                    <i data-lucide="message-circle" class="icon icon-sm"></i>
                                     WhatsApp: +57 300 123 4567
                                 </a>
-                                <a href="tel:+573001234567">
-                                    <i data-lucide="phone"></i>
+                                <a href="tel:+573001234567" class="contact-btn-phone">
+                                    <i data-lucide="phone" class="icon icon-sm"></i>
                                     Llamar: +57 300 123 4567
                                 </a>
                             </div>
@@ -676,62 +366,62 @@
         </section>
 
         <!-- Sección de Ofertas -->
-        <section id="ofertas">
-            <div>
-                <div>
-                    <div>
-                        <i data-lucide="percent"></i>
+        <section id="ofertas" class="offers-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i data-lucide="percent" class="icon section-title-icon"></i>
                         <h2>Ofertas Especiales</h2>
-                        <i data-lucide="percent"></i>
+                        <i data-lucide="percent" class="icon section-title-icon"></i>
                     </div>
-                    <p>
+                    <p class="section-description">
                         Aprovecha nuestras ofertas limitadas en productos frescos
                     </p>
                 </div>
 
-                <div id="offers-grid">
+                <div id="offers-grid" class="offers-grid">
                     <!-- Las ofertas se cargarán dinámicamente aquí -->
                 </div>
             </div>
         </section>
 
         <!-- Sección de Beneficios -->
-        <section>
-            <div>
-                <div>
+        <section class="benefits-section">
+            <div class="container">
+                <div class="section-header">
                     <h2>¿Por qué elegir el Mercado de Quibdó?</h2>
-                    <p>
+                    <p class="section-description benefits-description">
                         Somos más que un mercado, somos tu socio en alimentación saludable
                     </p>
                 </div>
 
-                <div>
-                    <div>
-                        <div>
-                            <i data-lucide="trophy"></i>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i data-lucide="trophy" class="icon icon-2xl"></i>
                         </div>
-                        <h3>Calidad Garantizada</h3>
-                        <p>
+                        <h3 class="benefit-title">Calidad Garantizada</h3>
+                        <p class="benefit-description">
                             Productos frescos y de la más alta calidad, directos del productor
                         </p>
                     </div>
 
-                    <div>
-                        <div>
-                            <i data-lucide="star"></i>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i data-lucide="star" class="icon icon-2xl"></i>
                         </div>
-                        <h3>Productos Locales</h3>
-                        <p>
+                        <h3 class="benefit-title">Productos Locales</h3>
+                        <p class="benefit-description">
                             Apoyamos a los productores locales y la economía del Chocó
                         </p>
                     </div>
 
-                    <div>
-                        <div>
-                            <i data-lucide="percent"></i>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i data-lucide="percent" class="icon icon-2xl"></i>
                         </div>
-                        <h3>Precios Justos</h3>
-                        <p>
+                        <h3 class="benefit-title">Precios Justos</h3>
+                        <p class="benefit-description">
                             Ofertas competitivas sin intermediarios, directo del campo a tu mesa
                         </p>
                     </div>
@@ -741,27 +431,27 @@
     </main>
 
     <!-- Footer -->
-    <footer id="contacto">
-        <div>
-            <div>
-                <div>
-                    <div>
-                        <div>
-                            <i data-lucide="map-pin"></i>
+    <footer id="contacto" class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">
+                            <i data-lucide="map-pin" class="icon"></i>
                         </div>
-                        <div>
+                        <div class="footer-logo-text">
                             <h3>Mercado de Quibdó</h3>
                             <p>Productos frescos del Chocó</p>
                         </div>
                     </div>
-                    <p>
+                    <p class="footer-description">
                         Tu mercado de confianza en Quibdó, donde encuentras los mejores productos frescos de la región del Chocó.
                     </p>
                 </div>
 
-                <div>
-                    <h4>Navegación</h4>
-                    <ul>
+                <div class="footer-section">
+                    <h4 class="footer-section-title">Navegación</h4>
+                    <ul class="footer-list">
                         <li><button onclick="navigateToSection('inicio')">Inicio</button></li>
                         <li><button onclick="navigateToSection('productos')">Productos</button></li>
                         <li><button onclick="navigateToSection('categorias')">Categorías</button></li>
@@ -770,48 +460,48 @@
                     </ul>
                 </div>
 
-                <div>
-                    <h4>Contacto</h4>
-                    <ul>
-                        <li>
-                            <i data-lucide="phone"></i>
-                            <a href="tel:+573001234567">+57 300 123 4567</a>
+                <div class="footer-section">
+                    <h4 class="footer-section-title">Contacto</h4>
+                    <ul class="footer-list">
+                        <li class="footer-contact-item">
+                            <i data-lucide="phone" class="footer-contact-icon icon"></i>
+                            <a href="tel:+573001234567" class="footer-contact-link">+57 300 123 4567</a>
                         </li>
-                        <li>
-                            <i data-lucide="message-circle"></i>
-                            <a href="https://wa.me/573001234567">WhatsApp</a>
+                        <li class="footer-contact-item">
+                            <i data-lucide="message-circle" class="footer-contact-icon icon"></i>
+                            <a href="https://wa.me/573001234567" class="footer-contact-link">WhatsApp</a>
                         </li>
-                        <li>
-                            <i data-lucide="mail"></i>
-                            <a href="mailto:info@mercadoquibdo.com">info@mercadoquibdo.com</a>
+                        <li class="footer-contact-item">
+                            <i data-lucide="mail" class="footer-contact-icon icon"></i>
+                            <a href="mailto:info@mercadoquibdo.com" class="footer-contact-link">info@mercadoquibdo.com</a>
                         </li>
-                        <li>
-                            <i data-lucide="map-pin"></i>
-                            <span>Centro de Quibdó, Chocó</span>
+                        <li class="footer-contact-item">
+                            <i data-lucide="map-pin" class="footer-contact-icon icon"></i>
+                            <span class="footer-contact-text">Centro de Quibdó, Chocó</span>
                         </li>
                     </ul>
                 </div>
 
-                <div>
-                    <h4>Horarios</h4>
-                    <ul>
-                        <li>
-                            <span>Lunes - Viernes:</span>
-                            <span>6:00 AM - 6:00 PM</span>
+                <div class="footer-section">
+                    <h4 class="footer-section-title">Horarios</h4>
+                    <ul class="footer-list">
+                        <li class="footer-schedule">
+                            <span class="footer-schedule-day">Lunes - Viernes:</span>
+                            <span class="footer-schedule-time">6:00 AM - 6:00 PM</span>
                         </li>
-                        <li>
-                            <span>Sábados:</span>
-                            <span>6:00 AM - 4:00 PM</span>
+                        <li class="footer-schedule">
+                            <span class="footer-schedule-day">Sábados:</span>
+                            <span class="footer-schedule-time">6:00 AM - 4:00 PM</span>
                         </li>
-                        <li>
-                            <span>Domingos:</span>
-                            <span>7:00 AM - 2:00 PM</span>
+                        <li class="footer-schedule">
+                            <span class="footer-schedule-day">Domingos:</span>
+                            <span class="footer-schedule-time">7:00 AM - 2:00 PM</span>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <div>
+            <div class="footer-bottom">
                 <p>&copy; 2024 Mercado de Quibdó. Todos los derechos reservados.</p>
                 <p>Desarrollado con ❤️ para la comunidad de Quibdó, Chocó</p>
             </div>
@@ -819,43 +509,43 @@
     </footer>
 
     <!-- Carrito Sidebar -->
-    <div id="cart-sidebar">
-        <div>
-            <div>
-                <div>
-                    <h3>Mi Carrito</h3>
-                    <button onclick="closeCart()">
-                        <i data-lucide="x"></i>
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-sidebar-container">
+            <div class="cart-header">
+                <div class="cart-header-content">
+                    <h3 class="cart-title">Mi Carrito</h3>
+                    <button onclick="closeCart()" class="cart-close-btn">
+                        <i data-lucide="x" class="icon"></i>
                     </button>
                 </div>
             </div>
 
-            <div>
-                <div id="cart-items">
+            <div class="cart-content">
+                <div id="cart-items" class="cart-items">
                     <!-- Los items del carrito se cargarán aquí -->
                 </div>
                 
-                <div id="empty-cart">
-                    <i data-lucide="shopping-cart"></i>
-                    <p>Tu carrito está vacío</p>
-                    <button onclick="closeCart()">
+                <div id="empty-cart" class="empty-cart">
+                    <i data-lucide="shopping-cart" class="empty-cart-icon icon icon-xl"></i>
+                    <p class="empty-cart-text">Tu carrito está vacío</p>
+                    <button onclick="closeCart()" class="empty-cart-btn">
                         Continuar comprando
                     </button>
                 </div>
             </div>
 
-            <div id="cart-footer">
-                <div>
-                    <div>
+            <div id="cart-footer" class="cart-footer">
+                <div class="cart-total">
+                    <div class="cart-total-content">
                         <p>Total:</p>
-                        <p id="cart-total">$0</p>
+                        <p id="cart-total-amount">$0</p>
                     </div>
-                    <p>Envío calculado al finalizar compra</p>
+                    <p class="cart-total-shipping">Envío calculado al finalizar compra</p>
                 </div>
-                <button onclick="checkout()">
+                <button onclick="checkout()" class="btn btn-primary cart-checkout-btn">
                     Finalizar Compra
                 </button>
-                <button onclick="closeCart()">
+                <button onclick="closeCart()" class="cart-continue-btn">
                     Continuar comprando
                 </button>
             </div>
@@ -863,83 +553,83 @@
     </div>
 
     <!-- Modal de Login/Registro -->
-    <div id="login-modal">
-        <div>
-            <div>
-                <h3 id="modal-title">Iniciar Sesión</h3>
-                <button onclick="closeLoginModal()">
-                    <i data-lucide="x"></i>
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title" class="modal-title">Iniciar Sesión</h3>
+                <button onclick="closeLoginModal()" class="modal-close-btn">
+                    <i data-lucide="x" class="icon"></i>
                 </button>
             </div>
 
             <!-- Login Form -->
-            <div id="login-form">
+            <div id="login-form" class="login-form">
                 <form onsubmit="handleLogin(event)">
-                    <div>
-                        <div>
-                            <label for="login-email">Correo electrónico</label>
-                            <input type="email" id="login-email" required>
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label for="login-email" class="form-label">Correo electrónico</label>
+                            <input type="email" id="login-email" name="email" required class="form-input">
                         </div>
-                        <div>
-                            <label for="login-password">Contraseña</label>
-                            <div>
-                                <input type="password" id="login-password" required>
-                                <button type="button" onclick="togglePassword('login-password')">
-                                    <i data-lucide="eye-off"></i>
+                        <div class="form-group">
+                            <label for="login-password" class="form-label">Contraseña</label>
+                            <div class="form-input-container">
+                                <input type="password" id="login-password" name="password" required class="form-input form-input-with-icon">
+                                <button type="button" onclick="togglePassword('login-password')" class="form-toggle-btn">
+                                    <i data-lucide="eye-off" class="icon"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <button type="submit">
+                    <button type="submit" class="btn btn-primary form-submit-btn">
                         Iniciar Sesión
                     </button>
                 </form>
-                <p>
+                <p class="form-switch-text">
                     ¿No tienes cuenta? 
-                    <button onclick="showRegisterForm()">Regístrate aquí</button>
+                    <button onclick="showRegisterForm()" class="form-switch-link">Regístrate aquí</button>
                 </p>
             </div>
 
             <!-- Register Form -->
-            <div id="register-form">
+            <div id="register-form" class="register-form hidden">
                 <form onsubmit="handleRegister(event)">
-                    <div>
-                        <div>
-                            <label for="register-name">Nombre completo</label>
-                            <input type="text" id="register-name" required>
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label for="register-name" class="form-label">Nombre completo</label>
+                            <input type="text" id="register-name" name="name" required class="form-input">
                         </div>
-                        <div>
-                            <label for="register-email">Correo electrónico</label>
-                            <input type="email" id="register-email" required>
+                        <div class="form-group">
+                            <label for="register-email" class="form-label">Correo electrónico</label>
+                            <input type="email" id="register-email" name="email" required class="form-input">
                         </div>
-                        <div>
-                            <label for="register-password">Contraseña</label>
-                            <div>
-                                <input type="password" id="register-password" required>
-                                <button type="button" onclick="togglePassword('register-password')">
-                                    <i data-lucide="eye-off"></i>
+                        <div class="form-group">
+                            <label for="register-password" class="form-label">Contraseña</label>
+                            <div class="form-input-container">
+                                <input type="password" id="register-password" name="password" required class="form-input form-input-with-icon">
+                                <button type="button" onclick="togglePassword('register-password')" class="form-toggle-btn">
+                                    <i data-lucide="eye-off" class="icon"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <button type="submit">
+                    <button type="submit" class="btn btn-primary form-submit-btn">
                         Registrarse
                     </button>
                 </form>
-                <p>
+                <p class="form-switch-text">
                     ¿Ya tienes cuenta? 
-                    <button onclick="showLoginForm()">Inicia sesión aquí</button>
+                    <button onclick="showLoginForm()" class="form-switch-link">Inicia sesión aquí</button>
                 </p>
             </div>
         </div>
     </div>
 
     <!-- Overlay para cerrar modal/carrito -->
-    <div id="overlay" onclick="closeAll()"></div>
+    <div id="overlay" class="overlay hidden" onclick="closeAll()"></div>
 
     <!-- Botón Scroll to Top -->
-    <button id="scroll-top-btn" onclick="scrollToTop()">
-        <i data-lucide="arrow-up"></i>
+    <button id="scroll-top-btn" class="scroll-top-btn" onclick="scrollToTop()">
+        <i data-lucide="arrow-up" class="icon"></i>
     </button>
 </body>
 </html>
