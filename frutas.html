@@ -1,171 +1,108 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="agro.css">
-    <title>Frutas - Mercado de Quibdó</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#030213',
-                        secondary: '#f3f4f6',
-                        accent: '#e9ebef',
-                        border: 'rgba(0, 0, 0, 0.1)',
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.css">
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Frutas — Mercado de Quibdó</title>
+  <link rel="stylesheet" href="agro.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍌</text></svg>">
 </head>
+<body data-category="Frutas">
+  <!-- HEADER (igual que tu index) -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-icon">📍</div>
+          <div class="logo-text">
+            <h1>Mercado de Quibdó</h1><p>Productos frescos del Chocó</p>
+          </div>
+        </div>
 
-<body class="min-h-screen bg-white">
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-green-600 text-white p-2 rounded-lg">
-                        <i data-lucide="map-pin" class="h-6 w-6"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-xl font-medium text-green-700">Mercado de Quibdó</h1>
-                        <p class="text-sm text-gray-500">Productos frescos del Chocó</p>
-                    </div>
-                </div>
-                <div class="hidden md:flex flex-1 max-w-md mx-8">
-                    <div class="relative w-full">
-                        <input
-                            id="search-input"
-                            type="text"
-                            placeholder="Buscar productos frescos..."
-                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                        />
-                        <i data-lucide="search" class="absolute left-3 top-2.5 h-5 w-5 text-gray-400"></i>
-                    </div>
-                </div>
-                <nav class="hidden lg:flex items-center space-x-6">
-                    <a href="index.html" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md transition-colors">Inicio</a>
-                    <a href="index.html#productos" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md transition-colors">Productos</a>
-                    <a href="index.html#categorias" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md transition-colors">Categorías</a>
-                    <a href="index.html#domicilios" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md transition-colors">Domicilios</a>
-                    <a href="index.html#ofertas" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md transition-colors">Ofertas</a>
-                    <a href="index.html#contacto" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md transition-colors">Contacto</a>
-                </nav>
-                <div class="flex items-center space-x-4">
-                    <div id="user-section" class="hidden">
-                        <div class="flex items-center space-x-2">
-                            <span id="user-name" class="text-sm text-gray-700"></span>
-                            <button onclick="logout()" class="text-gray-700 hover:text-red-600 p-2 rounded-md transition-colors" title="Cerrar Sesión"><i data-lucide="log-out" class="h-5 w-5"></i></button>
-                        </div>
-                    </div>
-                    <button id="login-btn" onclick="openLoginModal()" class="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md transition-colors"><i data-lucide="user" class="h-5 w-5"></i><span class="ml-1 hidden sm:inline">Entrar</span></button>
-                    <button onclick="openCart()" class="relative text-gray-700 hover:text-green-600 p-2 rounded-md transition-colors"><i data-lucide="shopping-cart" class="h-5 w-5"></i><span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span></button>
-                    <button class="lg:hidden p-2"><i data-lucide="menu" class="h-5 w-5"></i></button>
-                </div>
-            </div>
+        <div class="search">
+          <input type="text" id="search-input" placeholder="Buscar productos frescos..." autocomplete="off">
         </div>
-    </header>
-    <main class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <div class="flex items-center justify-center gap-2 mb-4">
-                    <i data-lucide="leaf" class="h-6 w-6 text-green-500"></i>
-                    <h2 class="text-3xl text-gray-900">Frutas Frescas del Chocó</h2>
-                    <i data-lucide="leaf" class="h-6 w-6 text-green-500"></i>
-                </div>
-                <p class="text-gray-600 max-w-2xl mx-auto">Una selección de las frutas más deliciosas y frescas de nuestra región, cultivadas con amor y respeto por la naturaleza.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <div class="bg-white rounded-lg shadow-md overflow-hidden product-card">
-                    <img src="https://via.placeholder.com/400x300.png?text=Plátanos" alt="Plátanos verdes" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-medium text-lg mb-1">Plátanos verdes</h3>
-                        <p class="text-sm text-gray-600 mb-2">Manos (10 - 12 unidades)</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-lg font-bold text-green-700">$5.000</span>
-                            <button class="add-to-cart bg-green-600 text-white p-2 rounded-full hover:bg-green-700 transition-colors"><i data-lucide="plus" class="h-5 w-5"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden product-card">
-                    <img src="https://via.placeholder.com/400x300.png?text=Mangos" alt="Mangos maduros" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-medium text-lg mb-1">Mangos maduros</h3>
-                        <p class="text-sm text-gray-600 mb-2">Paquete de 3 unidades</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-lg font-bold text-green-700">$4.000</span>
-                            <button class="add-to-cart bg-green-600 text-white p-2 rounded-full hover:bg-green-700 transition-colors"><i data-lucide="plus" class="h-5 w-5"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden product-card">
-                    <img src="https://via.placeholder.com/400x300.png?text=Chontaduro" alt="Chontaduro" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-medium text-lg mb-1">Chontaduro</h3>
-                        <p class="text-sm text-gray-600 mb-2">Bolsa de 1 lb</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-lg font-bold text-green-700">$8.000</span>
-                            <button class="add-to-cart bg-green-600 text-white p-2 rounded-full hover:bg-green-700 transition-colors"><i data-lucide="plus" class="h-5 w-5"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden product-card">
-                    <img src="https://via.placeholder.com/400x300.png?text=Maracuyá" alt="Maracuyá" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-medium text-lg mb-1">Maracuyá</h3>
-                        <p class="text-sm text-gray-600 mb-2">Bolsa de 1 lb</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-lg font-bold text-green-700">$6.500</span>
-                            <button class="add-to-cart bg-green-600 text-white p-2 rounded-full hover:bg-green-700 transition-colors"><i data-lucide="plus" class="h-5 w-5"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+        <nav class="nav">
+          <button class="btn btn-ghost" onclick="navigateToSection('inicio')">Inicio</button>
+          <button class="btn btn-ghost" onclick="navigateToSection('productos')">Productos</button>
+          <button class="btn btn-ghost" onclick="filterByCategory('Frutas.html')">Categorías</button>
+          <button class="btn btn-ghost" onclick="navigateToSection('domicilios')">Domicilios</button>
+          <button class="btn btn-ghost" onclick="navigateToSection('ofertas')">Ofertas</button>
+          <button class="btn btn-ghost" onclick="navigateToSection('contacto')">Contacto</button>
+        </nav>
+
+        <div class="user-cart-section">
+          <div id="user-section" class="hidden"><span id="user-name" class="user-name"></span></div>
+          <button id="login-btn" class="btn btn-ghost btn-sm" onclick="openLogin()">👤 Entrar</button>
+          <button class="btn btn-ghost btn-sm cart-button" onclick="openCart()">🛒 <span id="cart-count" class="cart-count hidden">0</span></button>
         </div>
-    </main>
-    <footer id="contacto" class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="bg-green-600 text-white p-2 rounded-lg"><i data-lucide="map-pin" class="h-6 w-6"></i></div>
-                        <div>
-                            <h3 class="text-lg font-medium">Mercado de Quibdó</h3>
-                            <p class="text-sm text-gray-300">Productos frescos del Chocó</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-300 text-sm">Tu mercado de confianza en Quibdó, donde encuentras los mejores productos frescos de la región del Chocó.</p>
-                </div>
-                <div>
-                    <h4 class="font-medium mb-4">Navegación</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="index.html" class="text-gray-300 hover:text-white transition-colors">Inicio</a></li>
-                        <li><a href="index.html#productos" class="text-gray-300 hover:text-white transition-colors">Productos</a></li>
-                        <li><a href="index.html#categorias" class="text-gray-300 hover:text-white transition-colors">Categorías</a></li>
-                        <li><a href="index.html#domicilios" class="text-gray-300 hover:text-white transition-colors">Domicilios</a></li>
-                        <li><a href="index.html#ofertas" class="text-gray-300 hover:text-white transition-colors">Ofertas</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-medium mb-4">Contacto</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li class="flex items-center gap-2"><i data-lucide="phone" class="h-4 w-4"></i><a href="tel:+573001234567" class="text-gray-300 hover:text-white transition-colors">+57 300 123 4567</a></li>
-                        <li class="flex items-center gap-2"><i data-lucide="message-circle" class="h-4 w-4"></i><a href="https://wa.me/573001234567" class="text-gray-300 hover:text-white transition-colors">WhatsApp</a></li>
-                    </ul>
-                </div>
-            </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section">
+      <div class="section-header">
+        <h2 class="page-category-title">Frutas</h2>
+        <p class="section-description">Frutas frescas y tropicales del Pacífico.</p>
+      </div>
+
+      <div id="products-grid" class="products-grid">
+        <!-- Se renderizan los productos por agro.js -->
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo-container"><div class="footer-logo-icon">📍</div>
+          <div class="footer-logo-text"><h3>Mercado de Quibdó</h3><p>Productos frescos del Chocó</p></div></div>
+          <p class="footer-description">Tu mercado de confianza en Quibdó.</p>
         </div>
-    </footer>
-    <script src="agro.js"></script>
-    <script>
-        lucide.createIcons();
-    </script>
+        <div>
+          <h4>Navegación</h4>
+          <div class="footer-nav-buttons">
+            <button class="btn btn-ghost footer-nav-btn" onclick="window.location.href='index.html'">Inicio</button>
+            <button class="btn btn-ghost footer-nav-btn" onclick="window.location.href='index.html#productos'">Productos</button>
+            <button class="btn btn-ghost footer-nav-btn" onclick="filterByCategory('Frutas.html')">Categorías</button>
+          </div>
+        </div>
+        <div>
+          <h4>Contacto</h4>
+          <div class="contact-info">
+            <div class="contact-item">📞 <a href="tel:+573145312045" class="contact-link">+57 3145312045</a></div>
+            <div class="contact-item">💬 <a href="https://wa.me/573145312045" target="_blank" class="contact-link">WhatsApp</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2024 Mercado de Quibdó</p></div>
+    </div>
+  </footer>
+
+  <!-- CART SIDEBAR -->
+  <div id="cart-sidebar" class="cart-sidebar">
+    <div class="cart-header"><h3>Mi Carrito</h3><button onclick="closeCart()" class="btn btn-ghost">✕</button></div>
+    <div class="cart-content">
+      <div id="cart-items" class="cart-items"></div>
+      <div id="empty-cart" class="text-center"><p>Tu carrito está vacío</p><button onclick="closeCart()" class="btn btn-primary">Continuar comprando</button></div>
+    </div>
+    <div id="cart-footer" class="cart-footer hidden">
+      <div class="cart-total"><div class="cart-total-row" style="display:flex;justify-content:space-between"><p>Total:</p><p id="cart-total-amount">$0</p></div><p class="cart-shipping-note">Envío calculado al finalizar compra</p></div>
+      <button onclick="checkout()" class="btn-checkout">Finalizar Compra</button>
+      <button onclick="closeCart()" class="btn-continue-shopping">Continuar comprando</button>
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL (placeholder) -->
+  <div id="login-modal" class="modal hidden"><div class="modal-content"><div class="modal-header"><h3>Iniciar Sesión</h3><button onclick="closeLogin()" class="btn btn-ghost">✕</button></div></div></div>
+  <div id="overlay" class="overlay hidden" onclick="closeAll()"></div>
+
+  <button id="scroll-top-btn" class="scroll-top-btn hidden" onclick="scrollToTop()">⬆️</button>
+
+  <script src="agro.js"></script>
 </body>
 </html>
