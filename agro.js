@@ -682,7 +682,7 @@ class MercadoQuibdoApp {
 
         // Abrir WhatsApp
         const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/57 322 6654844?text=${encodedMessage}`;
+        const whatsappUrl = `https://wa.me/573226654844?text=${encodedMessage}`;
         window.open(whatsappUrl, '_blank');
 
         // Limpiar carrito después del pedido
