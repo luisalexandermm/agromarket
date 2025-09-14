@@ -74,7 +74,7 @@
         <!-- ========== HERO SECTION ========== -->
         <section id="inicio" class="hero">
             <img 
-                src="img/malecon.png" 
+                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080" 
                 alt="Malecón de Quibdó - Río Atrato" 
                 class="hero-bg"
             >
@@ -122,41 +122,39 @@
             <div class="container">
                 <div class="section-header">
                     <div class="section-title">
-                        ⭐ <h2>Productos Destacados</h2> ⭐
+                        ⭐ <h2 id="productos-title">Productos Destacados</h2> ⭐
                     </div>
-                    <p class="section-description">
+                    <p id="productos-description" class="section-description">
                         Los mejores productos frescos de la región, seleccionados especialmente para ti
                     </p>
-                </div>
-
-                <!-- Grid de productos principales -->
-                <div id="products-grid" class="products-grid">
-                    <!-- Los productos se cargarán dinámicamente aquí -->
-                </div>
-
-                <!-- Productos adicionales (ocultos inicialmente) -->
-                <div id="additional-products" class="additional-products hidden">
-                    <div id="additional-products-grid" class="products-grid">
-                        <!-- Los productos adicionales se cargarán aquí -->
-                    </div>
-                </div>
-
-                <!-- Botones de acción -->
-                <div class="text-center">
-                    <button 
-                        id="show-more-btn" 
-                        class="btn btn-primary btn-lg btn-show-more" 
-                        onclick="toggleProducts()"
-                    >
-                        👁️ Ver más productos
-                    </button>
                     
+                    <!-- Botón de reset categoria -->
+                    <button 
+                        id="reset-category-btn" 
+                        class="btn btn-secondary" 
+                        onclick="resetCategoryFilter()" 
+                        style="display: none; margin-top: 1rem;"
+                    >
+                        ← Ver todos los productos
+                    </button>
+                </div>
+
+                <!-- Grid de productos destacados (15 productos) -->
+                <div id="products-grid" class="products-grid">
+                    <!-- Los 15 productos destacados se cargarán dinámicamente aquí -->
+                </div>
+
+                <!-- Botón de acción para explorar más -->
+                <div class="text-center">
                     <button 
                         class="btn btn-primary btn-lg btn-explore-categories" 
                         onclick="navigateToSection('categorias')"
                     >
-                        Explorar por categorías
+                        🔍 Explorar todas las categorías
                     </button>
+                    <p style="margin-top: 1rem; color: #6b7280; font-size: 0.875rem;">
+                        💡 <strong>¿Buscas más productos?</strong> Visita nuestras páginas de categorías para ver el catálogo completo
+                    </p>
                 </div>
             </div>
         </section>
@@ -171,60 +169,52 @@
                     </p>
                 </div>
 
-            <div class="categories-grid"> 
-    <div class="category-card" onclick="filterByCategory('Frutas.html')">
-        <div class="category-emoji">🍌</div>
-        <h3 class="category-name">
-            <a href="frutas.html">Frutas</a>
-        </h3>
-        <p class="category-description">Frescas y tropicales</p>
-    </div>
-    
-    <div class="category-card" onclick="filterByCategory('Verduras.html')">
-        <div class="category-emoji">🥕</div>
-        <h3 class="category-name">
-            <a href="verduras.html">Verduras</a>
-        </h3>
-        <p class="category-description">Orgánicas y nutritivas</p>
-    </div>
-    
-    <div class="category-card" onclick="filterByCategory('Pescados.html')">
-        <div class="category-emoji">🐟</div>
-        <h3 class="category-name">
-            <a href="pescados.html">Pescados</a>
-        </h3>
-        <p class="category-description">Del río y mar</p>
-    </div>
-    
-    <div class="category-card" onclick="filterByCategory('Granos.html')">
-        <div class="category-emoji">🌾</div>
-        <h3 class="category-name">
-            <a href="granos.html">Granos</a>
-        </h3>
-        <p class="category-description">Arroz, fríjol y más</p>
-    </div>
-    
-    <div class="category-card" onclick="filterByCategory('Especias.html')">
-        <div class="category-emoji">🌿</div>
-        <h3 class="category-name">
-            <a href="especias.html">Especias</a>
-        </h3>
-        <p class="category-description">Condimentos naturales</p>
-    </div>
-    
-    <div class="category-card" onclick="filterByCategory('Lacteos.html')">
-        <div class="category-emoji">🧀</div>
-        <h3 class="category-name">
-            <a href="lacteos.html">Lácteos</a>
-        </h3>
-        <p class="category-description">Quesos artesanales</p>
-    </div>
-</div>
+                <div class="categories-grid"> 
+                    <a href="frutas.html" class="category-card" onclick="filterByCategory('Frutas')">
+                        <div class="category-emoji">🍌</div>
+                        <h3 class="category-name">Frutas</h3>
+                        <p class="category-description">Frescas y tropicales</p>
+                    </a>
+                    
+                    <a href="verduras.html" class="category-card" onclick="filterByCategory('Verduras')">
+                        <div class="category-emoji">🥕</div>
+                        <h3 class="category-name">Verduras</h3>
+                        <p class="category-description">Orgánicas y nutritivas</p>
+                    </a>
+                    
+                    <a href="pescados.html" class="category-card" onclick="filterByCategory('Pescados')">
+                        <div class="category-emoji">🐟</div>
+                        <h3 class="category-name">Pescados</h3>
+                        <p class="category-description">Del río y mar</p>
+                    </a>
+                    
+                    <a href="granos.html" class="category-card" onclick="filterByCategory('Granos')">
+                        <div class="category-emoji">🌾</div>
+                        <h3 class="category-name">Granos</h3>
+                        <p class="category-description">Arroz, fríjol y más</p>
+                    </a>
+                    
+                    <a href="especias.html" class="category-card" onclick="filterByCategory('Especias')">
+                        <div class="category-emoji">🌿</div>
+                        <h3 class="category-name">Especias</h3>
+                        <p class="category-description">Condimentos naturales</p>
+                    </a>
+                    
+                    <a href="lacteos.html" class="category-card" onclick="filterByCategory('Lácteos')">
+                        <div class="category-emoji">🧀</div>
+                        <h3 class="category-name">Lácteos</h3>
+                        <p class="category-description">Quesos artesanales</p>
+                    </a>
                 </div>
 
                 <!-- Imagen de categorías -->
-
-                
+                <div class="text-center" style="margin-top: 3rem;">
+                    <img 
+                        src="https://images.unsplash.com/photo-1542838132-92c53300491e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080" 
+                        alt="Categorías de productos frescos" 
+                        class="category-image"
+                    >
+                </div>
             </div>
         </section>
 
@@ -283,42 +273,15 @@
                         <div class="service-info-card">
                             💰
                             <h4>Costo domicilio</h4>
-                            <p>$3.000 - $5.000</p>
+                            <p>$3.000 - $5.500</p>
                         </div>
                     </div>
 
                     <!-- Zonas de cobertura -->
                     <div class="coverage-zones">
-                        <h3>Zonas de cobertura</h3>
-                        <div class="zone-list">
-                            <div class="zone-item">
-                                📍
-                                <div class="zone-info">
-                                    <span class="zone-name">Centro de Quibdó</span>
-                                    <p class="zone-cost">Costo: $3.000</p>
-                                </div>
-                            </div>
-                            <div class="zone-item">
-                                📍
-                                <div class="zone-info">
-                                    <span class="zone-name">Barrio Kennedy</span>
-                                    <p class="zone-cost">Costo: $4.000</p>
-                                </div>
-                            </div>
-                            <div class="zone-item">
-                                📍
-                                <div class="zone-info">
-                                    <span class="zone-name">Barrio Niño Jesús</span>
-                                    <p class="zone-cost">Costo: $4.000</p>
-                                </div>
-                            </div>
-                            <div class="zone-item">
-                                📍
-                                <div class="zone-info">
-                                    <span class="zone-name">La Yesca</span>
-                                    <p class="zone-cost">Costo: $5.000</p>
-                                </div>
-                            </div>
+                        <h3>Zonas de cobertura en Quibdó</h3>
+                        <div class="zone-list" id="barrios-list">
+                            <!-- Se cargan dinámicamente con JavaScript -->
                         </div>
                     </div>
 
@@ -328,17 +291,17 @@
                         <p>Contacta directamente para hacer tu pedido</p>
                         <div class="contact-buttons">
                             <a 
-                                href="https://wa.me/573145312045" 
+                                href="https://wa.me/573226654844" 
                                 class="btn contact-btn-primary"
                                 target="_blank"
                             >
-                                💬 WhatsApp: +57 3145312045
+                                💬 WhatsApp: +57 322 6654844
                             </a>
                             <a 
-                                href="tel:+573145312045" 
+                                href="tel:+573226654844" 
                                 class="btn contact-btn-secondary"
                             >
-                                📞 Llamar: +57 300 123 4567
+                                📞 Llamar: +57 322 6654844
                             </a>
                         </div>
                     </div>
@@ -363,6 +326,13 @@
                 </div>
 
                 <!-- Imagen de ofertas -->
+                <div class="text-center" style="margin-top: 3rem;">
+                    <img 
+                        src="https://images.unsplash.com/photo-1607082349566-187342175e2f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080" 
+                        alt="Ofertas especiales en productos frescos" 
+                        class="offers-image"
+                    >
+                </div>
             </div>
         </section>
 
@@ -403,7 +373,230 @@
                 </div>
 
                 <!-- Imagen de beneficios -->
-                
+                <div class="text-center" style="margin-top: 3rem;">
+                    <img 
+                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080" 
+                        alt="Beneficios del mercado local" 
+                        class="benefits-image"
+                    >
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== HISTORIA Y PROBLEMÁTICA ========== -->
+        <section id="historia" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title">
+                        📖 <h2>Historia del Mercado Digital</h2> 📖
+                    </div>
+                    <p class="section-description">
+                        El surgimiento de una solución digital ante las dificultades del Pacífico colombiano
+                    </p>
+                </div>
+
+                <div class="about-content">
+                    <div class="about-story">
+                        <h3>🌊 El Contexto del Pacífico Chocoano</h3>
+                        <p>
+                            El departamento del Chocó, ubicado en la región del Pacífico colombiano, es una tierra rica en biodiversidad 
+                            y recursos naturales, pero históricamente ha enfrentado grandes desafíos en términos de conectividad, 
+                            infraestructura y acceso a mercados formales. Los pequeños productores agrícolas y pesqueros de la región 
+                            han dependido tradicionalmente de intermediarios que reducen significativamente sus márgenes de ganancia.
+                        </p>
+                    </div>
+
+                    <div class="about-story">
+                        <h3>🦠 La Problemática Durante la Pandemia</h3>
+                        <p>
+                            Durante la pandemia de COVID-19 en 2020, las limitaciones de movilidad y las medidas de confinamiento 
+                            agravaron una situación ya compleja. Los productores locales del Chocó se vieron imposibilitados para 
+                            vender sus productos frescos en los mercados tradicionales, mientras que las familias de Quibdó enfrentaban 
+                            dificultades para acceder a alimentos frescos y de calidad a precios justos.
+                        </p>
+                    </div>
+
+                    <div class="about-story">
+                        <h3>🚧 Los Desafíos Identificados</h3>
+                        <div class="mission-vision-grid">
+                            <div class="mission-card">
+                                <h4>🏪 Intermediarios Excesivos</h4>
+                                <p>
+                                    Los productores vendían sus productos a intermediarios que los revendían 
+                                    con márgenes de hasta 300%, reduciendo las ganancias del agricultor y 
+                                    encareciendo el producto final para el consumidor.
+                                </p>
+                            </div>
+                            <div class="vision-card">
+                                <h4>📱 Falta de Canales Digitales</h4>
+                                <p>
+                                    No existían plataformas digitales que conectaran directamente a productores 
+                                    locales con consumidores, limitando las oportunidades de comercio electrónico 
+                                    en la región.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mission-vision-grid">
+                            <div class="mission-card">
+                                <h4>🚚 Logística Limitada</h4>
+                                <p>
+                                    Los sistemas de distribución eran informales e ineficientes, sin garantías 
+                                    de frescura, tiempos de entrega o trazabilidad de los productos.
+                                </p>
+                            </div>
+                            <div class="vision-card">
+                                <h4>💰 Acceso Limitado a Mercados</h4>
+                                <p>
+                                    Los pequeños productores no tenían acceso directo a los consumidores finales 
+                                    ni herramientas para promocionar sus productos de manera efectiva.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-story">
+                        <h3>💡 El Nacimiento de la Solución Digital</h3>
+                        <p>
+                            Ante esta problemática, un grupo de emprendedores locales visionó la necesidad de crear 
+                            una plataforma digital que conectara directamente a los productores del Chocó con las 
+                            familias de Quibdó. La idea era simple pero revolucionaria para la región: eliminar 
+                            intermediarios innecesarios, garantizar productos frescos, precios justos y crear un 
+                            sistema de trazabilidad completo.
+                        </p>
+                    </div>
+
+                    <div class="about-story">
+                        <h3>🌱 El Impacto Actual</h3>
+                        <p>
+                            Hoy, tres años después de su creación, el Mercado Digital de Quibdó ha logrado conectar 
+                            a más de 150 productores locales con miles de familias chocoanas. La plataforma ha 
+                            procesado más de 5,000 pedidos, generando ingresos directos por más de $800 millones 
+                            de pesos para los productores locales, eliminando intermediarios y creando un ecosistema 
+                            digital sostenible que fortalece la economía local del Pacífico colombiano.
+                        </p>
+                    </div>
+
+                    <div class="mission-vision-grid">
+                        <div class="mission-card">
+                            <h3>🎯 Impacto Social</h3>
+                            <p>
+                                Más de 150 familias productoras han mejorado sus ingresos 
+                                en un promedio del 40% al vender directamente sin intermediarios.
+                            </p>
+                        </div>
+                        <div class="vision-card">
+                            <h3>🌍 Impacto Ambiental</h3>
+                            <p>
+                                Reducción del 60% en el desperdicio de alimentos gracias 
+                                a la venta directa y planificada de productos frescos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== ACERCA DE NOSOTROS ========== -->
+        <section id="acerca-de" class="section about-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title">
+                        👥 <h2>Nuestro Equipo</h2> 👥
+                    </div>
+                    <p class="section-description">
+                        Conoce al equipo que hace posible el Mercado de Quibdó
+                    </p>
+                </div>
+
+                <div class="about-content">
+                    <div class="team-section">
+                        <h3>Los Creadores</h3>
+                        <div class="team-grid">
+                            <div class="team-member">
+                                <div class="member-avatar">👨‍💻</div>
+                                <h4>Luis Alexander</h4>
+                                <p class="member-role">Fundador y Desarrollador Principal</p>
+                                <p class="member-description">
+                                    Visionario del proyecto, encargado del desarrollo tecnológico y la 
+                                    estrategia digital del mercado. Especialista en sistemas de información 
+                                    y comercio electrónico.
+                                </p>
+                                <div class="member-contact">
+                                    📧 alrxandermaturana76@gmail.com
+                                </div>
+                            </div>
+
+                            <div class="team-member">
+                                <div class="member-avatar">👩‍💼</div>
+                                <h4>Edith Yaritza</h4>
+                                <p class="member-role">Coordinadora de Operaciones</p>
+                                <p class="member-description">
+                                    Especialista en logística y coordinación de entregas, garantiza que 
+                                    cada producto llegue fresco y a tiempo a nuestros clientes. Experta 
+                                    en gestión de cadena de suministro.
+                                </p>
+                            </div>
+
+                            <div class="team-member">
+                                <div class="member-avatar">👩‍🌾</div>
+                                <h4>Jhorfanys Andrea</h4>
+                                <p class="member-role">Especialista en Productos Locales</p>
+                                <p class="member-description">
+                                    Experta en productos del Chocó, se encarga de la selección y 
+                                    calidad de nuestros productos, manteniendo vínculos directos con 
+                                    productores y garantizando la autenticidad.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mission-vision">
+                        <div class="mission-vision-grid">
+                            <div class="mission-card">
+                                <h3>🎯 Nuestra Misión</h3>
+                                <p>
+                                    Facilitar el acceso a productos frescos y de calidad del Chocó, 
+                                    apoyando a los productores locales y ofreciendo a las familias 
+                                    una experiencia de compra conveniente y confiable.
+                                </p>
+                            </div>
+                            <div class="vision-card">
+                                <h3>🌟 Nuestra Visión</h3>
+                                <p>
+                                    Ser el principal mercado digital del Pacífico colombiano, 
+                                    reconocido por la calidad de nuestros productos y el impacto 
+                                    positivo en la economía local.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="values">
+                        <h3>Nuestros Valores</h3>
+                        <div class="values-grid">
+                            <div class="value-item">
+                                <div class="value-icon">🌱</div>
+                                <h4>Sostenibilidad</h4>
+                                <p>Promovemos prácticas agrícolas sostenibles y comercio justo.</p>
+                            </div>
+                            <div class="value-item">
+                                <div class="value-icon">🤝</div>
+                                <h4>Comunidad</h4>
+                                <p>Fortalecemos los lazos entre productores y consumidores locales.</p>
+                            </div>
+                            <div class="value-item">
+                                <div class="value-icon">✨</div>
+                                <h4>Calidad</h4>
+                                <p>Garantizamos productos frescos y de la más alta calidad.</p>
+                            </div>
+                            <div class="value-item">
+                                <div class="value-icon">💚</div>
+                                <h4>Confianza</h4>
+                                <p>Construimos relaciones duraderas basadas en la transparencia.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -425,7 +618,11 @@
                         Tu mercado de confianza en Quibdó, donde encuentras los mejores productos frescos de la región del Chocó.
                     </p>
                     <!-- Imagen del footer -->
-                    
+                    <img 
+                        src="https://images.unsplash.com/photo-1567306301408-9b74779a11af?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=250" 
+                        alt="Mercado de productos frescos" 
+                        class="footer-image"
+                    >
                 </div>
 
                 <!-- Navegación -->
@@ -437,6 +634,7 @@
                         <button class="btn btn-ghost footer-nav-btn" onclick="navigateToSection('categorias')">Categorías</button>
                         <button class="btn btn-ghost footer-nav-btn" onclick="navigateToSection('domicilios')">Domicilios</button>
                         <button class="btn btn-ghost footer-nav-btn" onclick="navigateToSection('ofertas')">Ofertas</button>
+                        <button class="btn btn-ghost footer-nav-btn" onclick="navigateToSection('historia')">Historia</button>
                     </div>
                 </div>
 
@@ -446,7 +644,7 @@
                     <div class="contact-info">
                         <div class="contact-item">
                             📞
-                            <a href="tel:+57 322 6654844" class="contact-link">+57  322 6654844</a>
+                            <a href="tel:+573226654844" class="contact-link">+57 322 665 4844</a>
                         </div>
                         <div class="contact-item">
                             💬
@@ -454,7 +652,7 @@
                         </div>
                         <div class="contact-item">
                             📧
-                            <a href="mailto:" class="contact-link">info@mercadoquibdo.com</a>
+                            <a href="mailto:alrxandermaturana76@gmail.com" class="contact-link">alrxandermaturana76@gmail.com</a>
                         </div>
                         <div class="contact-item">
                             📍
@@ -479,16 +677,18 @@
                             <span class="schedule-day">Domingos:</span>
                             <span class="schedule-time">7:00 AM - 2:00 PM</span>
                         </div>
-                        <div>
-                            
-                        </div>
                     </div>
+                    <img 
+                        src="https://images.unsplash.com/photo-1509440159596-0249088772ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=200" 
+                        alt="Horarios de atención" 
+                        class="schedule-image"
+                    >
                 </div>
             </div>
 
             <div class="footer-bottom">
                 <p>&copy; 2024 Mercado de Quibdó. Todos los derechos reservados.</p>
-                <p>Desarrollado con ❤️ para la comunidad de Quibdó, Chocó</p>
+                <p>Desarrollado con ❤️ por Luis Alexander, Edith Yaritza y Jhorfanys Andrea</p>
             </div>
         </div>
     </footer>
@@ -496,7 +696,7 @@
     <!-- ==================== CART SIDEBAR ==================== -->
     <div id="cart-sidebar" class="cart-sidebar">
         <div class="cart-header">
-            <h3>Mi Carrito</h3>
+            <h3>🛒 Mi Carrito</h3>
             <button onclick="closeCart()" class="btn btn-ghost">✕</button>
         </div>
 
@@ -517,17 +717,154 @@
         <div id="cart-footer" class="cart-footer hidden">
             <div class="cart-total">
                 <div class="cart-total-row">
-                    <p>Total:</p>
+                    <p>Subtotal:</p>
                     <p id="cart-total-amount">$0</p>
                 </div>
-                <p class="cart-shipping-note">Envío calculado al finalizar compra</p>
+                <p class="cart-shipping-note">🚚 Envío gratis en el Centro por compras superiores a $20,000</p>
             </div>
-            <button onclick="checkout()" class="btn btn-primary btn-checkout">
+            <button onclick="openCheckout()" class="btn btn-primary btn-checkout">
                 Finalizar Compra
             </button>
             <button onclick="closeCart()" class="btn-continue-shopping">
                 Continuar comprando
             </button>
+        </div>
+    </div>
+
+    <!-- ==================== CHECKOUT MODAL ==================== -->
+    <div id="checkout-modal" class="modal hidden">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3 id="checkout-title">Finalizar Compra</h3>
+                <button onclick="closeCheckout()" class="btn btn-ghost">✕</button>
+            </div>
+
+            <!-- Paso 1: Información del Cliente -->
+            <div id="step-1" class="checkout-step">
+                <form onsubmit="event.preventDefault(); goToStep2();">
+                    <div class="form-group">
+                        <label class="form-label">Nombre completo *</label>
+                        <input type="text" id="customer-name" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Teléfono *</label>
+                        <input type="tel" id="customer-phone" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email (opcional)</label>
+                        <input type="email" id="customer-email" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Dirección completa *</label>
+                        <input type="text" id="customer-address" class="form-input" required placeholder="Ej: Carrera 5 # 25-30, Casa azul">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Barrio *</label>
+                        <select id="customer-neighborhood" class="form-input" required>
+                            <option value="">Selecciona tu barrio</option>
+                            <!-- Se llenan dinámicamente -->
+                        </select>
+                        <div id="delivery-cost-info" style="margin-top: 0.5rem;"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Método de pago *</label>
+                        <select id="payment-method" class="form-input" required>
+                            <option value="">Selecciona método de pago</option>
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                            <option value="Nequi">Nequi</option>
+                            <option value="Daviplata">Daviplata</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Notas adicionales (opcional)</label>
+                        <textarea id="customer-notes" class="form-input" rows="3" placeholder="Instrucciones especiales para la entrega..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full-width">
+                        Continuar al resumen →
+                    </button>
+                </form>
+            </div>
+
+            <!-- Paso 2: Confirmación -->
+            <div id="step-2" class="checkout-step" style="display: none;">
+                <div style="margin-bottom: 1.5rem;">
+                    <h4>📋 Resumen del Pedido</h4>
+                    
+                    <div style="background: #f9fafb; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0;">
+                        <h5>👤 Información del Cliente</h5>
+                        <p><strong>Nombre:</strong> <span id="summary-name"></span></p>
+                        <p><strong>Teléfono:</strong> <span id="summary-phone"></span></p>
+                        <p><strong>Email:</strong> <span id="summary-email"></span></p>
+                        <p><strong>Dirección:</strong> <span id="summary-address"></span></p>
+                        <p><strong>Método de pago:</strong> <span id="summary-payment"></span></p>
+                        <div id="summary-notes-wrapper" style="display: none;">
+                            <p><strong>Notas:</strong> <span id="summary-notes"></span></p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #f9fafb; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0;">
+                        <h5>🛍️ Productos</h5>
+                        <div id="checkout-items">
+                            <!-- Se llenan dinámicamente -->
+                        </div>
+                    </div>
+                    
+                    <div style="background: #dcfce7; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0;">
+                        <div class="cart-total-row">
+                            <span>Subtotal productos:</span>
+                            <span id="checkout-subtotal">$0</span>
+                        </div>
+                        <div class="cart-total-row">
+                            <span>Costo de domicilio:</span>
+                            <span id="checkout-delivery">$0</span>
+                        </div>
+                        <div class="cart-total-row" style="border-top: 1px solid #16a34a; padding-top: 0.5rem; font-weight: 600; color: #16a34a;">
+                            <span>TOTAL:</span>
+                            <span id="checkout-total">$0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 0.5rem;">
+                    <button onclick="goToStep1()" class="btn btn-secondary">← Editar</button>
+                    <button onclick="finalizeOrder()" class="btn btn-primary" style="flex: 1;">Confirmar Pedido ✅</button>
+                </div>
+            </div>
+
+            <!-- Paso 3: Pedido Confirmado -->
+            <div id="step-3" class="checkout-step" style="display: none;">
+                <div class="text-center">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">✅</div>
+                    <h3 style="color: #16a34a; margin-bottom: 1rem;">¡Pedido Confirmado!</h3>
+                    <p>Tu pedido ha sido procesado exitosamente. Recibirás:</p>
+                    
+                    <div style="background: #f0f9ff; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; text-align: left;">
+                        <h4>📱 En tu WhatsApp:</h4>
+                        <ul style="margin: 0.5rem 0;">
+                            <li>✅ Factura completa del pedido</li>
+                            <li>🔐 Código QR de validación</li>
+                            <li>📞 Confirmación telefónica</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: #fef3c7; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0;">
+                        <h4>⏰ Tiempo de entrega estimado:</h4>
+                        <p style="font-weight: 600; font-size: 1.1rem;">30 - 75 minutos</p>
+                    </div>
+                    
+                    <p style="font-size: 0.9rem; color: #6b7280; margin-top: 1rem;">
+                        Esta ventana se cerrará automáticamente en unos segundos...
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -574,6 +911,10 @@
                         <input type="email" name="email" required class="form-input">
                     </div>
                     <div class="form-group">
+                        <label class="form-label">Teléfono</label>
+                        <input type="tel" name="phone" required class="form-input">
+                    </div>
+                    <div class="form-group">
                         <label class="form-label">Contraseña</label>
                         <input type="password" name="password" required class="form-input">
                     </div>
@@ -593,6 +934,9 @@
 
     <!-- ==================== OVERLAY ==================== -->
     <div id="overlay" class="overlay hidden" onclick="closeAll()"></div>
+
+    <!-- ==================== NOTIFICATION ==================== -->
+    <div id="notification" class="notification"></div>
 
     <!-- ==================== SCROLL TO TOP BUTTON ==================== -->
     <button id="scroll-top-btn" class="scroll-top-btn hidden" onclick="scrollToTop()">

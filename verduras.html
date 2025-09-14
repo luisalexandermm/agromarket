@@ -3,416 +3,347 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verduras - Mercado de Quibdó</title>
-    <meta name="description" content="Las mejores verduras orgánicas del Chocó. Plátano, yuca, ñame y más verduras frescas directo del productor.">
-    
-    <!-- CSS ENLAZADO -->
+    <title>🥬 Verduras Frescas - Agro Mercado Digital de Quibdó</title>
+    <meta name="description" content="Verduras frescas del Chocó. Yuca, ñame, espinaca, tomate y más. Domicilios en Quibdó con sistema de facturación automática.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥬</text></svg>">
     <link rel="stylesheet" href="agro.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥕</text></svg>">
+    <script src="agro.js"></script>
 </head>
 <body>
-    <!-- ==================== HEADER ==================== -->
+    <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <!-- Logo -->
-                <div class="logo">
-                    <div class="logo-icon">🥕</div>
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">🌱</div>
                     <div class="logo-text">
-                        <h1>Verduras Orgánicas</h1>
-                        <p>Mercado de Quibdó</p>
+                        <h1>Agro Mercado Quibdó</h1>
+                        <p>Verduras Frescas</p>
                     </div>
-                </div>
-
-                <!-- Búsqueda -->
-                <div class="search">
-                    <input 
-                        type="text" 
-                        id="search-input" 
-                        placeholder="Buscar verduras..." 
-                        autocomplete="off"
-                    >
-                </div>
-
-                <!-- Navegación -->
+                </a>
+                
                 <nav class="nav">
-                    <button class="btn btn-ghost" onclick="navigateToHome()">🏠 Inicio</button>
-                    <button class="btn btn-ghost" onclick="navigateToSection('productos')">Verduras</button>
-                    <button class="btn btn-ghost" onclick="navigateToSection('ofertas')">Ofertas</button>
-                    <button class="btn btn-ghost" onclick="navigateToSection('contacto')">Contacto</button>
+                    <a href="index.html" class="btn btn-ghost">← Volver al Inicio</a>
+                    <a href="frutas.html" class="btn btn-ghost">🍌 Frutas</a>
+                    <a href="pescados.html" class="btn btn-ghost">🐟 Pescados</a>
+                    <a href="granos.html" class="btn btn-ghost">🌾 Granos</a>
+                    <a href="especias.html" class="btn btn-ghost">🌿 Especias</a>
+                    <a href="lacteos.html" class="btn btn-ghost">🧀 Lácteos</a>
                 </nav>
-
-                <!-- Usuario y Carrito -->
+                
                 <div class="user-cart-section">
-                    <!-- Sección de usuario logueado -->
-                    <div id="user-section" class="hidden">
-                        <span id="user-name" class="user-name"></span>
-                        <button class="btn btn-ghost btn-sm" onclick="logout()" title="Cerrar Sesión">🚪</button>
-                    </div>
-                    
-                    <!-- Botón de login -->
-                    <button id="login-btn" class="btn btn-ghost btn-sm" onclick="openLogin()">
-                        👤 <span class="login-text">Entrar</span>
+                    <button class="btn btn-ghost" id="user-btn">
+                        <span>👤</span>
+                        <span class="user-text">Cuenta</span>
                     </button>
                     
-                    <!-- Botón de carrito -->
-                    <button class="btn btn-ghost btn-sm cart-button" onclick="openCart()">
-                        🛒
-                        <span id="cart-count" class="cart-count hidden">0</span>
+                    <button class="btn btn-primary cart-button" id="cart-btn">
+                        <span>🛒</span>
+                        <span>Carrito</span>
+                        <span class="cart-count" id="cart-counter">0</span>
                     </button>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- ==================== MAIN CONTENT ==================== -->
     <main>
-        <!-- ========== HERO SECTION - VERDURAS ========== -->
-        <section id="inicio" class="hero">
-            <img 
-                src="https://images.unsplash.com/photo-1748342319942-223b99937d4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmcmVzaCUyMHZlZ2V0YWJsZXMlMjBtYXJrZXR8ZW58MXx8fHwxNzU3NjAyNzkzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" 
-                alt="Verduras frescas del Chocó" 
-                class="hero-bg"
-            >
-            
+        <!-- Hero Section de Verduras -->
+        <section class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <div class="hero-location">
-                        🥕 <span>Verduras del Chocó - Colombia</span>
-                    </div>
-                    
-                    <h1>Verduras <span class="hero-accent">Orgánicas</span></h1>
-                    
+                    <h1>🥬 Verduras Frescas del Campo Chocoano</h1>
                     <p>
-                        Las verduras más frescas y nutritivas del Pacífico colombiano. 
-                        Cultivadas de forma orgánica en las tierras fértiles del Chocó.
+                        Las verduras más frescas y nutritivas cultivadas en tierras fértiles del Chocó.<br>
+                        Del surco a tu mesa, preservando toda su frescura y valor nutricional.
                     </p>
-
+                    
                     <div class="hero-features">
                         <div class="hero-feature">
-                            🌱 <span>100% Orgánicas</span>
+                            <span>🌱</span>
+                            <span>Cultivo Orgánico</span>
                         </div>
                         <div class="hero-feature">
-                            🌍 <span>Cultivo Sostenible</span>
+                            <span>🚜</span>
+                            <span>Recién Cosechadas</span>
                         </div>
                         <div class="hero-feature">
-                            🥬 <span>Recién Cosechadas</span>
+                            <span>💚</span>
+                            <span>Sin Químicos</span>
+                        </div>
+                        <div class="hero-feature">
+                            <span>🏞️</span>
+                            <span>Productores Locales</span>
                         </div>
                     </div>
+                </div>
+            </div>
+            
+            <img src="https://images.unsplash.com/photo-1757283961570-682154747d9c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080" 
+                 alt="Verduras frescas del Chocó" class="hero-bg">
+        </section>
 
-                    <div class="hero-buttons">
-                        <button class="btn btn-primary btn-lg" onclick="navigateToSection('productos')">
-                            Ver verduras 🥬
-                        </button>
-                        
-                        <button class="btn btn-secondary btn-lg" onclick="navigateToHome()">
-                            Volver al mercado
-                        </button>
+        <!-- Productos de Verduras -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span>🥬</span>
+                        Nuestras Verduras Frescas
+                        <span>🍅</span>
+                    </h2>
+                    <p class="section-description">
+                        Más de 16 variedades de verduras frescas del campo chocoano, 
+                        cultivadas con técnicas tradicionales y cosechadas en su punto óptimo.
+                    </p>
+                </div>
+
+                <!-- Grid de productos - se llena dinámicamente -->
+                <div class="products-grid" id="verduras-grid">
+                    <!-- Los productos se cargan con JavaScript -->
+                </div>
+
+                <div class="text-center" style="margin-top: 3rem;">
+                    <img src="https://images.unsplash.com/photo-1757283961570-682154747d9c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080" 
+                         alt="Variedad de verduras frescas" class="category-image">
+                </div>
+            </div>
+        </section>
+
+        <!-- Información sobre las Verduras -->
+        <section class="section section-categories">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">🌿 Beneficios de Nuestras Verduras</h2>
+                    <p class="section-description">
+                        Conoce las propiedades nutricionales de las verduras cultivadas en el Chocó
+                    </p>
+                </div>
+
+                <div class="service-info-grid">
+                    <div class="service-info-card">
+                        <h4>🥔 Yuca Blanca</h4>
+                        <p>Rica en carbohidratos complejos y fibra. Base alimentaria tradicional chocoana.</p>
+                    </div>
+                    <div class="service-info-card">
+                        <h4>🍠 Ñame Criollo</h4>
+                        <p>Alto contenido en potasio y vitaminas del complejo B. Perfecto para sancochos.</p>
+                    </div>
+                    <div class="service-info-card">
+                        <h4>🥬 Espinaca Criolla</h4>
+                        <p>Súper rica en hierro, ácido fólico y vitaminas A, C y K. Ideal para ensaladas.</p>
+                    </div>
+                    <div class="service-info-card">
+                        <h4>🍅 Tomate Chonto</h4>
+                        <p>Antioxidante natural con licopeno. Fundamental en la cocina chocoana.</p>
+                    </div>
+                </div>
+
+                <div class="how-it-works">
+                    <h3>🚜 Proceso de Cultivo Tradicional</h3>
+                    <div class="step-container">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Preparación de tierra con técnicas ancestrales</div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Siembra con semillas nativas del Chocó</div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Cuidado orgánico sin pesticidas químicos</div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number final">4</div>
+                            <div class="step-text">Cosecha manual en punto perfecto de madurez</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ========== PRODUCTOS VERDURAS ========== -->
-        <section id="productos" class="section">
+        <!-- Otras Categorías -->
+        <section class="section">
             <div class="container">
                 <div class="section-header">
-                    <div class="section-title">
-                        🥕 <h2>Nuestras Verduras Orgánicas</h2> 🌿
-                    </div>
+                    <h2 class="section-title">🛒 Explora Otras Categorías</h2>
                     <p class="section-description">
-                        Verduras frescas, nutritivas y saludables del Pacífico chocoano
+                        Completa tu compra con productos frescos de otras categorías
                     </p>
                 </div>
 
-                <!-- Grid de productos de verduras -->
-                <div id="products-grid" class="products-grid">
-                    <!-- Los productos se cargarán dinámicamente aquí -->
+                <div class="categories-grid">
+                    <a href="frutas.html" class="category-card">
+                        <div class="category-emoji">🍌</div>
+                        <h3>Frutas Tropicales</h3>
+                        <p>Frutas frescas y dulces del Pacífico</p>
+                    </a>
+
+                    <a href="pescados.html" class="category-card">
+                        <div class="category-emoji">🐟</div>
+                        <h3>Pescados del Río</h3>
+                        <p>Pescados frescos del Atrato y Pacífico</p>
+                    </a>
+
+                    <a href="granos.html" class="category-card">
+                        <div class="category-emoji">🌾</div>
+                        <h3>Granos y Cereales</h3>
+                        <p>Base alimentaria tradicional del Chocó</p>
+                    </a>
+
+                    <a href="especias.html" class="category-card">
+                        <div class="category-emoji">🌿</div>
+                        <h3>Especias y Hierbas</h3>
+                        <p>Condimentos naturales llenos de sabor</p>
+                    </a>
+
+                    <a href="lacteos.html" class="category-card">
+                        <div class="category-emoji">🧀</div>
+                        <h3>Lácteos Artesanales</h3>
+                        <p>Quesos y lácteos hechos tradicionalmente</p>
+                    </a>
                 </div>
-
-                <!-- Productos adicionales (ocultos inicialmente) -->
-                <div id="additional-products" class="additional-products hidden">
-                    <div id="additional-products-grid" class="products-grid">
-                        <!-- Los productos adicionales se cargarán aquí -->
-                    </div>
-                </div>
-
-                <!-- Botones de acción -->
-                <div class="text-center">
-                    <button 
-                        id="show-more-btn" 
-                        class="btn btn-primary btn-lg btn-show-more" 
-                        onclick="toggleProducts()"
-                    >
-                        👁️ Ver más verduras
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========== OFERTAS ESPECIALES - VERDURAS ========== -->
-        <section id="ofertas" class="section offers-section">
-            <div class="container">
-                <div class="section-header">
-                    <div class="section-title">
-                        🎯 <h2>Ofertas en Verduras</h2> 💰
-                    </div>
-                    <p class="section-description">
-                        Aprovecha nuestros descuentos especiales en verduras orgánicas
-                    </p>
-                </div>
-
-                <div id="offers-grid" class="products-grid">
-                    <!-- Las ofertas se cargarán dinámicamente aquí -->
-                </div>
-
-                <!-- Imagen de ofertas -->
-                <div class="text-center">
-                    <img 
-                        src="https://images.unsplash.com/photo-1748342319942-223b99937d4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmcmVzaCUyMHZlZ2V0YWJsZXMlMjBtYXJrZXR8ZW58MXx8fHwxNzU3NjAyNzkzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" 
-                        alt="Ofertas especiales en verduras orgánicas" 
-                        class="offers-image"
-                    >
-                </div>
-            </div>
-        </section>
-
-        <!-- ========== BENEFICIOS - VERDURAS ========== -->
-        <section class="section benefits-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">¿Por qué elegir nuestras verduras?</h2>
-                    <p class="section-description">
-                        Verduras del Chocó con la más alta calidad nutricional
-                    </p>
-                </div>
-
-                <div class="grid">
-                    <div class="text-center">
-                        <div class="benefits-icon">🌱</div>
-                        <h3 class="benefits-title">Cultivo Orgánico</h3>
-                        <p class="benefits-text">
-                            Sin pesticidas ni químicos, respetando la biodiversidad del Chocó
-                        </p>
-                    </div>
-
-                    <div class="text-center">
-                        <div class="benefits-icon">💚</div>
-                        <h3 class="benefits-title">Rica en Nutrientes</h3>
-                        <p class="benefits-text">
-                            Altas en vitaminas y minerales gracias a los suelos volcánicos
-                        </p>
-                    </div>
-
-                    <div class="text-center">
-                        <div class="benefits-icon">🌾</div>
-                        <h3 class="benefits-title">Variedad Local</h3>
-                        <p class="benefits-text">
-                            Desde plátano verde hasta ñame, tenemos toda la tradición chocoana
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Imagen de beneficios -->
-             
             </div>
         </section>
     </main>
 
-    <!-- ==================== FOOTER ==================== -->
-    <footer id="contacto" class="footer">
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <!-- Información del mercado -->
                 <div>
                     <div class="footer-logo-container">
-                        <div class="footer-logo-icon">🥕</div>
+                        <div class="footer-logo-icon">🌱</div>
                         <div class="footer-logo-text">
-                            <h3>Verduras del Chocó</h3>
-                            <p>Mercado de Quibdó</p>
+                            <h3>Agro Mercado Quibdó</h3>
+                            <p>Verduras Frescas del Campo</p>
                         </div>
                     </div>
                     <p class="footer-description">
-                        Las mejores verduras orgánicas del Pacífico colombiano, frescas y nutritivas para tu familia.
+                        Las verduras más frescas del campo chocoano. 
+                        Cultivadas con amor y respeto por la tierra.
                     </p>
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=250" 
+                         alt="Verduras del campo" class="footer-image">
                 </div>
 
-                <!-- Navegación -->
                 <div>
-                    <h4>Navegación</h4>
+                    <h4>🥬 Nuestras Verduras</h4>
                     <div class="footer-nav-buttons">
-                        <button class="btn btn-ghost footer-nav-btn" onclick="navigateToHome()">Mercado Principal</button>
-                        <button class="btn btn-ghost footer-nav-btn" onclick="navigateToSection('productos')">Verduras</button>
-                        <button class="btn btn-ghost footer-nav-btn" onclick="navigateToSection('ofertas')">Ofertas</button>
+                        <button class="btn btn-ghost footer-nav-btn" onclick="scrollToVegetable('yuca')">Yuca Blanca Premium</button>
+                        <button class="btn btn-ghost footer-nav-btn" onclick="scrollToVegetable('name')">Ñame Criollo</button>
+                        <button class="btn btn-ghost footer-nav-btn" onclick="scrollToVegetable('espinaca')">Espinaca Criolla</button>
+                        <button class="btn btn-ghost footer-nav-btn" onclick="scrollToVegetable('tomate')">Tomate Chonto</button>
+                        <button class="btn btn-ghost footer-nav-btn" onclick="scrollToVegetable('cebolla')">Cebolla Cabezona</button>
                     </div>
                 </div>
 
-                <!-- Contacto -->
                 <div>
-                    <h4>Contacto</h4>
+                    <h4>📞 Contacto Directo</h4>
                     <div class="contact-info">
                         <div class="contact-item">
-                            📞
-                            <a href="tel:+573001234567" class="contact-link">+57 300 123 4567</a>
+                            <span>📱</span>
+                            <a href="https://wa.me/573226654844" class="contact-link">WhatsApp: +57 322 665 4844</a>
                         </div>
                         <div class="contact-item">
-                            💬
-                            <a href="https://wa.me/573001234567" target="_blank" class="contact-link">WhatsApp</a>
+                            <span>📧</span>
+                            <a href="mailto:alrxandermaturana76@gmail.com" class="contact-link">Email: alrxandermaturana76@gmail.com</a>
                         </div>
                         <div class="contact-item">
-                            📧
-                            <a href="mailto:verduras@mercadoquibdo.com" class="contact-link">verduras@mercadoquibdo.com</a>
+                            <span>📍</span>
+                            <span class="contact-link">Quibdó, Chocó - Colombia</span>
                         </div>
                         <div class="contact-item">
-                            📍
-                            <span class="contact-link">Centro de Quibdó, Chocó</span>
+                            <span>🚚</span>
+                            <span class="contact-link">Domicilios en toda la ciudad</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Horarios -->
                 <div>
-                    <h4>Horarios</h4>
+                    <h4>⏰ Horarios de Entrega</h4>
                     <div class="schedule-info">
                         <div class="schedule-item">
                             <span class="schedule-day">Lunes - Viernes:</span>
-                            <span class="schedule-time">6:00 AM - 6:00 PM</span>
+                            <span class="schedule-time">7:00 AM - 7:00 PM</span>
                         </div>
                         <div class="schedule-item">
                             <span class="schedule-day">Sábados:</span>
-                            <span class="schedule-time">6:00 AM - 4:00 PM</span>
+                            <span class="schedule-time">7:00 AM - 6:00 PM</span>
                         </div>
                         <div class="schedule-item">
                             <span class="schedule-day">Domingos:</span>
-                            <span class="schedule-time">7:00 AM - 2:00 PM</span>
+                            <span class="schedule-time">8:00 AM - 5:00 PM</span>
                         </div>
-        
                     </div>
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=200" 
+                         alt="Entrega de verduras" class="schedule-image">
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2024 Mercado de Quibdó - Verduras Orgánicas. Todos los derechos reservados.</p>
-                <p>Desarrollado con ❤️ para la comunidad de Quibdó, Chocó</p>
+                <p>&copy; 2024 Agro Mercado Digital de Quibdó - Verduras Frescas. Todos los derechos reservados.</p>
+                <p>Desarrollado con ❤️ por Luis Alexander, Edith Yaritza y Jhorfanys Andrea</p>
             </div>
         </div>
     </footer>
 
-    <!-- ==================== CART SIDEBAR ==================== -->
-    <div id="cart-sidebar" class="cart-sidebar">
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
-            <h3>Mi Carrito</h3>
-            <button onclick="closeCart()" class="btn btn-ghost">✕</button>
+            <h3>🛒 Carrito de Verduras</h3>
+            <button class="btn btn-ghost" id="cart-close">&times;</button>
         </div>
-
+        
         <div class="cart-content">
-            <div id="cart-items" class="cart-items">
-                <!-- Los items del carrito se cargarán aquí -->
-            </div>
-            
-            <div id="empty-cart" class="text-center">
-                🛒
-                <p>Tu carrito está vacío</p>
-                <button onclick="closeCart()" class="btn btn-primary">
-                    Continuar comprando
-                </button>
+            <div id="cart-items">
+                <div id="cart-empty" class="text-center" style="padding: 2rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🥬</div>
+                    <h4>Tu carrito está vacío</h4>
+                    <p>Agrega algunas verduras frescas del campo chocoano</p>
+                </div>
             </div>
         </div>
-
-        <div id="cart-footer" class="cart-footer hidden">
+        
+        <div class="cart-footer" id="cart-summary" style="display: none;">
             <div class="cart-total">
                 <div class="cart-total-row">
-                    <p>Total:</p>
-                    <p id="cart-total-amount">$0</p>
+                    <p>Subtotal:</p>
+                    <p id="subtotal-amount">$0</p>
                 </div>
-                <p class="cart-shipping-note">Envío calculado al finalizar compra</p>
+                <p class="cart-shipping-note">🚚 Envío gratis en el Centro por compras superiores a $20,000</p>
             </div>
-            <button onclick="checkout()" class="btn btn-primary btn-checkout">
-                Finalizar Compra
+            <button class="btn btn-primary btn-checkout" onclick="openCheckout()">
+                Proceder al pago
             </button>
-            <button onclick="closeCart()" class="btn-continue-shopping">
+            <button class="btn-continue-shopping" onclick="closeCart()">
                 Continuar comprando
             </button>
         </div>
     </div>
 
-    <!-- ==================== LOGIN MODAL ==================== -->
-    <div id="login-modal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Iniciar Sesión</h3>
-                <button onclick="closeLogin()" class="btn btn-ghost">✕</button>
-            </div>
+    <!-- Modals and overlays -->
+    <div class="overlay" id="overlay"></div>
+    <div class="notification" id="notification"></div>
+    <button class="scroll-top-btn" id="scroll-to-top" style="display: none;">↑</button>
 
-            <!-- Login Form -->
-            <div id="login-form">
-                <form onsubmit="handleLogin(event)">
-                    <div class="form-group">
-                        <label class="form-label">Correo electrónico</label>
-                        <input type="email" name="email" required class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Contraseña</label>
-                        <input type="password" name="password" required class="form-input">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-full-width">
-                        Iniciar Sesión
-                    </button>
-                </form>
-                <p class="form-switch-text">
-                    ¿No tienes cuenta? 
-                    <button onclick="showRegisterForm()" class="form-switch-link">
-                        Regístrate aquí
-                    </button>
-                </p>
-            </div>
-
-            <!-- Register Form -->
-            <div id="register-form" class="hidden">
-                <form onsubmit="handleRegister(event)">
-                    <div class="form-group">
-                        <label class="form-label">Nombre completo</label>
-                        <input type="text" name="name" required class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Correo electrónico</label>
-                        <input type="email" name="email" required class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Contraseña</label>
-                        <input type="password" name="password" required class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Confirmar contraseña</label>
-                        <input type="password" name="confirmPassword" required class="form-input">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-full-width">
-                        Registrarse
-                    </button>
-                </form>
-                <p class="form-switch-text">
-                    ¿Ya tienes cuenta? 
-                    <button onclick="showLoginForm()" class="form-switch-link">
-                        Inicia sesión aquí
-                    </button>
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==================== JAVASCRIPT ==================== -->
+    <script src="agro.js"></script>
     <script>
-        // Configuración específica para la página de verduras
-        const currentCategory = 'Verduras';
-        const pageTitle = 'Verduras Orgánicas';
-        
-        // Función para navegar al inicio
-        function navigateToHome() {
-            window.location.href = 'index.html';
+        // Specific script for vegetables page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render only vegetables products
+            const verdurasProducts = getProductsByCategory('Verduras');
+            renderProducts(verdurasProducts, 'verduras-grid');
+            
+            // Update page title
+            document.title = `🥬 Verduras Frescas (${verdurasProducts.length} productos) - Agro Mercado Digital de Quibdó`;
+        });
+
+        // Function to scroll to specific vegetable type
+        function scrollToVegetable(vegetableType) {
+            document.getElementById('verduras-grid').scrollIntoView({ behavior: 'smooth' });
         }
     </script>
-    <script src="agro.js"></script>
 </body>
 </html>
