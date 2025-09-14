@@ -8,6 +8,7 @@
     
     <!-- CSS ENLAZADO -->
     <link rel="stylesheet" href="agro.css">
+    <script src="agro.js"></script>
     
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏪</text></svg>">
@@ -60,7 +61,7 @@
                     </button>
                     
                     <!-- Botón de carrito -->
-                    <button class="btn btn-ghost btn-sm cart-button" onclick="openCart()">
+                    <button id="cart-btn" class="btn btn-ghost btn-sm cart-button" onclick="openCart()">
                         🛒
                         <span id="cart-count" class="cart-count hidden">0</span>
                     </button>
@@ -74,7 +75,7 @@
         <!-- ========== HERO SECTION ========== -->
         <section id="inicio" class="hero">
             <img 
-                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080" 
+                src="img/malecon.png" 
                 alt="Malecón de Quibdó - Río Atrato" 
                 class="hero-bg"
             >
@@ -336,167 +337,7 @@
             </div>
         </section>
 
-        <!-- ========== BENEFICIOS ========== -->
-        <section class="section benefits-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">¿Por qué elegir el Mercado de Quibdó?</h2>
-                    <p class="section-description">
-                        Somos más que un mercado, somos tu socio en alimentación saludable
-                    </p>
-                </div>
-
-                <div class="grid">
-                    <div class="text-center">
-                        <div class="benefits-icon">🏆</div>
-                        <h3 class="benefits-title">Calidad Garantizada</h3>
-                        <p class="benefits-text">
-                            Productos frescos y de la más alta calidad, directos del productor
-                        </p>
-                    </div>
-
-                    <div class="text-center">
-                        <div class="benefits-icon">⭐</div>
-                        <h3 class="benefits-title">Productos Locales</h3>
-                        <p class="benefits-text">
-                            Apoyamos a los productores locales y la economía del Chocó
-                        </p>
-                    </div>
-
-                    <div class="text-center">
-                        <div class="benefits-icon">💰</div>
-                        <h3 class="benefits-title">Precios Justos</h3>
-                        <p class="benefits-text">
-                            Ofertas competitivas sin intermediarios, directo del campo a tu mesa
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Imagen de beneficios -->
-                <div class="text-center" style="margin-top: 3rem;">
-                    <img 
-                        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080" 
-                        alt="Beneficios del mercado local" 
-                        class="benefits-image"
-                    >
-                </div>
-            </div>
-        </section>
-
-        <!-- ========== HISTORIA Y PROBLEMÁTICA ========== -->
-        <section id="historia" class="section">
-            <div class="container">
-                <div class="section-header">
-                    <div class="section-title">
-                        📖 <h2>Historia del Mercado Digital</h2> 📖
-                    </div>
-                    <p class="section-description">
-                        El surgimiento de una solución digital ante las dificultades del Pacífico colombiano
-                    </p>
-                </div>
-
-                <div class="about-content">
-                    <div class="about-story">
-                        <h3>🌊 El Contexto del Pacífico Chocoano</h3>
-                        <p>
-                            El departamento del Chocó, ubicado en la región del Pacífico colombiano, es una tierra rica en biodiversidad 
-                            y recursos naturales, pero históricamente ha enfrentado grandes desafíos en términos de conectividad, 
-                            infraestructura y acceso a mercados formales. Los pequeños productores agrícolas y pesqueros de la región 
-                            han dependido tradicionalmente de intermediarios que reducen significativamente sus márgenes de ganancia.
-                        </p>
-                    </div>
-
-                    <div class="about-story">
-                        <h3>🦠 La Problemática Durante la Pandemia</h3>
-                        <p>
-                            Durante la pandemia de COVID-19 en 2020, las limitaciones de movilidad y las medidas de confinamiento 
-                            agravaron una situación ya compleja. Los productores locales del Chocó se vieron imposibilitados para 
-                            vender sus productos frescos en los mercados tradicionales, mientras que las familias de Quibdó enfrentaban 
-                            dificultades para acceder a alimentos frescos y de calidad a precios justos.
-                        </p>
-                    </div>
-
-                    <div class="about-story">
-                        <h3>🚧 Los Desafíos Identificados</h3>
-                        <div class="mission-vision-grid">
-                            <div class="mission-card">
-                                <h4>🏪 Intermediarios Excesivos</h4>
-                                <p>
-                                    Los productores vendían sus productos a intermediarios que los revendían 
-                                    con márgenes de hasta 300%, reduciendo las ganancias del agricultor y 
-                                    encareciendo el producto final para el consumidor.
-                                </p>
-                            </div>
-                            <div class="vision-card">
-                                <h4>📱 Falta de Canales Digitales</h4>
-                                <p>
-                                    No existían plataformas digitales que conectaran directamente a productores 
-                                    locales con consumidores, limitando las oportunidades de comercio electrónico 
-                                    en la región.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="mission-vision-grid">
-                            <div class="mission-card">
-                                <h4>🚚 Logística Limitada</h4>
-                                <p>
-                                    Los sistemas de distribución eran informales e ineficientes, sin garantías 
-                                    de frescura, tiempos de entrega o trazabilidad de los productos.
-                                </p>
-                            </div>
-                            <div class="vision-card">
-                                <h4>💰 Acceso Limitado a Mercados</h4>
-                                <p>
-                                    Los pequeños productores no tenían acceso directo a los consumidores finales 
-                                    ni herramientas para promocionar sus productos de manera efectiva.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="about-story">
-                        <h3>💡 El Nacimiento de la Solución Digital</h3>
-                        <p>
-                            Ante esta problemática, un grupo de emprendedores locales visionó la necesidad de crear 
-                            una plataforma digital que conectara directamente a los productores del Chocó con las 
-                            familias de Quibdó. La idea era simple pero revolucionaria para la región: eliminar 
-                            intermediarios innecesarios, garantizar productos frescos, precios justos y crear un 
-                            sistema de trazabilidad completo.
-                        </p>
-                    </div>
-
-                    <div class="about-story">
-                        <h3>🌱 El Impacto Actual</h3>
-                        <p>
-                            Hoy, tres años después de su creación, el Mercado Digital de Quibdó ha logrado conectar 
-                            a más de 150 productores locales con miles de familias chocoanas. La plataforma ha 
-                            procesado más de 5,000 pedidos, generando ingresos directos por más de $800 millones 
-                            de pesos para los productores locales, eliminando intermediarios y creando un ecosistema 
-                            digital sostenible que fortalece la economía local del Pacífico colombiano.
-                        </p>
-                    </div>
-
-                    <div class="mission-vision-grid">
-                        <div class="mission-card">
-                            <h3>🎯 Impacto Social</h3>
-                            <p>
-                                Más de 150 familias productoras han mejorado sus ingresos 
-                                en un promedio del 40% al vender directamente sin intermediarios.
-                            </p>
-                        </div>
-                        <div class="vision-card">
-                            <h3>🌍 Impacto Ambiental</h3>
-                            <p>
-                                Reducción del 60% en el desperdicio de alimentos gracias 
-                                a la venta directa y planificada de productos frescos.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========== ACERCA DE NOSOTROS ========== -->
+        <!-- ========== HISTORIA Y NOSOTROS ========== -->
         <section id="acerca-de" class="section about-section">
             <div class="container">
                 <div class="section-header">
@@ -549,401 +390,320 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="mission-vision">
-                        <div class="mission-vision-grid">
-                            <div class="mission-card">
-                                <h3>🎯 Nuestra Misión</h3>
-                                <p>
-                                    Facilitar el acceso a productos frescos y de calidad del Chocó, 
-                                    apoyando a los productores locales y ofreciendo a las familias 
-                                    una experiencia de compra conveniente y confiable.
-                                </p>
-                            </div>
-                            <div class="vision-card">
-                                <h3>🌟 Nuestra Visión</h3>
-                                <p>
-                                    Ser el principal mercado digital del Pacífico colombiano, 
-                                    reconocido por la calidad de nuestros productos y el impacto 
-                                    positivo en la economía local.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="values">
-                        <h3>Nuestros Valores</h3>
-                        <div class="values-grid">
-                            <div class="value-item">
-                                <div class="value-icon">🌱</div>
-                                <h4>Sostenibilidad</h4>
-                                <p>Promovemos prácticas agrícolas sostenibles y comercio justo.</p>
-                            </div>
-                            <div class="value-item">
-                                <div class="value-icon">🤝</div>
-                                <h4>Comunidad</h4>
-                                <p>Fortalecemos los lazos entre productores y consumidores locales.</p>
-                            </div>
-                            <div class="value-item">
-                                <div class="value-icon">✨</div>
-                                <h4>Calidad</h4>
-                                <p>Garantizamos productos frescos y de la más alta calidad.</p>
-                            </div>
-                            <div class="value-item">
-                                <div class="value-icon">💚</div>
-                                <h4>Confianza</h4>
-                                <p>Construimos relaciones duraderas basadas en la transparencia.</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
+
+   
     </main>
 
     <!-- ==================== FOOTER ==================== -->
-    <footer id="contacto" class="footer">
+    <footer class="footer">
         <div class="container">
-            <div class="footer-grid">
-                <!-- Información del mercado -->
-                <div>
-                    <div class="footer-logo-container">
-                        <div class="footer-logo-icon">📍</div>
-                        <div class="footer-logo-text">
-                            <h3>Mercado de Quibdó</h3>
-                            <p>Productos frescos del Chocó</p>
-                        </div>
-                    </div>
-                    <p class="footer-description">
-                        Tu mercado de confianza en Quibdó, donde encuentras los mejores productos frescos de la región del Chocó.
-                    </p>
-                    <!-- Imagen del footer -->
-                    <img 
-                        src="https://images.unsplash.com/photo-1567306301408-9b74779a11af?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=250" 
-                        alt="Mercado de productos frescos" 
-                        class="footer-image"
-                    >
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Mercado de Quibdó</h3>
+                    <p>Productos frescos del Chocó directo a tu mesa</p>
                 </div>
-
-                <!-- Navegación -->
-                <div>
-                    <h4>Navegación</h4>
-                    <div class="footer-nav-buttons">
-                        <button class="btn btn-ghost footer-nav-btn" onclick="navigateToSection('inicio')">Inicio</button>
-                        <button class="btn btn-ghost footer-nav-btn" onclick="navigateToSection('productos')">Productos</button>
-                        <button class="btn btn-ghost footer-nav-btn" onclick="navigateToSection('categorias')">Categorías</button>
-                        <button class="btn btn-ghost footer-nav-btn" onclick="navigateToSection('domicilios')">Domicilios</button>
-                        <button class="btn btn-ghost footer-nav-btn" onclick="navigateToSection('ofertas')">Ofertas</button>
-                        <button class="btn btn-ghost footer-nav-btn" onclick="navigateToSection('historia')">Historia</button>
-                    </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#inicio" onclick="navigateToSection('inicio')">Inicio</a></li>
+                        <li><a href="#productos" onclick="navigateToSection('productos')">Productos</a></li>
+                        <li><a href="#categorias" onclick="navigateToSection('categorias')">Categorías</a></li>
+                        <li><a href="#domicilios" onclick="navigateToSection('domicilios')">Domicilios</a></li>
+                    </ul>
                 </div>
-
-                <!-- Contacto -->
-                <div>
+                <div class="footer-section">
                     <h4>Contacto</h4>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            📞
-                            <a href="tel:+573226654844" class="contact-link">+57 322 665 4844</a>
-                        </div>
-                        <div class="contact-item">
-                            💬
-                            <a href="https://wa.me/573226654844" target="_blank" class="contact-link">WhatsApp</a>
-                        </div>
-                        <div class="contact-item">
-                            📧
-                            <a href="mailto:alrxandermaturana76@gmail.com" class="contact-link">alrxandermaturana76@gmail.com</a>
-                        </div>
-                        <div class="contact-item">
-                            📍
-                            <span class="contact-link">Centro de Quibdó, Chocó</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Horarios -->
-                <div>
-                    <h4>Horarios</h4>
-                    <div class="schedule-info">
-                        <div class="schedule-item">
-                            <span class="schedule-day">Lunes - Viernes:</span>
-                            <span class="schedule-time">6:00 AM - 6:00 PM</span>
-                        </div>
-                        <div class="schedule-item">
-                            <span class="schedule-day">Sábados:</span>
-                            <span class="schedule-time">6:00 AM - 4:00 PM</span>
-                        </div>
-                        <div class="schedule-item">
-                            <span class="schedule-day">Domingos:</span>
-                            <span class="schedule-time">7:00 AM - 2:00 PM</span>
-                        </div>
-                    </div>
-                    <img 
-                        src="https://images.unsplash.com/photo-1509440159596-0249088772ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=200" 
-                        alt="Horarios de atención" 
-                        class="schedule-image"
-                    >
+                    <p>📱 +57 322 6654844</p>
+                    <p>📧 alrxandermaturana76@gmail.com</p>
+                    <p>📍 Quibdó, Chocó - Colombia</p>
                 </div>
             </div>
-
             <div class="footer-bottom">
-                <p>&copy; 2024 Mercado de Quibdó. Todos los derechos reservados.</p>
-                <p>Desarrollado con ❤️ por Luis Alexander, Edith Yaritza y Jhorfanys Andrea</p>
+                <p>&copy; 2024 Mercado de Quibdó. Productos frescos del Pacífico colombiano.</p>
             </div>
         </div>
     </footer>
 
-    <!-- ==================== CART SIDEBAR ==================== -->
-    <div id="cart-sidebar" class="cart-sidebar">
-        <div class="cart-header">
-            <h3>🛒 Mi Carrito</h3>
-            <button onclick="closeCart()" class="btn btn-ghost">✕</button>
-        </div>
-
-        <div class="cart-content">
-            <div id="cart-items" class="cart-items">
-                <!-- Los items del carrito se cargarán aquí -->
+    <!-- ==================== MODALES ==================== -->
+    
+    <!-- ========== MODAL DE LOGIN/REGISTRO ========== -->
+    <div id="login-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Bienvenido al Mercado de Quibdó</h2>
+                <button class="modal-close" onclick="closeLogin()" data-action="close">✕</button>
             </div>
             
-            <div id="empty-cart" class="text-center">
-                🛒
-                <p>Tu carrito está vacío</p>
-                <button onclick="closeCart()" class="btn btn-primary">
-                    Continuar comprando
-                </button>
-            </div>
-        </div>
-
-        <div id="cart-footer" class="cart-footer hidden">
-            <div class="cart-total">
-                <div class="cart-total-row">
-                    <p>Subtotal:</p>
-                    <p id="cart-total-amount">$0</p>
-                </div>
-                <p class="cart-shipping-note">🚚 Envío gratis en el Centro por compras superiores a $20,000</p>
-            </div>
-            <button onclick="openCheckout()" class="btn btn-primary btn-checkout">
-                Finalizar Compra
-            </button>
-            <button onclick="closeCart()" class="btn-continue-shopping">
-                Continuar comprando
-            </button>
-        </div>
-    </div>
-
-    <!-- ==================== CHECKOUT MODAL ==================== -->
-    <div id="checkout-modal" class="modal hidden">
-        <div class="modal-content" style="max-width: 600px;">
-            <div class="modal-header">
-                <h3 id="checkout-title">Finalizar Compra</h3>
-                <button onclick="closeCheckout()" class="btn btn-ghost">✕</button>
-            </div>
-
-            <!-- Paso 1: Información del Cliente -->
-            <div id="step-1" class="checkout-step">
-                <form onsubmit="event.preventDefault(); goToStep2();">
-                    <div class="form-group">
-                        <label class="form-label">Nombre completo *</label>
-                        <input type="text" id="customer-name" class="form-input" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Teléfono *</label>
-                        <input type="tel" id="customer-phone" class="form-input" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Email (opcional)</label>
-                        <input type="email" id="customer-email" class="form-input">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Dirección completa *</label>
-                        <input type="text" id="customer-address" class="form-input" required placeholder="Ej: Carrera 5 # 25-30, Casa azul">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Barrio *</label>
-                        <select id="customer-neighborhood" class="form-input" required>
-                            <option value="">Selecciona tu barrio</option>
-                            <!-- Se llenan dinámicamente -->
-                        </select>
-                        <div id="delivery-cost-info" style="margin-top: 0.5rem;"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Método de pago *</label>
-                        <select id="payment-method" class="form-input" required>
-                            <option value="">Selecciona método de pago</option>
-                            <option value="Efectivo">Efectivo</option>
-                            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
-                            <option value="Nequi">Nequi</option>
-                            <option value="Daviplata">Daviplata</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Notas adicionales (opcional)</label>
-                        <textarea id="customer-notes" class="form-input" rows="3" placeholder="Instrucciones especiales para la entrega..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary btn-full-width">
-                        Continuar al resumen →
-                    </button>
-                </form>
-            </div>
-
-            <!-- Paso 2: Confirmación -->
-            <div id="step-2" class="checkout-step" style="display: none;">
-                <div style="margin-bottom: 1.5rem;">
-                    <h4>📋 Resumen del Pedido</h4>
-                    
-                    <div style="background: #f9fafb; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0;">
-                        <h5>👤 Información del Cliente</h5>
-                        <p><strong>Nombre:</strong> <span id="summary-name"></span></p>
-                        <p><strong>Teléfono:</strong> <span id="summary-phone"></span></p>
-                        <p><strong>Email:</strong> <span id="summary-email"></span></p>
-                        <p><strong>Dirección:</strong> <span id="summary-address"></span></p>
-                        <p><strong>Método de pago:</strong> <span id="summary-payment"></span></p>
-                        <div id="summary-notes-wrapper" style="display: none;">
-                            <p><strong>Notas:</strong> <span id="summary-notes"></span></p>
+            <div class="modal-body">
+                <!-- Formulario de Login -->
+                <div id="login-form" class="auth-form">
+                    <h3>Iniciar Sesión</h3>
+                    <form onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="login-email">Correo electrónico</label>
+                            <input type="email" id="login-email" name="email" required>
                         </div>
-                    </div>
+                        
+                        <div class="form-group">
+                            <label for="login-password">Contraseña</label>
+                            <input type="password" id="login-password" name="password" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">
+                            🔑 Iniciar Sesión
+                        </button>
+                    </form>
                     
-                    <div style="background: #f9fafb; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0;">
-                        <h5>🛍️ Productos</h5>
-                        <div id="checkout-items">
-                            <!-- Se llenan dinámicamente -->
-                        </div>
-                    </div>
-                    
-                    <div style="background: #dcfce7; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0;">
-                        <div class="cart-total-row">
-                            <span>Subtotal productos:</span>
-                            <span id="checkout-subtotal">$0</span>
-                        </div>
-                        <div class="cart-total-row">
-                            <span>Costo de domicilio:</span>
-                            <span id="checkout-delivery">$0</span>
-                        </div>
-                        <div class="cart-total-row" style="border-top: 1px solid #16a34a; padding-top: 0.5rem; font-weight: 600; color: #16a34a;">
-                            <span>TOTAL:</span>
-                            <span id="checkout-total">$0</span>
-                        </div>
-                    </div>
+                    <p class="auth-switch">
+                        ¿No tienes cuenta? 
+                        <a href="#" onclick="showRegisterForm()">Regístrate aquí</a>
+                    </p>
                 </div>
                 
-                <div style="display: flex; gap: 0.5rem;">
-                    <button onclick="goToStep1()" class="btn btn-secondary">← Editar</button>
-                    <button onclick="finalizeOrder()" class="btn btn-primary" style="flex: 1;">Confirmar Pedido ✅</button>
-                </div>
-            </div>
-
-            <!-- Paso 3: Pedido Confirmado -->
-            <div id="step-3" class="checkout-step" style="display: none;">
-                <div class="text-center">
-                    <div style="font-size: 4rem; margin-bottom: 1rem;">✅</div>
-                    <h3 style="color: #16a34a; margin-bottom: 1rem;">¡Pedido Confirmado!</h3>
-                    <p>Tu pedido ha sido procesado exitosamente. Recibirás:</p>
+                <!-- Formulario de Registro -->
+                <div id="register-form" class="auth-form hidden">
+                    <h3>Crear Cuenta</h3>
+                    <form onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label for="register-name">Nombre completo</label>
+                            <input type="text" id="register-name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-email">Correo electrónico</label>
+                            <input type="email" id="register-email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-phone">Teléfono</label>
+                            <input type="tel" id="register-phone" name="phone" required placeholder="+57 300 123 4567">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-password">Contraseña</label>
+                            <input type="password" id="register-password" name="password" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">
+                            👤 Crear Cuenta
+                        </button>
+                    </form>
                     
-                    <div style="background: #f0f9ff; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; text-align: left;">
-                        <h4>📱 En tu WhatsApp:</h4>
-                        <ul style="margin: 0.5rem 0;">
-                            <li>✅ Factura completa del pedido</li>
-                            <li>🔐 Código QR de validación</li>
-                            <li>📞 Confirmación telefónica</li>
-                        </ul>
-                    </div>
-                    
-                    <div style="background: #fef3c7; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0;">
-                        <h4>⏰ Tiempo de entrega estimado:</h4>
-                        <p style="font-weight: 600; font-size: 1.1rem;">30 - 75 minutos</p>
-                    </div>
-                    
-                    <p style="font-size: 0.9rem; color: #6b7280; margin-top: 1rem;">
-                        Esta ventana se cerrará automáticamente en unos segundos...
+                    <p class="auth-switch">
+                        ¿Ya tienes cuenta? 
+                        <a href="#" onclick="showLoginForm()">Inicia sesión aquí</a>
                     </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ==================== LOGIN MODAL ==================== -->
-    <div id="login-modal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Iniciar Sesión</h3>
-                <button onclick="closeLogin()" class="btn btn-ghost">✕</button>
+    <!-- ========== SIDEBAR DE CARRITO ========== -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h2>🛒 Tu Carrito</h2>
+            <button class="cart-close" onclick="closeCart()" data-action="close">✕</button>
+        </div>
+        
+        <div class="cart-body" id="cart-items">
+            <div class="cart-empty">
+                <p>Tu carrito está vacío</p>
+                <p>¡Agrega algunos productos frescos!</p>
             </div>
-
-            <!-- Login Form -->
-            <div id="login-form">
-                <form onsubmit="handleLogin(event)">
-                    <div class="form-group">
-                        <label class="form-label">Correo electrónico</label>
-                        <input type="email" name="email" required class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Contraseña</label>
-                        <input type="password" name="password" required class="form-input">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-full-width">
-                        Iniciar Sesión
-                    </button>
-                </form>
-                <p class="form-switch-text">
-                    ¿No tienes cuenta? 
-                    <button onclick="showRegisterForm()" class="form-switch-link">
-                        Regístrate aquí
-                    </button>
-                </p>
+        </div>
+        
+        <div class="cart-footer">
+            <div class="cart-total">
+                <div class="total-line">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">$0</span>
+                </div>
             </div>
-
-            <!-- Register Form -->
-            <div id="register-form" class="hidden">
-                <form onsubmit="handleRegister(event)">
-                    <div class="form-group">
-                        <label class="form-label">Nombre completo</label>
-                        <input type="text" name="name" required class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Correo electrónico</label>
-                        <input type="email" name="email" required class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Teléfono</label>
-                        <input type="tel" name="phone" required class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Contraseña</label>
-                        <input type="password" name="password" required class="form-input">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-full-width">
-                        Registrarse
-                    </button>
-                </form>
-                <p class="form-switch-text">
-                    ¿Ya tienes cuenta? 
-                    <button onclick="showLoginForm()" class="form-switch-link">
-                        Inicia sesión aquí
-                    </button>
-                </p>
+            
+            <div class="cart-actions">
+                <button class="btn btn-secondary" onclick="continueShopping()">
+                    🛒 Seguir comprando
+                </button>
+                <button class="btn btn-primary" onclick="openCheckout()">
+                    🚀 Finalizar compra
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- ==================== OVERLAY ==================== -->
-    <div id="overlay" class="overlay hidden" onclick="closeAll()"></div>
+    <!-- ========== MODAL DE CHECKOUT CON WHATSAPP ========== -->
+    <div id="checkout-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="checkout-title">Finalizar Pedido</h2>
+                <button class="modal-close" onclick="closeCheckout()" data-action="close">✕</button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- PASO 1: Información de entrega -->
+                <div id="step-1" class="checkout-step">
+                    <h3>📋 Información de Entrega</h3>
+                    <form id="checkout-form" class="checkout-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="customer-name">Nombre completo *</label>
+                                <input type="text" id="customer-name" name="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="customer-phone">Teléfono *</label>
+                                <input type="tel" id="customer-phone" name="phone" required placeholder="+57 300 123 4567">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="customer-whatsapp">WhatsApp (para recibir QR) *</label>
+                                <input type="tel" id="customer-whatsapp" name="whatsapp" required placeholder="+57 300 123 4567">
+                                <small>Te enviaremos tu código QR de validación a este número</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="customer-email">Correo electrónico</label>
+                                <input type="email" id="customer-email" name="email" placeholder="opcional">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="customer-address">Dirección específica *</label>
+                                <input type="text" id="customer-address" name="address" required placeholder="Ej: Carrera 5 # 23-45, Casa blanca">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="customer-neighborhood">Barrio *</label>
+                                <select id="customer-neighborhood" name="neighborhood" required>
+                                    <option value="">Selecciona tu barrio</option>
+                                    <!-- Se llena dinámicamente con JavaScript -->
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="payment-method">Método de pago *</label>
+                                <select id="payment-method" name="payment" required>
+                                    <option value="">Selecciona método de pago</option>
+                                    <option value="Efectivo">Efectivo contra entrega</option>
+                                    <option value="Transferencia">Transferencia bancaria</option>
+                                    <option value="Nequi">Nequi</option>
+                                    <option value="Daviplata">Daviplata</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="customer-notes">Notas adicionales</label>
+                                <textarea id="customer-notes" name="notes" placeholder="Instrucciones especiales para la entrega..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- Información de costo de envío -->
+                        <div id="delivery-cost-info"></div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="continueShopping()">
+                                🛒 Seguir comprando
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="goToStep2()">
+                                ➡️ Continuar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- PASO 2: Confirmación de pedido -->
+                <div id="step-2" class="checkout-step" style="display: none;">
+                    <h3>✅ Confirmar Pedido</h3>
+                    
+                    <!-- Resumen del cliente -->
+                    <div class="order-summary">
+                        <h4>📝 Datos de entrega</h4>
+                        <div class="summary-info">
+                            <p><strong>Cliente:</strong> <span id="summary-name"></span></p>
+                            <p><strong>Teléfono:</strong> <span id="summary-phone"></span></p>
+                            <p><strong>WhatsApp:</strong> <span id="summary-whatsapp"></span></p>
+                            <p><strong>Email:</strong> <span id="summary-email"></span></p>
+                            <p><strong>Dirección:</strong> <span id="summary-address"></span></p>
+                            <p><strong>Método de pago:</strong> <span id="summary-payment"></span></p>
+                            <div id="summary-notes-wrapper" style="display: none;">
+                                <p><strong>Notas:</strong> <span id="summary-notes"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Productos del pedido -->
+                    <div class="order-items">
+                        <h4>🛍️ Productos</h4>
+                        <div id="checkout-items"></div>
+                    </div>
+                    
+                    <!-- Totales -->
+                    <div class="order-totals">
+                        <div class="total-line">
+                            <span>Subtotal productos:</span>
+                            <span id="checkout-subtotal">$0</span>
+                        </div>
+                        <div class="total-line">
+                            <span>Costo de domicilio:</span>
+                            <span id="checkout-delivery">$0</span>
+                        </div>
+                        <div class="total-line total-final">
+                            <span><strong>TOTAL A PAGAR:</strong></span>
+                            <span><strong id="checkout-total">$0</strong></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="goToStep1()">
+                            ⬅️ Volver
+                        </button>
+                        <button type="button" class="btn btn-success" onclick="finalizeOrder()">
+                            🚀 Finalizar Pedido
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- PASO 3: Pedido enviado -->
+                <div id="step-3" class="checkout-step" style="display: none;">
+                    <div class="success-message">
+                        <div class="success-icon">✅</div>
+                        <h3>¡Pedido Enviado Exitosamente!</h3>
+                        <p>Tu pedido ha sido enviado al equipo del Mercado de Quibdó.</p>
+                        <p><strong>¿Qué sigue?</strong></p>
+                        <ul class="success-steps">
+                            <li>📱 Recibirás tu código QR en WhatsApp</li>
+                            <li>📞 Te contactaremos para confirmar detalles</li>
+                            <li>🚚 Preparamos y enviamos tu pedido</li>
+                            <li>🏠 Recibes productos frescos en casa</li>
+                        </ul>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary" onclick="closeCheckout(); continueShopping();">
+                                🛒 Seguir comprando
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- ==================== NOTIFICATION ==================== -->
-    <div id="notification" class="notification"></div>
+    <!-- Overlay para modales -->
+    <div id="overlay" class="overlay hidden"></div>
 
-    <!-- ==================== SCROLL TO TOP BUTTON ==================== -->
-    <button id="scroll-top-btn" class="scroll-top-btn hidden" onclick="scrollToTop()">
+    <!-- Botón de scroll to top -->
+    <button id="scroll-top" class="scroll-top hidden" onclick="scrollToTop()">
         ⬆️
     </button>
 
-    <!-- ==================== JAVASCRIPT ENLAZADO ==================== -->
+    <!-- ==================== JAVASCRIPT ==================== -->
     <script src="agro.js"></script>
+    <script>
+        // Inicializar la aplicación cuando se carga la página
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+    </script>
 </body>
 </html>

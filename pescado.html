@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐟 Pescados Frescos - Agro Mercado Digital de Quibdó</title>
+    <meta name="description" content="Pescados frescos del Atrato y Pacífico chocoano. Bocachico, camarones, bagre, corvina y más. Domicilios en Quibdó.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐟</text></svg>">
+    <link rel="stylesheet" href="agro.css">
+    <script src="agro.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">🌱</div>
+                    <div class="logo-text">
+                        <h1>Agro Mercado Quibdó</h1>
+                        <p>Pescados Frescos</p>
+                    </div>
+                </a>
+                
+                <nav class="nav">
+                    <a href="index.html" class="btn btn-ghost">← Volver al Inicio</a>
+                    <a href="frutas.html" class="btn btn-ghost">🍌 Frutas</a>
+                    <a href="verduras.html" class="btn btn-ghost">🥬 Verduras</a>
+                    <a href="granos.html" class="btn btn-ghost">🌾 Granos</a>
+                    <a href="especias.html" class="btn btn-ghost">🌿 Especias</a>
+                    <a href="lacteos.html" class="btn btn-ghost">🧀 Lácteos</a>
+                </nav>
+                
+                <div class="user-cart-section">
+                    <button class="btn btn-ghost" id="user-btn">
+                        <span>👤</span>
+                        <span class="user-text">Cuenta</span>
+                    </button>
+                    
+                    <button class="btn btn-primary cart-button" id="cart-btn">
+                        <span>🛒</span>
+                        <span>Carrito</span>
+                        <span class="cart-count" id="cart-counter">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section de Pescados -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>🐟 Pescados Frescos del Atrato y Pacífico</h1>
+                    <p>
+                        Los pescados más frescos de las aguas chocoanas.<br>
+                        Pescados artesanalmente en la madrugada y entregados el mismo día.
+                    </p>
+                    
+                    <div class="hero-features">
+                        <div class="hero-feature">
+                            <span>🌊</span>
+                            <span>Pesca Artesanal</span>
+                        </div>
+                        <div class="hero-feature">
+                            <span>🎣</span>
+                            <span>Pescado en la Madrugada</span>
+                        </div>
+                        <div class="hero-feature">
+                            <span>❄️</span>
+                            <span>Cadena de Frío</span>
+                        </div>
+                        <div class="hero-feature">
+                            <span>🚤</span>
+                            <span>Pescadores Locales</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <img src="https://images.unsplash.com/photo-1674066620896-04c854bada51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080" 
+                 alt="Pescados frescos del Chocó" class="hero-bg">
+        </section>
+
+        <!-- Productos de Pescados -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span>🐟</span>
+                        Nuestros Pescados Frescos
+                        <span>🦐</span>
+                    </h2>
+                    <p class="section-description">
+                        Más de 16 variedades de pescados frescos del río Atrato y el Pacífico chocoano, 
+                        pescados con técnicas artesanales y mantenidos en cadena de frío.
+                    </p>
+                </div>
+
+                <!-- Grid de productos - se llena dinámicamente -->
+                <div class="products-grid" id="pescados-grid">
+                    <!-- Los productos se cargan con JavaScript -->
+                </div>
+
+                <div class="text-center" style="margin-top: 3rem;">
+                    <img src="https://images.unsplash.com/photo-1674066620896-04c854bada51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080" 
+                         alt="Variedad de pescados frescos" class="category-image">
+                </div>
+            </div>
+        </section>
+
+        <!-- Información sobre los Pescados -->
+        <section class="section section-categories">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">🌊 Beneficios de Nuestros Pescados</h2>
+                    <p class="section-description">
+                        Conoce las propiedades nutricionales de los pescados del Atrato y Pacífico
+                    </p>
+                </div>
+
+                <div class="service-info-grid">
+                    <div class="service-info-card">
+                        <h4>🐟 Bocachico del Atrato</h4>
+                        <p>Rico en proteínas y omega 3. Pescado tradicional perfecto para sudao y sancocho.</p>
+                    </div>
+                    <div class="service-info-card">
+                        <h4>🦐 Camarones del Pacífico</h4>
+                        <p>Alto contenido en proteínas magras y selenio. Ideales para encocados y arroces.</p>
+                    </div>
+                    <div class="service-info-card">
+                        <h4>🐠 Corvina Dorada</h4>
+                        <p>Carne blanca rica en fósforo y vitaminas del complejo B. Excelente a la plancha.</p>
+                    </div>
+                    <div class="service-info-card">
+                        <h4>🍤 Langostinos Grandes</h4>
+                        <p>Delicia marina baja en grasa y alta en proteínas. Perfect para ocasiones especiales.</p>
+                    </div>
+                </div>
+
+                <div class="how-it-works">
+                    <h3>🎣 Proceso de Pesca Artesanal</h3>
+                    <div class="step-container">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Pesca artesanal en la madrugada (4:00 AM)</div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Conservación inmediata en cadena de frío</div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Transporte refrigerado a la ciudad</div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number final">4</div>
+                            <div class="step-text">Entrega fresca el mismo día de la pesca</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Otras Categorías -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">🛒 Explora Otras Categorías</h2>
+                    <p class="section-description">
+                        Complementa tu pescado con otros productos frescos del Chocó
+                    </p>
+                </div>
+
+                <div class="categories-grid">
+                    <a href="frutas.html" class="category-card">
+                        <div class="category-emoji">🍌</div>
+                        <h3>Frutas Tropicales</h3>
+                        <p>Frutas frescas y dulces del Pacífico</p>
+                    </a>
+
+                    <a href="verduras.html" class="category-card">
+                        <div class="category-emoji">🥬</div>
+                        <h3>Verduras Frescas</h3>
+                        <p>Verduras cultivadas localmente con amor</p>
+                    </a>
+
+                    <a href="granos.html" class="category-card">
+                        <div class="category-emoji">🌾</div>
+                        <h3>Granos y Cereales</h3>
+                        <p>Base alimentaria tradicional del Chocó</p>
+                    </a>
+
+                    <a href="especias.html" class="category-card">
+                        <div class="category-emoji">🌿</div>
+                        <h3>Especias y Hierbas</h3>
+                        <p>Condimentos naturales llenos de sabor</p>
+                    </a>
+
+                    <a href="lacteos.html" class="category-card">
+                        <div class="category-emoji">🧀</div>
+                        <h3>Lácteos Artesanales</h3>
+                        <p>Quesos y lácteos hechos tradicionalmente</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo-container">
+                        <div class="footer-logo-icon">🌱</div>
+                        <div class="footer-logo-text">
+                            <h3>Agro Mercado Quibdó</h3>
+                            <p>Pescados del Atrato y Pacífico</p>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Los pescados más frescos de las aguas chocoanas. 
+                        Pesca artesanal y entrega el mismo día.
+                    </p>
+                    <img src="https://images.unsplash.com/photo-1544943910-4c1dc44aab44?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=250" 
+                         alt="Pescados frescos" class="footer-image">
+                </div>
+
+                <div>
+                    <h4>🐟 Nuestros Pescados</h4>
+                    <div class="footer-nav-buttons">
+                        <button class="btn btn-ghost footer-nav-btn" onclick="scrollToFish('bocachico')">Bocachico del Atrato</button>
+                        <button class="btn btn-ghost footer-nav-btn" onclick="scrollToFish('camarones')">Camarones Tigre</button>
+                        <button class="btn btn-ghost footer-nav-btn" onclick="scrollToFish('corvina')">Corvina Dorada</button>
+                        <button class="btn btn-ghost footer-nav-btn" onclick="scrollToFish('bagre')">Bagre Premium</button>
+                        <button class="btn btn-ghost footer-nav-btn" onclick="scrollToFish('langostinos')">Langostinos Grandes</button>
+                    </div>
+                </div>
+
+                <div>
+                    <h4>📞 Contacto Directo</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span>📱</span>
+                            <a href="https://wa.me/573226654844" class="contact-link">WhatsApp: +57 322 665 4844</a>
+                        </div>
+                        <div class="contact-item">
+                            <span>📧</span>
+                            <a href="mailto:alrxandermaturana76@gmail.com" class="contact-link">Email: alrxandermaturana76@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <span>📍</span>
+                            <span class="contact-link">Quibdó, Chocó - Colombia</span>
+                        </div>
+                        <div class="contact-item">
+                            <span>🚚</span>
+                            <span class="contact-link">Entrega en cadena de frío</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4>⏰ Horarios de Pesca</h4>
+                    <div class="schedule-info">
+                        <div class="schedule-item">
+                            <span class="schedule-day">Pesca:</span>
+                            <span class="schedule-time">4:00 AM - 7:00 AM</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span class="schedule-day">Entrega:</span>
+                            <span class="schedule-time">9:00 AM - 6:00 PM</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span class="schedule-day">Disponibilidad:</span>
+                            <span class="schedule-time">Lunes a Sábado</span>
+                        </div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=200" 
+                         alt="Pesca artesanal" class="schedule-image">
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Agro Mercado Digital de Quibdó - Pescados Frescos. Todos los derechos reservados.</p>
+                <p>Desarrollado con ❤️ por Luis Alexander, Edith Yaritza y Jhorfanys Andrea</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>🛒 Carrito de Pescados</h3>
+            <button class="btn btn-ghost" id="cart-close">&times;</button>
+        </div>
+        
+        <div class="cart-content">
+            <div id="cart-items">
+                <div id="cart-empty" class="text-center" style="padding: 2rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🐟</div>
+                    <h4>Tu carrito está vacío</h4>
+                    <p>Agrega algunos pescados frescos del Atrato y Pacífico</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cart-footer" id="cart-summary" style="display: none;">
+            <div class="cart-total">
+                <div class="cart-total-row">
+                    <p>Subtotal:</p>
+                    <p id="subtotal-amount">$0</p>
+                </div>
+                <p class="cart-shipping-note">❄️ Entrega en cadena de frío garantizada</p>
+            </div>
+            <button class="btn btn-primary btn-checkout" onclick="openCheckout()">
+                Proceder al pago
+            </button>
+            <button class="btn-continue-shopping" onclick="closeCart()">
+                Continuar comprando
+            </button>
+        </div>
+    </div>
+
+    <!-- Modals and overlays -->
+    <div class="overlay" id="overlay"></div>
+    <div class="notification" id="notification"></div>
+    <button class="scroll-top-btn" id="scroll-to-top" style="display: none;">↑</button>
+
+    <script src="agro.js"></script>
+    <script>
+        // Specific script for fish page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render only fish products
+            const pescadosProducts = getProductsByCategory('Pescados');
+            renderProducts(pescadosProducts, 'pescados-grid');
+            
+            // Update page title
+            document.title = `🐟 Pescados Frescos (${pescadosProducts.length} productos) - Agro Mercado Digital de Quibdó`;
+        });
+
+        // Function to scroll to specific fish type
+        function scrollToFish(fishType) {
+            document.getElementById('pescados-grid').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

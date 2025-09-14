@@ -1,11 +1,15 @@
-// ===== AGRO MERCADO DIGITAL DE QUIBDÓ - JAVASCRIPT COMPLETO =====
-// Sistema completo con facturación automática, QR y notificaciones
-// JavaScript Puro - Diseño moderno y responsivo
+// ===== AGRO MERCADO DIGITAL DE QUIBDÓ - JAVASCRIPT COMPLETO FUNCIONAL =====
+// Sistema completo con facturación automática, QR, checkout y notificaciones
+// JavaScript puro con todas las funcionalidades, botones corregidos y carrito mejorado
+// Adaptado para todas las subpáginas con estilos consistentes
 
-// ===== CONFIGURACIÓN DEL SISTEMA =====
+console.log('🚀 Iniciando Mercado de Quibdó - Versión Completa Funcional y Estilizada');
+
+// ===== CONFIGURACIÓN DEL SISTEMA ACTUALIZADA =====
 const CONFIG = {
-  whatsapp: '+573226654844',
-  email: 'alrxandermaturana76@gmail.com',
+  whatsapp: '+573226654844',           // WhatsApp del negocio desde HTML
+  whatsappBusiness: '+573226654844',   // Número principal de negocio
+  email: 'alrxandermaturana76@gmail.com', // Email principal desde HTML
   creadores: [
     'Luis Alexander',
     'Edith Yaritza', 
@@ -30,7 +34,7 @@ const CONFIG = {
   ]
 };
 
-// ===== DATOS DE PRODUCTOS DEL MERCADO DE QUIBDÓ =====
+// ===== DATOS COMPLETOS DE PRODUCTOS DEL MERCADO DE QUIBDÓ =====
 const sampleProducts = [
     {
         id: '1',
@@ -102,7 +106,7 @@ const sampleProducts = [
         expirationDate: '2024-09-20',
         location: 'Plantación Palmira',
         description: 'Coco verde fresco con agua natural. Ideal para refrescarse y cocinar.',
-        inStock: false
+        inStock: true
     },
     {
         id: '7',
@@ -211,7 +215,7 @@ const sampleProducts = [
         description: 'Queso fresco costeño artesanal, ideal para arepas, sancocho y desayunos típicos.',
         inStock: true
     },
-    // ===== PRODUCTOS ADICIONALES (SE MUESTRAN EN SUBPÁGINAS) =====
+    // ===== PRODUCTOS ADICIONALES =====
     {
         id: '16',
         name: 'Aguacate Lorena',
@@ -354,44 +358,216 @@ function getCurrentDate() {
   });
 }
 
-// ===== FUNCIONES DE PRODUCTOS =====
-function getAllProducts() {
-  return sampleProducts;
+// ===== FUNCIONES DE NOTIFICACIÓN =====
+function showNotification(message, type = 'info') {
+  console.log(`📢 Notificación ${type}: ${message}`);
+  
+  // Remover notificación existente
+  const existingNotification = document.getElementById('notification');
+  if (existingNotification) {
+    existingNotification.remove();
+  }
+  
+  // Crear nueva notificación
+  const notification = document.createElement('div');
+  notification.id = 'notification';
+  notification.className = `notification ${type}`;
+  notification.textContent = message;
+  
+  // Estilos específicos según tipo
+  const colors = {
+    success: { bg: '#16a34a', color: 'white' },
+    error: { bg: '#dc2626', color: 'white' },
+    info: { bg: '#2563eb', color: 'white' }
+  };
+  
+  const style = colors[type] || colors.info;
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    background: ${style.bg};
+    color: ${style.color};
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    font-weight: 500;
+    max-width: 300px;
+  `;
+  
+  document.body.appendChild(notification);
+  
+  // Animar entrada
+  setTimeout(() => {
+    notification.style.transform = 'translateX(0)';
+  }, 100);
+  
+  // Remover después de 3 segundos
+  setTimeout(() => {
+    notification.style.transform = 'translateX(100%)';
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+      }
+    }, 300);
+  }, 3000);
 }
 
-function getFeaturedProducts() {
-  // Solo los primeros 15 productos para productos destacados
-  return sampleProducts.slice(0, 15);
+// ===== FUNCIONES DE MODAL =====
+function openLogin() {
+  console.log('🔐 Abriendo modal de login');
+  
+  const loginModal = document.getElementById('login-modal');
+  const overlay = document.getElementById('overlay');
+  
+  if (loginModal) {
+    loginModal.classList.remove('hidden');
+    loginModal.classList.add('show');
+    loginModal.style.display = 'flex';
+    console.log('✅ Modal de login abierto');
+  } else {
+    console.error('❌ No se encontró el modal de login con ID: login-modal');
+    showNotification('Error: No se pudo abrir el login', 'error');
+    return;
+  }
+  
+  if (overlay) {
+    overlay.classList.remove('hidden');
+    overlay.classList.add('show');
+    overlay.style.display = 'block';
+  } else {
+    console.warn('⚠️ No se encontró overlay');
+  }
+  
+  // Mostrar formulario de login por defecto
+  showLoginForm();
+  showNotification('Modal de login abierto', 'info');
 }
 
-function getProductsByCategory(category) {
-  return sampleProducts.filter(product => product.category === category);
+function closeLogin() {
+  console.log('🔐 Cerrando modal de login');
+  
+  const loginModal = document.getElementById('login-modal');
+  const overlay = document.getElementById('overlay');
+  
+  if (loginModal) {
+    loginModal.classList.add('hidden');
+    loginModal.classList.remove('show');
+    loginModal.style.display = 'none';
+  }
+  
+  if (overlay) {
+    overlay.classList.add('hidden');
+    overlay.classList.remove('show');
+    overlay.style.display = 'none';
+  }
+  
+  console.log('✅ Modal de login cerrado');
 }
 
-function getProductsWithDiscounts() {
-  return sampleProducts.filter(product => product.originalPrice);
+function showLoginForm() {
+  console.log('📝 Mostrando formulario de login');
+  
+  const loginForm = document.getElementById('login-form');
+  const registerForm = document.getElementById('register-form');
+  
+  if (loginForm) {
+    loginForm.classList.remove('hidden');
+    loginForm.style.display = 'block';
+  }
+  
+  if (registerForm) {
+    registerForm.classList.add('hidden');
+    registerForm.style.display = 'none';
+  }
 }
 
-function getProductById(id) {
-  return sampleProducts.find(product => product.id === id);
+function showRegisterForm() {
+  console.log('📝 Mostrando formulario de registro');
+  
+  const loginForm = document.getElementById('login-form');
+  const registerForm = document.getElementById('register-form');
+  
+  if (loginForm) {
+    loginForm.classList.add('hidden');
+    loginForm.style.display = 'none';
+  }
+  
+  if (registerForm) {
+    registerForm.classList.remove('hidden');
+    registerForm.style.display = 'block';
+  }
 }
 
 // ===== FUNCIONES DE CARRITO =====
+function openCart() {
+  console.log('🛒 Abriendo carrito');
+  
+  const cartSidebar = document.getElementById('cart-sidebar');
+  const overlay = document.getElementById('overlay');
+  
+  if (cartSidebar) {
+    cartSidebar.classList.add('open');
+    console.log('✅ Carrito abierto');
+  } else {
+    console.error('❌ No se encontró el carrito con ID: cart-sidebar');
+    showNotification('Error: No se pudo abrir el carrito', 'error');
+    return;
+  }
+  
+  if (overlay) {
+    overlay.classList.remove('hidden');
+    overlay.classList.add('show');
+    overlay.style.display = 'block';
+  }
+  
+  updateCartDisplay();
+  showNotification('Carrito abierto', 'info');
+}
+
+function closeCart() {
+  console.log('🛒 Cerrando carrito');
+  
+  const cartSidebar = document.getElementById('cart-sidebar');
+  const overlay = document.getElementById('overlay');
+  
+  if (cartSidebar) {
+    cartSidebar.classList.remove('open');
+  }
+  
+  if (overlay) {
+    overlay.classList.add('hidden');
+    overlay.classList.remove('show');
+    overlay.style.display = 'none';
+  }
+  
+  console.log('✅ Carrito cerrado');
+}
+
 function addToCart(productData) {
-  console.log('Agregando producto al carrito:', productData);
+  console.log('🛒 Agregando producto al carrito:', productData);
   
   let product;
   
   // Si productData es un string (ID), buscar el producto
   if (typeof productData === 'string') {
-    product = getProductById(productData);
+    product = sampleProducts.find(p => p.id === productData);
   } else {
     // Si es un objeto, usarlo directamente
     product = productData;
   }
   
-  if (!product || !product.inStock) {
-    showNotification('Producto no disponible', 'error');
+  if (!product) {
+    console.error('❌ Producto no encontrado:', productData);
+    showNotification('Producto no encontrado', 'error');
+    return;
+  }
+  
+  if (!product.inStock) {
+    showNotification('Producto sin stock', 'error');
     return;
   }
   
@@ -399,7 +575,7 @@ function addToCart(productData) {
   
   if (existingItem) {
     existingItem.quantity += 1;
-    console.log('Producto existente, nueva cantidad:', existingItem.quantity);
+    console.log('✅ Cantidad actualizada:', existingItem.quantity);
   } else {
     const newItem = {
       id: product.id,
@@ -410,14 +586,13 @@ function addToCart(productData) {
       quantity: 1
     };
     cart.push(newItem);
-    console.log('Nuevo producto agregado:', newItem);
+    console.log('✅ Nuevo producto agregado:', newItem);
   }
   
   saveCart();
   updateCartCounter();
   updateCartDisplay();
   showNotification(`${product.name} agregado al carrito`, 'success');
-  console.log('Carrito actual:', cart);
 }
 
 function updateQuantity(productId, quantity) {
@@ -440,6 +615,7 @@ function removeFromCart(productId) {
   saveCart();
   updateCartDisplay();
   updateCartCounter();
+  showNotification('Producto eliminado del carrito', 'info');
 }
 
 function clearCart() {
@@ -447,6 +623,7 @@ function clearCart() {
   saveCart();
   updateCartDisplay();
   updateCartCounter();
+  showNotification('Carrito vaciado', 'info');
 }
 
 function calculateSubtotal() {
@@ -467,101 +644,11 @@ function calculateTotal(neighborhood) {
   };
 }
 
-// ===== FUNCIONES DE ALMACENAMIENTO =====
-function saveCart() {
-  localStorage.setItem('agro-mercado-cart', JSON.stringify(cart));
-}
-
-function loadCart() {
-  const savedCart = localStorage.getItem('agro-mercado-cart');
-  if (savedCart) {
-    cart = JSON.parse(savedCart);
-    updateCartCounter();
-  }
-}
-
-function saveUser(userData) {
-  localStorage.setItem('agro-mercado-user', JSON.stringify(userData));
-  user = userData;
-}
-
-function loadUser() {
-  const savedUser = localStorage.getItem('agro-mercado-user');
-  if (savedUser) {
-    user = JSON.parse(savedUser);
-    updateUserDisplay();
-  }
-}
-
-// ===== FUNCIONES DE INTERFAZ =====
-function showNotification(message, type = 'info') {
-  // Remover notificación existente si hay una
-  const existingNotification = document.getElementById('notification');
-  if (existingNotification) {
-    existingNotification.remove();
-  }
-  
-  // Crear nueva notificación
-  const notification = document.createElement('div');
-  notification.id = 'notification';
-  notification.className = `notification ${type}`;
-  notification.textContent = message;
-  
-  // Estilos en línea para garantizar funcionamiento
-  notification.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 1rem 1.5rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    font-weight: 500;
-    max-width: 300px;
-  `;
-  
-  // Colores según tipo
-  switch (type) {
-    case 'success':
-      notification.style.background = '#16a34a';
-      notification.style.color = 'white';
-      break;
-    case 'error':
-      notification.style.background = '#dc2626';
-      notification.style.color = 'white';
-      break;
-    case 'info':
-    default:
-      notification.style.background = '#2563eb';
-      notification.style.color = 'white';
-      break;
-  }
-  
-  document.body.appendChild(notification);
-  
-  // Animar entrada
-  setTimeout(() => {
-    notification.style.transform = 'translateX(0)';
-  }, 100);
-  
-  // Remover después de 3 segundos
-  setTimeout(() => {
-    notification.style.transform = 'translateX(100%)';
-    setTimeout(() => {
-      if (notification.parentNode) {
-        notification.parentNode.removeChild(notification);
-      }
-    }, 300);
-  }, 3000);
-}
-
 function updateCartCounter() {
   const counter = document.getElementById('cart-count');
   if (counter) {
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    console.log('Total items en carrito:', totalItems);
+    console.log('🔢 Total items en carrito:', totalItems);
     
     if (totalItems > 0) {
       counter.textContent = totalItems;
@@ -574,12 +661,336 @@ function updateCartCounter() {
   }
 }
 
+function updateCartDisplay() {
+  console.log('🔄 Actualizando display del carrito - Versión mejorada');
+  
+  // Buscar múltiples posibles contenedores para mayor compatibilidad
+  const possibleContainers = [
+    document.getElementById('cart-items'),
+    document.getElementById('cart-body'),
+    document.querySelector('.cart-content'),
+    document.querySelector('.cart-sidebar .cart-content'),
+    document.querySelector('#cart-sidebar .cart-content')
+  ];
+  
+  let itemsContainer = possibleContainers.find(container => container !== null);
+  
+  // Si no encuentra contenedor, crear uno dinámicamente
+  if (!itemsContainer) {
+    const cartSidebar = document.getElementById('cart-sidebar');
+    if (cartSidebar) {
+      const cartContent = cartSidebar.querySelector('.cart-content') || cartSidebar;
+      cartContent.innerHTML = `
+        <div class="cart-header" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid #e5e7eb; background: #f9fafb;">
+          <h2 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #374151;">🛒 Mi Carrito</h2>
+          <button class="cart-close" onclick="closeCart()" style="background: none; border: none; font-size: 1.25rem; color: #6b7280; cursor: pointer; width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; border-radius: 0.25rem;">✕</button>
+        </div>
+        <div class="cart-items-wrapper" style="flex: 1; overflow-y: auto; padding: 1rem;">
+          <div id="cart-items"></div>
+          <div class="cart-empty" style="display: none; text-align: center; padding: 3rem 1rem; color: #6b7280;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🛒</div>
+            <p style="margin-bottom: 0.5rem; font-weight: 500;">Tu carrito está vacío</p>
+            <p style="margin: 0; font-size: 0.875rem;">¡Agrega algunos productos frescos!</p>
+          </div>
+        </div>
+        <div class="cart-footer" style="display: none; padding: 1rem; border-top: 1px solid #e5e7eb; background: #f9fafb;">
+          <div class="cart-summary" style="margin-bottom: 1rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span style="color: #6b7280;">Subtotal:</span>
+              <span id="cart-subtotal" style="font-weight: 600;">$0</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 1.125rem; color: #16a34a; border-top: 1px solid #e5e7eb; padding-top: 0.5rem;">
+              <span>Total:</span>
+              <span id="cart-total">$0</span>
+            </div>
+          </div>
+          <div class="cart-actions" style="display: flex; gap: 0.5rem;">
+            <button onclick="continueShopping()" class="btn-secondary" style="flex: 1; padding: 0.75rem; border: 1px solid #d1d5db; background: white; color: #374151; border-radius: 0.5rem; cursor: pointer; font-weight: 500; transition: all 0.2s ease;">
+              🛍️ Seguir comprando
+            </button>
+            <button onclick="openCheckout()" class="btn-primary" style="flex: 2; padding: 0.75rem; background: #16a34a; color: white; border: none; border-radius: 0.5rem; cursor: pointer; font-weight: 500; transition: all 0.2s ease;">
+              💳 Proceder al Checkout
+            </button>
+          </div>
+          <button onclick="clearCart()" style="width: 100%; margin-top: 0.5rem; padding: 0.5rem; background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; border-radius: 0.5rem; cursor: pointer; font-size: 0.875rem; transition: all 0.2s ease;">
+            🗑️ Vaciar carrito
+          </button>
+        </div>
+      `;
+      itemsContainer = document.getElementById('cart-items');
+    }
+  }
+  
+  if (!itemsContainer) {
+    console.error('❌ No se pudo crear el contenedor del carrito');
+    return;
+  }
+  
+  const emptyMessage = document.querySelector('.cart-empty');
+  const cartFooter = document.querySelector('.cart-footer');
+  const cartSubtotal = document.getElementById('cart-subtotal');
+  const cartTotal = document.getElementById('cart-total');
+  
+  if (cart.length === 0) {
+    itemsContainer.innerHTML = '';
+    if (emptyMessage) emptyMessage.style.display = 'block';
+    if (cartFooter) cartFooter.style.display = 'none';
+    return;
+  }
+  
+  if (emptyMessage) emptyMessage.style.display = 'none';
+  if (cartFooter) cartFooter.style.display = 'block';
+  
+  // Render cart items con estilos mejorados
+  itemsContainer.innerHTML = cart.map(item => `
+    <div class="cart-item" style="
+      display: flex; 
+      gap: 1rem; 
+      padding: 1rem; 
+      border: 1px solid #e5e7eb; 
+      border-radius: 0.75rem; 
+      margin-bottom: 0.75rem; 
+      align-items: center;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+    ">
+      <img 
+        src="${item.image}" 
+        alt="${item.name}" 
+        style="
+          width: 70px; 
+          height: 70px; 
+          object-fit: cover; 
+          border-radius: 0.5rem; 
+          flex-shrink: 0;
+          border: 2px solid #f3f4f6;
+        "
+      >
+      
+      <div class="cart-item-info" style="flex: 1; min-width: 0;">
+        <h4 style="
+          font-weight: 600; 
+          margin-bottom: 0.25rem; 
+          overflow: hidden; 
+          text-overflow: ellipsis; 
+          white-space: nowrap;
+          color: #374151;
+          font-size: 0.95rem;
+        ">${item.name}</h4>
+        <p style="
+          color: #16a34a; 
+          font-weight: 600; 
+          margin: 0;
+          font-size: 0.875rem;
+        ">${formatPrice(item.price)} c/u</p>
+        <span style="
+          color: #6b7280; 
+          font-size: 0.75rem;
+        ">${item.category || 'Producto'}</span>
+      </div>
+      
+      <div class="cart-controls" style="
+        display: flex; 
+        align-items: center; 
+        gap: 0.5rem;
+        background: #f9fafb;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        border: 1px solid #e5e7eb;
+      ">
+        <button 
+          class="quantity-btn" 
+          onclick="updateQuantity('${item.id}', ${item.quantity - 1})" 
+          style="
+            width: 2rem; 
+            height: 2rem; 
+            border-radius: 50%; 
+            background: #f3f4f6; 
+            border: 1px solid #d1d5db; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer;
+            font-weight: 600;
+            color: #374151;
+            transition: all 0.2s ease;
+          "
+          onmouseover="this.style.background='#e5e7eb'"
+          onmouseout="this.style.background='#f3f4f6'"
+        >−</button>
+        
+        <span style="
+          min-width: 2.5rem; 
+          text-align: center; 
+          font-weight: 600;
+          color: #16a34a;
+          background: white;
+          padding: 0.25rem 0.5rem;
+          border-radius: 0.25rem;
+          border: 1px solid #16a34a;
+        ">${item.quantity}</span>
+        
+        <button 
+          class="quantity-btn" 
+          onclick="updateQuantity('${item.id}', ${item.quantity + 1})" 
+          style="
+            width: 2rem; 
+            height: 2rem; 
+            border-radius: 50%; 
+            background: #16a34a; 
+            border: 1px solid #16a34a; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+            transition: all 0.2s ease;
+          "
+          onmouseover="this.style.background='#059669'"
+          onmouseout="this.style.background='#16a34a'"
+        >+</button>
+      </div>
+      
+      <div style="text-align: right; min-width: 70px;">
+        <div style="
+          font-weight: 600; 
+          color: #16a34a;
+          font-size: 0.95rem;
+          margin-bottom: 0.25rem;
+        ">
+          ${formatPrice(item.price * item.quantity)}
+        </div>
+        <button 
+          onclick="removeFromCart('${item.id}')" 
+          style="
+            background: #fef2f2; 
+            color: #dc2626; 
+            border: 1px solid #fecaca; 
+            border-radius: 0.375rem; 
+            padding: 0.25rem 0.5rem;
+            cursor: pointer; 
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+          "
+          onmouseover="this.style.background='#fee2e2'"
+          onmouseout="this.style.background='#fef2f2'"
+          title="Eliminar producto"
+        >🗑️ Quitar</button>
+      </div>
+    </div>
+  `).join('');
+  
+  // Update totals
+  const subtotal = calculateSubtotal();
+  if (cartSubtotal) cartSubtotal.textContent = formatPrice(subtotal);
+  if (cartTotal) cartTotal.textContent = formatPrice(subtotal);
+  
+  console.log('✅ Display del carrito actualizado con estilos mejorados');
+}
+
+function saveCart() {
+  localStorage.setItem('agro-mercado-cart', JSON.stringify(cart));
+  console.log('💾 Carrito guardado en localStorage');
+}
+
+function loadCart() {
+  const savedCart = localStorage.getItem('agro-mercado-cart');
+  if (savedCart) {
+    cart = JSON.parse(savedCart);
+    updateCartCounter();
+    console.log('📂 Carrito cargado desde localStorage:', cart.length, 'items');
+  }
+}
+
+// ===== FUNCIONES DE MANEJO DE FORMULARIOS =====
+function handleLogin(event) {
+  event.preventDefault();
+  
+  const formData = new FormData(event.target);
+  const email = formData.get('email');
+  const password = formData.get('password');
+  
+  console.log('🔐 Procesando login para:', email);
+  
+  if (!email || !password) {
+    showNotification('Por favor completa todos los campos', 'error');
+    return;
+  }
+  
+  // Simular login exitoso
+  const userData = {
+    id: generateId(),
+    name: email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1),
+    email: email,
+    loginDate: new Date().toISOString()
+  };
+  
+  user = userData;
+  localStorage.setItem('agro-mercado-user', JSON.stringify(userData));
+  
+  console.log('✅ Login exitoso:', userData);
+  closeLogin();
+  showNotification('Sesión iniciada correctamente', 'success');
+  updateUserDisplay();
+}
+
+function handleRegister(event) {
+  event.preventDefault();
+  
+  const formData = new FormData(event.target);
+  const name = formData.get('name');
+  const email = formData.get('email');
+  const phone = formData.get('phone');
+  const password = formData.get('password');
+  
+  console.log('📝 Procesando registro para:', name);
+  
+  if (!name || !email || !phone || !password) {
+    showNotification('Por favor completa todos los campos', 'error');
+    return;
+  }
+  
+  if (password.length < 6) {
+    showNotification('La contraseña debe tener al menos 6 caracteres', 'error');
+    return;
+  }
+  
+  // Simular registro exitoso
+  const userData = {
+    id: generateId(),
+    name: name,
+    email: email,
+    phone: phone,
+    registerDate: new Date().toISOString()
+  };
+  
+  user = userData;
+  localStorage.setItem('agro-mercado-user', JSON.stringify(userData));
+  
+  console.log('✅ Registro exitoso:', userData);
+  closeLogin();
+  showNotification('Cuenta creada exitosamente', 'success');
+  updateUserDisplay();
+}
+
+function logout() {
+  console.log('🚪 Cerrando sesión');
+  
+  user = null;
+  localStorage.removeItem('agro-mercado-user');
+  updateUserDisplay();
+  showNotification('Sesión cerrada correctamente', 'info');
+}
+
 function updateUserDisplay() {
   const userSection = document.getElementById('user-section');
   const loginBtn = document.getElementById('login-btn');
   const userName = document.getElementById('user-name');
   
-  console.log('Actualizando display de usuario:', user);
+  console.log('👤 Actualizando display de usuario:', user);
   
   if (user && userSection && loginBtn && userName) {
     userName.textContent = user.name.split(' ')[0];
@@ -587,14 +998,49 @@ function updateUserDisplay() {
     userSection.style.display = 'flex';
     loginBtn.classList.add('hidden');
     loginBtn.style.display = 'none';
-    console.log('Usuario mostrado:', user.name);
   } else if (userSection && loginBtn) {
     userSection.classList.add('hidden');
     userSection.style.display = 'none';
     loginBtn.classList.remove('hidden');
     loginBtn.style.display = 'flex';
-    console.log('Botón de login mostrado');
   }
+}
+
+// ===== FUNCIONES DE NAVEGACIÓN =====
+function navigateToSection(sectionId) {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+    console.log('🧭 Navegando a sección:', sectionId);
+  } else {
+    console.warn('⚠️ Sección no encontrada:', sectionId);
+  }
+}
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  console.log('🔝 Scrolling to top');
+}
+
+// ===== FUNCIONES DE PRODUCTOS =====
+function getAllProducts() {
+  return sampleProducts;
+}
+
+function getFeaturedProducts() {
+  return sampleProducts.slice(0, 15);
+}
+
+function getProductsByCategory(category) {
+  return sampleProducts.filter(product => product.category === category);
+}
+
+function getProductsWithDiscounts() {
+  return sampleProducts.filter(product => product.originalPrice);
+}
+
+function getProductById(id) {
+  return sampleProducts.find(product => product.id === id);
 }
 
 // ===== FUNCIONES DE RENDERIZADO =====
@@ -697,113 +1143,558 @@ function resetCategoryFilter() {
   if (resetBtn) resetBtn.style.display = 'none';
 }
 
-// ===== FUNCIONES DE NAVEGACIÓN =====
-function navigateToSection(sectionId) {
-  const element = document.getElementById(sectionId);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
-  }
-}
-
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// ===== FUNCIONES DE CARRITO SIDEBAR =====
-function openCart() {
-  const cartSidebar = document.getElementById('cart-sidebar');
-  const overlay = document.getElementById('overlay');
-  
-  if (cartSidebar) cartSidebar.classList.add('open');
-  if (overlay) overlay.classList.remove('hidden');
-  updateCartDisplay();
-}
-
-function closeCart() {
-  const cartSidebar = document.getElementById('cart-sidebar');
-  const overlay = document.getElementById('overlay');
-  
-  if (cartSidebar) cartSidebar.classList.remove('open');
-  if (overlay) overlay.classList.add('hidden');
-}
-
-function updateCartDisplay() {
-  const cartItems = document.getElementById('cart-items');
-  const cartFooter = document.getElementById('cart-footer');
-  const emptyCart = document.getElementById('empty-cart');
-  
-  if (!cartItems) return;
-  
-  if (cart.length === 0) {
-    if (emptyCart) emptyCart.style.display = 'block';
-    if (cartFooter) cartFooter.classList.add('hidden');
-    cartItems.innerHTML = '';
-    return;
-  }
-  
-  if (emptyCart) emptyCart.style.display = 'none';
-  if (cartFooter) cartFooter.classList.remove('hidden');
-  
-  // Render cart items
-  cartItems.innerHTML = cart.map(item => `
-    <div class="cart-item">
-      <img src="${item.image}" alt="${item.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 0.5rem;">
-      
-      <div class="cart-item-info">
-        <h4 class="cart-item-name">${item.name}</h4>
-        <p class="cart-item-price">${formatPrice(item.price)}</p>
-      </div>
-      
-      <div class="cart-controls">
-        <button class="cart-btn" onclick="updateQuantity('${item.id}', ${item.quantity - 1})">
-          −
-        </button>
-        <span class="quantity-display">${item.quantity}</span>
-        <button class="cart-btn" onclick="updateQuantity('${item.id}', ${item.quantity + 1})">
-          +
-        </button>
-        <button class="cart-btn" onclick="removeFromCart('${item.id}')" style="margin-left: 0.5rem; background: #dc2626;">
-          🗑️
-        </button>
-      </div>
-      
-      <div class="cart-item-total">
-        ${formatPrice(item.price * item.quantity)}
-      </div>
-    </div>
-  `).join('');
-  
-  // Update summary
-  const subtotal = calculateSubtotal();
-  const subtotalAmount = document.getElementById('cart-total-amount');
-  if (subtotalAmount) subtotalAmount.textContent = formatPrice(subtotal);
-}
-
 // ===== FUNCIONES DE CHECKOUT =====
 function openCheckout() {
+  console.log('💳 Abriendo checkout mejorado');
+  
   if (cart.length === 0) {
     showNotification('Tu carrito está vacío', 'error');
     return;
   }
   
-  closeCart();
-  const checkoutModal = document.getElementById('checkout-modal');
-  const overlay = document.getElementById('overlay');
+  // Si no hay usuario, solicitar login primero
+  if (!user) {
+    showNotification('Por favor inicia sesión para continuar con tu pedido', 'info');
+    closeCart();
+    openLogin();
+    return;
+  }
   
-  if (checkoutModal) checkoutModal.classList.add('show');
-  if (overlay) overlay.classList.remove('hidden');
+  closeCart();
+  
+  // Crear o encontrar modal de checkout
+  let checkoutModal = document.getElementById('checkout-modal');
+  let overlay = document.getElementById('overlay');
+  
+  // Si no existe, crear modal dinámicamente
+  if (!checkoutModal) {
+    createCheckoutModal();
+    checkoutModal = document.getElementById('checkout-modal');
+  }
+  
+  // Si no existe overlay, crearlo
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'overlay';
+    overlay.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 40;
+      display: none;
+    `;
+    document.body.appendChild(overlay);
+    
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) {
+        closeCheckout();
+      }
+    });
+  }
+  
+  if (checkoutModal) {
+    checkoutModal.classList.add('show');
+    checkoutModal.style.display = 'flex';
+    console.log('✅ Modal de checkout abierto');
+  }
+  
+  if (overlay) {
+    overlay.classList.remove('hidden');
+    overlay.style.display = 'block';
+  }
+  
   initializeCheckout();
 }
 
+function createCheckoutModal() {
+  console.log('🏗️ Creando modal de checkout dinámicamente');
+  
+  const checkoutHTML = `
+    <div id="checkout-modal" class="modal" style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 70;
+      padding: 1rem;
+    ">
+      <div class="checkout-content" style="
+        background: white;
+        border-radius: 1rem;
+        width: 100%;
+        max-width: 600px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      ">
+        <!-- Header -->
+        <div class="checkout-header" style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1.5rem;
+          border-bottom: 1px solid #e5e7eb;
+          background: linear-gradient(135deg, #16a34a, #059669);
+          color: white;
+          border-radius: 1rem 1rem 0 0;
+        ">
+          <h2 id="checkout-title" style="margin: 0; font-size: 1.25rem; font-weight: 600;">
+            📋 Información de Entrega
+          </h2>
+          <button onclick="closeCheckout()" style="
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: all 0.2s ease;
+          ">✕</button>
+        </div>
+        
+        <!-- Progress Indicator -->
+        <div class="progress-indicator" style="
+          display: flex;
+          justify-content: center;
+          padding: 1rem;
+          background: #f9fafb;
+          border-bottom: 1px solid #e5e7eb;
+        ">
+          <div class="progress-steps" style="display: flex; gap: 1rem; align-items: center;">
+            <div class="step active" style="
+              width: 2rem;
+              height: 2rem;
+              border-radius: 50%;
+              background: #16a34a;
+              color: white;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-weight: 600;
+              font-size: 0.875rem;
+            ">1</div>
+            <div style="width: 2rem; height: 2px; background: #e5e7eb;"></div>
+            <div class="step" style="
+              width: 2rem;
+              height: 2rem;
+              border-radius: 50%;
+              background: #e5e7eb;
+              color: #6b7280;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-weight: 600;
+              font-size: 0.875rem;
+            ">2</div>
+            <div style="width: 2rem; height: 2px; background: #e5e7eb;"></div>
+            <div class="step" style="
+              width: 2rem;
+              height: 2rem;
+              border-radius: 50%;
+              background: #e5e7eb;
+              color: #6b7280;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-weight: 600;
+              font-size: 0.875rem;
+            ">3</div>
+          </div>
+        </div>
+        
+        <!-- Content -->
+        <div class="checkout-body" style="padding: 1.5rem;">
+          <!-- Step 1: Customer Information -->
+          <div id="step-1" class="checkout-step">
+            <div style="margin-bottom: 1.5rem;">
+              <h3 style="margin-bottom: 0.5rem; color: #374151; font-size: 1.125rem;">
+                👤 Información Personal
+              </h3>
+              <p style="color: #6b7280; font-size: 0.875rem; margin: 0;">
+                Completa tus datos para el envío
+              </p>
+            </div>
+            
+            <form id="checkout-form" style="display: grid; gap: 1rem;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">
+                    Nombre completo *
+                  </label>
+                  <input 
+                    type="text" 
+                    id="customer-name" 
+                    required
+                    style="
+                      width: 100%;
+                      padding: 0.75rem;
+                      border: 1px solid #d1d5db;
+                      border-radius: 0.5rem;
+                      font-size: 0.875rem;
+                      transition: all 0.2s ease;
+                      box-sizing: border-box;
+                    "
+                  >
+                </div>
+                <div class="form-group">
+                  <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">
+                    Email (opcional)
+                  </label>
+                  <input 
+                    type="email" 
+                    id="customer-email"
+                    style="
+                      width: 100%;
+                      padding: 0.75rem;
+                      border: 1px solid #d1d5db;
+                      border-radius: 0.5rem;
+                      font-size: 0.875rem;
+                      transition: all 0.2s ease;
+                      box-sizing: border-box;
+                    "
+                  >
+                </div>
+              </div>
+              
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">
+                    Teléfono *
+                  </label>
+                  <input 
+                    type="tel" 
+                    id="customer-phone" 
+                    required
+                    placeholder="+57 300 123 4567"
+                    style="
+                      width: 100%;
+                      padding: 0.75rem;
+                      border: 1px solid #d1d5db;
+                      border-radius: 0.5rem;
+                      font-size: 0.875rem;
+                      transition: all 0.2s ease;
+                      box-sizing: border-box;
+                    "
+                  >
+                </div>
+                <div class="form-group">
+                  <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">
+                    WhatsApp para QR *
+                  </label>
+                  <input 
+                    type="tel" 
+                    id="customer-whatsapp" 
+                    required
+                    placeholder="+57 300 123 4567"
+                    style="
+                      width: 100%;
+                      padding: 0.75rem;
+                      border: 1px solid #d1d5db;
+                      border-radius: 0.5rem;
+                      font-size: 0.875rem;
+                      transition: all 0.2s ease;
+                      box-sizing: border-box;
+                    "
+                  >
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">
+                  Dirección completa *
+                </label>
+                <input 
+                  type="text" 
+                  id="customer-address" 
+                  required
+                  placeholder="Ej: Calle 25 #15-30, Casa azul"
+                  style="
+                    width: 100%;
+                    padding: 0.75rem;
+                    border: 1px solid #d1d5db;
+                    border-radius: 0.5rem;
+                    font-size: 0.875rem;
+                    transition: all 0.2s ease;
+                    box-sizing: border-box;
+                  "
+                >
+              </div>
+              
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">
+                    Barrio *
+                  </label>
+                  <select 
+                    id="customer-neighborhood" 
+                    required
+                    style="
+                      width: 100%;
+                      padding: 0.75rem;
+                      border: 1px solid #d1d5db;
+                      border-radius: 0.5rem;
+                      font-size: 0.875rem;
+                      transition: all 0.2s ease;
+                      box-sizing: border-box;
+                      background: white;
+                    "
+                  >
+                    <option value="">Selecciona tu barrio</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">
+                    Método de pago *
+                  </label>
+                  <select 
+                    id="payment-method" 
+                    required
+                    style="
+                      width: 100%;
+                      padding: 0.75rem;
+                      border: 1px solid #d1d5db;
+                      border-radius: 0.5rem;
+                      font-size: 0.875rem;
+                      transition: all 0.2s ease;
+                      box-sizing: border-box;
+                      background: white;
+                    "
+                  >
+                    <option value="">Selecciona método</option>
+                    <option value="Efectivo">💵 Efectivo</option>
+                    <option value="Transferencia">📱 Transferencia</option>
+                    <option value="Nequi">📲 Nequi</option>
+                    <option value="Daviplata">🏦 Daviplata</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">
+                  Notas adicionales (opcional)
+                </label>
+                <textarea 
+                  id="customer-notes" 
+                  rows="3"
+                  placeholder="Instrucciones especiales, referencias del lugar, etc."
+                  style="
+                    width: 100%;
+                    padding: 0.75rem;
+                    border: 1px solid #d1d5db;
+                    border-radius: 0.5rem;
+                    font-size: 0.875rem;
+                    transition: all 0.2s ease;
+                    box-sizing: border-box;
+                    resize: vertical;
+                  "
+                ></textarea>
+              </div>
+              
+              <div id="delivery-cost-info" style="margin-top: 1rem;">
+                <!-- Se llena dinámicamente -->
+              </div>
+            </form>
+            
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+              <button onclick="closeCheckout()" style="
+                flex: 1;
+                padding: 0.75rem;
+                border: 1px solid #d1d5db;
+                background: white;
+                color: #374151;
+                border-radius: 0.5rem;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.2s ease;
+              ">
+                ← Cancelar
+              </button>
+              <button onclick="goToStep2()" style="
+                flex: 2;
+                padding: 0.75rem;
+                background: #16a34a;
+                color: white;
+                border: none;
+                border-radius: 0.5rem;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.2s ease;
+              ">
+                Continuar → 
+              </button>
+            </div>
+          </div>
+          
+          <!-- Step 2: Order Summary -->
+          <div id="step-2" class="checkout-step" style="display: none;">
+            <div style="margin-bottom: 1.5rem;">
+              <h3 style="margin-bottom: 0.5rem; color: #374151; font-size: 1.125rem;">
+                📋 Confirmación de Pedido
+              </h3>
+              <p style="color: #6b7280; font-size: 0.875rem; margin: 0;">
+                Revisa tu pedido antes de confirmar
+              </p>
+            </div>
+            
+            <!-- Customer Info Summary -->
+            <div style="background: #f9fafb; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem;">
+              <h4 style="margin-bottom: 0.5rem; color: #374151;">👤 Datos de entrega</h4>
+              <div style="font-size: 0.875rem; color: #6b7280; line-height: 1.5;">
+                <div><strong>Nombre:</strong> <span id="summary-name"></span></div>
+                <div><strong>Teléfono:</strong> <span id="summary-phone"></span></div>
+                <div><strong>WhatsApp:</strong> <span id="summary-whatsapp"></span></div>
+                <div><strong>Email:</strong> <span id="summary-email"></span></div>
+                <div><strong>Dirección:</strong> <span id="summary-address"></span></div>
+                <div><strong>Pago:</strong> <span id="summary-payment"></span></div>
+                <div id="summary-notes-wrapper" style="display: none;">
+                  <strong>Notas:</strong> <span id="summary-notes"></span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Order Items -->
+            <div style="margin-bottom: 1rem;">
+              <h4 style="margin-bottom: 0.5rem; color: #374151;">🛍️ Productos</h4>
+              <div id="checkout-items" style="max-height: 200px; overflow-y: auto;">
+                <!-- Se llena dinámicamente -->
+              </div>
+            </div>
+            
+            <!-- Order Totals -->
+            <div style="background: #f0f9ff; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <span>Subtotal productos:</span>
+                <span id="checkout-subtotal">$0</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <span>Costo de domicilio:</span>
+                <span id="checkout-delivery">$0</span>
+              </div>
+              <div style="
+                display: flex; 
+                justify-content: space-between; 
+                border-top: 2px solid #16a34a; 
+                padding-top: 0.5rem; 
+                font-weight: 600; 
+                color: #16a34a;
+                font-size: 1.125rem;
+              ">
+                <span>TOTAL:</span>
+                <span id="checkout-total">$0</span>
+              </div>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+              <button onclick="goToStep1()" style="
+                flex: 1;
+                padding: 0.75rem;
+                border: 1px solid #d1d5db;
+                background: white;
+                color: #374151;
+                border-radius: 0.5rem;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.2s ease;
+              ">
+                ← Editar
+              </button>
+              <button onclick="finalizeOrder()" style="
+                flex: 2;
+                padding: 0.75rem;
+                background: #16a34a;
+                color: white;
+                border: none;
+                border-radius: 0.5rem;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.2s ease;
+              ">
+                🚀 Confirmar Pedido
+              </button>
+            </div>
+          </div>
+          
+          <!-- Step 3: Order Sent -->
+          <div id="step-3" class="checkout-step" style="display: none;">
+            <div style="text-align: center; padding: 2rem;">
+              <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+              <h3 style="margin-bottom: 1rem; color: #16a34a;">¡Pedido Enviado!</h3>
+              <p style="color: #6b7280; margin-bottom: 2rem;">
+                Tu pedido ha sido procesado exitosamente. Hemos enviado toda la información 
+                a nuestro equipo y tu código QR de validación a tu WhatsApp.
+              </p>
+              <div style="background: #f0f9ff; border-radius: 0.5rem; padding: 1rem; margin-bottom: 2rem;">
+                <p style="margin: 0; font-size: 0.875rem; color: #374151;">
+                  ⏰ <strong>Tiempo estimado de entrega:</strong> 30-75 minutos<br>
+                  📱 <strong>Seguimiento:</strong> Recibirás un código QR en tu WhatsApp<br>
+                  💳 <strong>Pago:</strong> Al momento de la entrega
+                </p>
+              </div>
+              <button onclick="closeCheckout()" style="
+                background: #16a34a;
+                color: white;
+                border: none;
+                padding: 1rem 2rem;
+                border-radius: 0.5rem;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.2s ease;
+              ">
+                🏠 Volver al inicio
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  document.body.insertAdjacentHTML('beforeend', checkoutHTML);
+  console.log('✅ Modal de checkout creado dinámicamente');
+}
+
 function closeCheckout() {
+  console.log('💳 Cerrando checkout');
+  
   const checkoutModal = document.getElementById('checkout-modal');
   const overlay = document.getElementById('overlay');
   
-  if (checkoutModal) checkoutModal.classList.remove('show');
-  if (overlay) overlay.classList.add('hidden');
+  if (checkoutModal) {
+    checkoutModal.classList.remove('show');
+    checkoutModal.style.display = 'none';
+  }
+  
+  if (overlay) {
+    overlay.classList.add('hidden');
+    overlay.style.display = 'none';
+  }
 }
 
 function initializeCheckout() {
+  // Pre-llenar datos del usuario si existe
+  if (user) {
+    const nameField = document.getElementById('customer-name');
+    const emailField = document.getElementById('customer-email');
+    const phoneField = document.getElementById('customer-phone');
+    
+    if (nameField && user.name) nameField.value = user.name;
+    if (emailField && user.email) emailField.value = user.email;
+    if (phoneField && user.phone) phoneField.value = user.phone;
+  }
+  
   // Fill neighborhood select
   const neighborhoodSelect = document.getElementById('customer-neighborhood');
   if (neighborhoodSelect) {
@@ -886,6 +1777,7 @@ function validateStep1() {
   const fields = [
     { id: 'customer-name', name: 'nombre' },
     { id: 'customer-phone', name: 'teléfono' },
+    { id: 'customer-whatsapp', name: 'WhatsApp del cliente' },
     { id: 'customer-address', name: 'dirección' },
     { id: 'customer-neighborhood', name: 'barrio' },
     { id: 'payment-method', name: 'método de pago' }
@@ -913,6 +1805,16 @@ function validateStep1() {
     }
   }
   
+  // Validación específica del WhatsApp
+  const whatsappElement = document.getElementById('customer-whatsapp');
+  if (whatsappElement && whatsappElement.value.trim()) {
+    const whatsapp = whatsappElement.value.trim();
+    if (whatsapp.length < 10 || !/^\d+$/.test(whatsapp.replace(/[\s\-\+\(\)]/g, ''))) {
+      showNotification('Por favor ingresa un número de WhatsApp válido', 'error');
+      valid = false;
+    }
+  }
+  
   if (!valid && firstErrorField) {
     firstErrorField.focus();
   }
@@ -927,12 +1829,14 @@ function calculateAndShowSummary() {
   // Update customer info
   const summaryName = document.getElementById('summary-name');
   const summaryPhone = document.getElementById('summary-phone');
+  const summaryWhatsapp = document.getElementById('summary-whatsapp');
   const summaryEmail = document.getElementById('summary-email');
   const summaryAddress = document.getElementById('summary-address');
   const summaryPayment = document.getElementById('summary-payment');
   
   if (summaryName) summaryName.textContent = document.getElementById('customer-name')?.value || '';
   if (summaryPhone) summaryPhone.textContent = document.getElementById('customer-phone')?.value || '';
+  if (summaryWhatsapp) summaryWhatsapp.textContent = document.getElementById('customer-whatsapp')?.value || '';
   if (summaryEmail) summaryEmail.textContent = document.getElementById('customer-email')?.value || 'No proporcionado';
   if (summaryAddress) summaryAddress.textContent = 
     `${document.getElementById('customer-address')?.value || ''}, ${neighborhood}`;
@@ -952,13 +1856,13 @@ function calculateAndShowSummary() {
   const checkoutItems = document.getElementById('checkout-items');
   if (checkoutItems) {
     checkoutItems.innerHTML = cart.map(item => `
-      <div class="checkout-item">
-        <img src="${item.image}" alt="${item.name}" class="checkout-item-image">
-        <div class="checkout-item-info">
-          <span class="checkout-item-name">${item.name}</span>
-          <span class="checkout-item-quantity">Cantidad: ${item.quantity}</span>
+      <div class="checkout-item" style="display: flex; align-items: center; gap: 1rem; padding: 0.75rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; margin-bottom: 0.5rem;">
+        <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 0.25rem;">
+        <div style="flex: 1; display: flex; flex-direction: column;">
+          <span style="font-weight: 600; margin-bottom: 0.25rem;">${item.name}</span>
+          <span style="font-size: 0.875rem; color: #6b7280;">Cantidad: ${item.quantity}</span>
         </div>
-        <span class="checkout-item-price">${formatPrice(item.price * item.quantity)}</span>
+        <span style="font-weight: 600; color: #16a34a;">${formatPrice(item.price * item.quantity)}</span>
       </div>
     `).join('');
   }
@@ -978,6 +1882,7 @@ function finalizeOrder() {
   const customerData = {
     name: document.getElementById('customer-name')?.value || '',
     phone: document.getElementById('customer-phone')?.value || '',
+    whatsapp: document.getElementById('customer-whatsapp')?.value || '',
     email: document.getElementById('customer-email')?.value || '',
     address: document.getElementById('customer-address')?.value || '',
     neighborhood: document.getElementById('customer-neighborhood')?.value || '',
@@ -990,8 +1895,8 @@ function finalizeOrder() {
 
 // ===== FUNCIONES DE PROCESAMIENTO DE PEDIDO =====
 function processOrder(customerData) {
-  console.log('Procesando pedido:', customerData);
-  console.log('Productos en carrito:', cart);
+  console.log('🔄 Procesando pedido:', customerData);
+  console.log('🛒 Productos en carrito:', cart);
   
   if (cart.length === 0) {
     showNotification('El carrito está vacío', 'error');
@@ -1006,23 +1911,23 @@ function processOrder(customerData) {
     number: invoiceNumber,
     date: getCurrentDate(),
     customer: customerData,
-    products: [...cart], // Copia del carrito
+    products: [...cart],
     totals: totals,
     qrCode: qrCode,
     fullAddress: `${customerData.address}, ${customerData.neighborhood}, Quibdó, Chocó`
   };
   
-  console.log('Orden creada:', order);
+  console.log('📋 Orden creada:', order);
   
   // Generate and open printable invoice
   generatePrintableInvoice(order);
   
-  // Send to WhatsApp (esperar un poco para que se abra la factura primero)
+  // Send to WhatsApp
   setTimeout(() => {
     sendWhatsApp(order);
   }, 1500);
   
-  // Send email (esperar un poco más)
+  // Send email
   setTimeout(() => {
     sendEmail(order);
   }, 3000);
@@ -1040,6 +1945,9 @@ function processOrder(customerData) {
 }
 
 function generatePrintableInvoice(order) {
+  const totalItems = order.products.reduce((sum, item) => sum + item.quantity, 0);
+  const totalProductTypes = order.products.length;
+  
   const invoiceHTML = `
   <!DOCTYPE html>
   <html>
@@ -1051,6 +1959,7 @@ function generatePrintableInvoice(order) {
           .logo { color: #16a34a; font-size: 24px; font-weight: bold; }
           .invoice-info { display: flex; justify-content: space-between; margin-bottom: 30px; }
           .customer-info, .delivery-info { background: #f9f9f9; padding: 15px; border-radius: 5px; width: 45%; }
+          .stats-section { background: #e6f7ff; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
           .items-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
           .items-table th, .items-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
           .items-table th { background-color: #16a34a; color: white; }
@@ -1076,10 +1985,18 @@ function generatePrintableInvoice(order) {
               <strong>ATENDIDO POR:</strong> ${CONFIG.creadores.join(', ')}
           </div>
           <div style="text-align: right;">
-              <strong>WhatsApp:</strong> ${CONFIG.whatsapp}<br>
+              <strong>WhatsApp Negocio:</strong> ${CONFIG.whatsappBusiness}<br>
+              <strong>WhatsApp Soporte:</strong> ${CONFIG.whatsapp}<br>
               <strong>Email:</strong> ${CONFIG.email}<br>
               <strong>Quibdó, Chocó - Colombia</strong>
           </div>
+      </div>
+
+      <div class="stats-section">
+          <h3>📊 RESUMEN DEL PEDIDO</h3>
+          <strong>Total productos: ${totalItems} unidades</strong> | 
+          <strong>Tipos diferentes: ${totalProductTypes}</strong> | 
+          <strong>Valor total: ${formatPrice(order.totals.total)}</strong>
       </div>
 
       <div class="invoice-info">
@@ -1087,6 +2004,7 @@ function generatePrintableInvoice(order) {
               <h3>INFORMACIÓN DEL CLIENTE</h3>
               <strong>Nombre:</strong> ${order.customer.name}<br>
               <strong>Teléfono:</strong> ${order.customer.phone}<br>
+              <strong>WhatsApp:</strong> ${order.customer.whatsapp}<br>
               ${order.customer.email ? `<strong>Email:</strong> ${order.customer.email}<br>` : ''}
               <strong>Método de Pago:</strong> ${order.customer.paymentMethod}
           </div>
@@ -1140,7 +2058,7 @@ function generatePrintableInvoice(order) {
           <h3>CÓDIGO DE VALIDACIÓN</h3>
           <div class="qr-code">${order.qrCode}</div>
           <p><strong>IMPORTANTE:</strong> Muestra este código al domiciliario para validar tu compra</p>
-          <p>Este código será enviado también a tu WhatsApp</p>
+          <p>Este código será enviado también a tu WhatsApp: ${order.customer.whatsapp}</p>
       </div>
 
       <div class="footer">
@@ -1172,67 +2090,139 @@ function generatePrintableInvoice(order) {
 }
 
 function sendWhatsApp(order) {
+  const totalItems = order.products.reduce((sum, item) => sum + item.quantity, 0);
+  const totalProductTypes = order.products.length;
+  
   const message = `
-🌱 *FACTURA AGRO MERCADO DE QUIBDÓ*
+🌱 *NUEVO PEDIDO - AGRO MERCADO DE QUIBDÓ*
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 📋 *Factura:* ${order.number}
 📅 *Fecha:* ${order.date}
+👥 *Atendido por:* ${CONFIG.creadores.join(', ')}
+
+📊 *RESUMEN DEL PEDIDO*
+🛍️ Total productos: *${totalItems} unidades*
+📦 Tipos de productos: *${totalProductTypes} diferentes*
+💰 Valor total: *${formatPrice(order.totals.total)}*
 
 👤 *DATOS DEL CLIENTE*
 • Nombre: ${order.customer.name}
 • Teléfono: ${order.customer.phone}
+• WhatsApp Cliente: ${order.customer.whatsapp}
 • Email: ${order.customer.email || 'No proporcionado'}
 
 📍 *DIRECCIÓN DE ENTREGA*
-${order.fullAddress}
+• Barrio: *${order.customer.neighborhood}*
+• Dirección: ${order.customer.address}
+• Ciudad: Quibdó, Chocó
 
-🛍️ *PRODUCTOS*
-${order.products.map(item => 
-  `• ${item.name}
-  Cantidad: ${item.quantity}
-  Precio unitario: ${formatPrice(item.price)}
-  Subtotal: ${formatPrice(item.price * item.quantity)}`
+🛍️ *DETALLE DE PRODUCTOS*
+${order.products.map((item, index) => 
+  `${index + 1}. *${item.name}*
+   📦 Cantidad: ${item.quantity}
+   💵 Precio unit: ${formatPrice(item.price)}
+   💰 Subtotal: ${formatPrice(item.price * item.quantity)}`
 ).join('\n\n')}
 
-💰 *RESUMEN DE COMPRA*
-• Subtotal: ${formatPrice(order.totals.subtotal)}
-• Domicilio: ${order.totals.delivery === 0 ? 'GRATIS' : formatPrice(order.totals.delivery)}
-• *TOTAL: ${formatPrice(order.totals.total)}*
+💰 *RESUMEN FINANCIERO*
+• Subtotal productos: ${formatPrice(order.totals.subtotal)}
+• Costo domicilio: ${order.totals.delivery === 0 ? 'GRATIS' : formatPrice(order.totals.delivery)}
+• *TOTAL A COBRAR: ${formatPrice(order.totals.total)}*
 
 💳 *Método de pago:* ${order.customer.paymentMethod}
 
-${order.customer.notes ? `📝 *Notas adicionales:* ${order.customer.notes}` : ''}
+${order.customer.notes ? `📝 *Notas del cliente:* ${order.customer.notes}` : ''}
 
-🔐 *CÓDIGO DE VALIDACIÓN QR:*
+🔐 *CÓDIGO QR PARA CLIENTE:*
 *${order.qrCode}*
 
-📋 *INSTRUCCIONES:*
-• Muestra este código al domiciliario para validar tu compra
-• Mantén tu teléfono disponible para coordinación
-• Tiempo estimado: ${order.customer.neighborhood === 'Centro' ? '30-45' : '45-75'} minutos
+📲 *INSTRUCCIONES:*
+1. Enviar código QR al WhatsApp del cliente: ${order.customer.whatsapp}
+2. Preparar pedido de ${totalItems} productos
+3. Tiempo estimado: ${order.customer.neighborhood === 'Centro' ? '30-45' : '45-75'} minutos
+4. Confirmar dirección al llegar
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-¡Gracias por tu compra! 🌱
-*Agro Mercado Digital de Quibdó*
+🌱 *Agro Mercado Digital de Quibdó*
+📱 WhatsApp: ${CONFIG.whatsappBusiness}
+📧 Email: ${CONFIG.email}
 Productos frescos del Pacífico colombiano
   `.trim();
   
   const encodedMessage = encodeURIComponent(message);
-  const whatsappUrl = `https://wa.me/${CONFIG.whatsapp.replace('+', '')}?text=${encodedMessage}`;
-  console.log('Enviando WhatsApp a:', CONFIG.whatsapp);
   
-  window.open(whatsappUrl, '_blank');
+  // Enviar al WhatsApp principal del negocio (del HTML)
+  const whatsappBusinessUrl = `https://wa.me/${CONFIG.whatsappBusiness.replace('+', '')}?text=${encodedMessage}`;
+  console.log('📱 Enviando WhatsApp al negocio:', CONFIG.whatsappBusiness);
+  
+  // Abrir WhatsApp del negocio principal
+  window.open(whatsappBusinessUrl, '_blank');
+  
+  // También enviar al WhatsApp de configuración (si es diferente)
+  if (CONFIG.whatsapp !== CONFIG.whatsappBusiness) {
+    setTimeout(() => {
+      const whatsappConfigUrl = `https://wa.me/${CONFIG.whatsapp.replace('+', '')}?text=${encodedMessage}`;
+      console.log('📱 Enviando también a WhatsApp alternativo:', CONFIG.whatsapp);
+      window.open(whatsappConfigUrl, '_blank');
+    }, 1000);
+  }
+  
+  // Después de 2 segundos, enviar QR al cliente
+  setTimeout(() => {
+    sendQRToCustomer(order);
+  }, 2000);
+}
+
+function sendQRToCustomer(order) {
+  const customerMessage = `
+🌱 *TU PEDIDO - MERCADO DE QUIBDÓ*
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+¡Hola ${order.customer.name}! 👋
+
+Tu pedido ha sido confirmado:
+📋 *Número:* ${order.number}
+🛍️ *Total productos:* ${order.products.reduce((sum, item) => sum + item.quantity, 0)} unidades
+💰 *Total a pagar:* *${formatPrice(order.totals.total)}*
+
+🔐 *TU CÓDIGO DE VALIDACIÓN:*
+*${order.qrCode}*
+
+📋 *IMPORTANTE:*
+• Muestra este código al domiciliario
+• Tiempo estimado: ${order.customer.neighborhood === 'Centro' ? '30-45' : '45-75'} minutos
+• Método de pago: ${order.customer.paymentMethod}
+
+¡Gracias por tu compra! 🌿
+*Agro Mercado Digital de Quibdó*
+  `.trim();
+  
+  const encodedCustomerMessage = encodeURIComponent(customerMessage);
+  const customerWhatsappUrl = `https://wa.me/${order.customer.whatsapp.replace('+', '')}?text=${encodedCustomerMessage}`;
+  
+  console.log('📱 Enviando QR al cliente:', order.customer.whatsapp);
+  window.open(customerWhatsappUrl, '_blank');
 }
 
 function sendEmail(order) {
-  const subject = encodeURIComponent(`💰 NUEVO INGRESO MONETARIO - Mercado Quibdó - ${formatPrice(order.totals.total)} - ${order.customer.name}`);
+  const totalItems = order.products.reduce((sum, item) => sum + item.quantity, 0);
+  const totalProductTypes = order.products.length;
+  
+  const subject = encodeURIComponent(`💰 NUEVO INGRESO - ${formatPrice(order.totals.total)} - ${totalItems} productos - ${order.customer.name} - ${order.customer.neighborhood}`);
   
   const body = `
 💰 REGISTRO DE INGRESO MONETARIO - MERCADO DE QUIBDÓ
 ═══════════════════════════════════════════════════
 
 🔔 NUEVO INGRESO REGISTRADO
+
+📊 RESUMEN EJECUTIVO:
+• Total productos vendidos: ${totalItems} unidades
+• Tipos de productos: ${totalProductTypes} diferentes
+• Valor total ingresado: ${formatPrice(order.totals.total)}
+• Barrio de entrega: ${order.customer.neighborhood}
+• Cliente: ${order.customer.name}
 
 📋 INFORMACIÓN DE LA VENTA:
 • Factura: ${order.number}
@@ -1242,11 +2232,12 @@ function sendEmail(order) {
 👤 DATOS DEL CLIENTE:
 • Nombre: ${order.customer.name}
 • Teléfono: ${order.customer.phone}
+• WhatsApp: ${order.customer.whatsapp}
 • Email: ${order.customer.email || 'No proporcionado'}
-• Dirección: ${order.fullAddress}
+• Dirección completa: ${order.fullAddress}
 • Método de pago: ${order.customer.paymentMethod}
 
-🛍️ PRODUCTOS VENDIDOS:
+🛍️ DETALLE DE PRODUCTOS VENDIDOS:
 ${order.products.map((item, index) => 
   `${index + 1}. ${item.name}
      - Cantidad: ${item.quantity}
@@ -1254,148 +2245,164 @@ ${order.products.map((item, index) =>
      - Subtotal: ${formatPrice(item.price * item.quantity)}`
 ).join('\n')}
 
-💵 RESUMEN FINANCIERO:
+💵 RESUMEN FINANCIERO DETALLADO:
 • Subtotal productos: ${formatPrice(order.totals.subtotal)}
 • Costo domicilio: ${order.totals.delivery === 0 ? 'GRATIS' : formatPrice(order.totals.delivery)}
 • TOTAL INGRESADO: ${formatPrice(order.totals.total)}
 
 🔐 CÓDIGO DE VALIDACIÓN QR: ${order.qrCode}
+📱 WhatsApp cliente para QR: ${order.customer.whatsapp}
+📱 WhatsApp negocio: ${CONFIG.whatsappBusiness}
 
-${order.customer.notes ? `📝 NOTAS ADICIONALES: ${order.customer.notes}` : ''}
+${order.customer.notes ? `📝 NOTAS DEL CLIENTE: ${order.customer.notes}` : ''}
 
 📊 DATOS PARA CONTABILIDAD:
 • Monto bruto: ${formatPrice(order.totals.total)}
 • Fecha contable: ${new Date().toLocaleDateString('es-CO')}
 • Método de pago: ${order.customer.paymentMethod}
 • Barrio entrega: ${order.customer.neighborhood}
+• Costo envío aplicado: ${order.totals.delivery === 0 ? '0' : formatPrice(order.totals.delivery)}
+
+📈 ESTADÍSTICAS DEL PEDIDO:
+• Cantidad total de productos: ${totalItems}
+• Productos únicos: ${totalProductTypes}
+• Promedio por producto: ${formatPrice(order.totals.subtotal / totalItems)}
+• Zona de entrega: ${order.customer.neighborhood}
 
 ═══════════════════════════════════════════════════
 🌱 Agro Mercado Digital de Quibdó
 📧 Sistema Automatizado de Registro de Ingresos
-📱 WhatsApp: ${CONFIG.whatsapp}
+📱 WhatsApp Negocio: ${CONFIG.whatsappBusiness}
+📱 WhatsApp Configuración: ${CONFIG.whatsapp}
+📱 WhatsApp Cliente: ${order.customer.whatsapp}
+📧 Email Principal: ${CONFIG.email}
   `.trim();
   
   const encodedBody = encodeURIComponent(body);
-  const emailUrl = `mailto:alrxandermaturana76@gmail.com?subject=${subject}&body=${encodedBody}`;
   
-  console.log('Enviando email de ingreso monetario a: alrxandermaturana76@gmail.com');
-  console.log('Monto total:', formatPrice(order.totals.total));
+  // Enviar al email principal del sistema (del HTML)
+  const emailUrl = `mailto:${CONFIG.email}?subject=${subject}&body=${encodedBody}`;
   
+  console.log('📧 Enviando email de ingreso monetario a:', CONFIG.email);
+  console.log('📊 Resumen del pedido:', {
+    total: formatPrice(order.totals.total),
+    productos: totalItems,
+    tipos: totalProductTypes,
+    barrio: order.customer.neighborhood,
+    cliente: order.customer.name,
+    whatsappNegocio: CONFIG.whatsappBusiness,
+    whatsappCliente: order.customer.whatsapp,
+    emailDestino: CONFIG.email
+  });
+  
+  // Abrir cliente de email con toda la información
   window.open(emailUrl, '_blank');
+  
+  // Mostrar confirmación de envío
+  setTimeout(() => {
+    showNotification(`Email de registro enviado a ${CONFIG.email}`, 'success');
+  }, 1000);
 }
 
-// ===== FUNCIONES DE LOGIN =====
-function openLogin() {
-  const loginModal = document.getElementById('login-modal');
-  const overlay = document.getElementById('overlay');
-  
-  if (loginModal) loginModal.classList.add('show');
-  if (overlay) overlay.classList.remove('hidden');
-}
-
-function closeLogin() {
-  const loginModal = document.getElementById('login-modal');
-  const overlay = document.getElementById('overlay');
-  
-  if (loginModal) loginModal.classList.remove('show');
-  if (overlay) overlay.classList.add('hidden');
-}
-
-function showLoginForm() {
-  const loginForm = document.getElementById('login-form');
-  const registerForm = document.getElementById('register-form');
-  
-  if (loginForm) loginForm.classList.remove('hidden');
-  if (registerForm) registerForm.classList.add('hidden');
-}
-
-function showRegisterForm() {
-  const loginForm = document.getElementById('login-form');
-  const registerForm = document.getElementById('register-form');
-  
-  if (loginForm) loginForm.classList.add('hidden');
-  if (registerForm) registerForm.classList.remove('hidden');
-}
-
-function handleLogin(event) {
-  event.preventDefault();
-  const formData = new FormData(event.target);
-  const email = formData.get('email');
-  const password = formData.get('password');
-  
-  console.log('Intentando login:', email);
-  
-  if (!email || !password) {
-    showNotification('Por favor completa todos los campos', 'error');
-    return;
-  }
-  
-  // Simulate login
-  const userData = {
-    id: generateId(),
-    name: email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1),
-    email: email,
-    loginDate: new Date().toISOString()
-  };
-  
-  console.log('Usuario creado:', userData);
-  saveUser(userData);
-  updateUserDisplay();
-  closeLogin();
-  showNotification('Sesión iniciada correctamente', 'success');
-}
-
-function handleRegister(event) {
-  event.preventDefault();
-  const formData = new FormData(event.target);
-  const name = formData.get('name');
-  const email = formData.get('email');
-  const phone = formData.get('phone');
-  const password = formData.get('password');
-  
-  console.log('Intentando registro:', { name, email, phone });
-  
-  if (!name || !email || !phone || !password) {
-    showNotification('Por favor completa todos los campos', 'error');
-    return;
-  }
-  
-  if (password.length < 6) {
-    showNotification('La contraseña debe tener al menos 6 caracteres', 'error');
-    return;
-  }
-  
-  // Simulate registration
-  const userData = {
-    id: generateId(),
-    name: name,
-    email: email,
-    phone: phone,
-    registerDate: new Date().toISOString()
-  };
-  
-  console.log('Usuario registrado:', userData);
-  saveUser(userData);
-  updateUserDisplay();
-  closeLogin();
-  showNotification('Cuenta creada exitosamente', 'success');
-}
-
-function logout() {
-  console.log('Cerrando sesión');
-  user = null;
-  localStorage.removeItem('agro-mercado-user');
-  updateUserDisplay();
-  showNotification('Sesión cerrada correctamente', 'info');
-}
-
+// ===== FUNCIONES DE CIERRE UNIVERSAL =====
 function closeAll() {
+  console.log('❌ Cerrando todos los modales');
+  closeLogin();
   closeCart();
   closeCheckout();
-  closeLogin();
+}
+
+// ===== CONFIGURACIÓN DE EVENT LISTENERS =====
+function setupEventListeners() {
+  console.log('🔧 Configurando event listeners...');
+  
+  // Configurar botón de login
+  const loginBtnSelectors = ['#login-btn', '.login-btn', '[data-action="login"]'];
+  
+  loginBtnSelectors.forEach(selector => {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(element => {
+      if (element) {
+        element.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('🔑 Click en botón de login');
+          openLogin();
+        });
+        console.log(`✅ Listener agregado a: ${selector}`);
+      }
+    });
+  });
+  
+  // Configurar botón de carrito
+  const cartBtnSelectors = ['#cart-btn', '.cart-button', '[data-action="cart"]'];
+  
+  cartBtnSelectors.forEach(selector => {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(element => {
+      if (element) {
+        element.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('🛒 Click en botón de carrito');
+          openCart();
+        });
+        console.log(`✅ Listener agregado a: ${selector}`);
+      }
+    });
+  });
+  
+  // Configurar botones de cerrar
+  const closeBtnSelectors = ['.modal-close', '[data-action="close"]', '.cart-close'];
+  
+  closeBtnSelectors.forEach(selector => {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(element => {
+      if (element) {
+        element.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('❌ Click en botón de cerrar');
+          closeAll();
+        });
+        console.log(`✅ Listener de cierre agregado a: ${selector}`);
+      }
+    });
+  });
+  
+  // Configurar overlay
+  const overlay = document.getElementById('overlay');
+  if (overlay) {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) {
+        console.log('🌫️ Click en overlay - cerrando modales');
+        closeAll();
+      }
+    });
+    console.log('✅ Overlay configurado');
+  }
+  
+  // Configurar tecla ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      console.log('⌨️ Tecla ESC presionada - cerrando modales');
+      closeAll();
+    }
+  });
+  
+  console.log('✅ Event listeners configurados completamente');
 }
 
 // ===== FUNCIONES DE INICIALIZACIÓN =====
+function loadUserData() {
+  const savedUser = localStorage.getItem('agro-mercado-user');
+  if (savedUser) {
+    user = JSON.parse(savedUser);
+    updateUserDisplay();
+    console.log('👤 Usuario cargado:', user.name);
+  }
+}
+
 function renderBarriosList() {
   const barriosList = document.getElementById('barrios-list');
   if (barriosList) {
@@ -1418,57 +2425,215 @@ function setupScrollToTop() {
     window.addEventListener('scroll', () => {
       if (window.pageYOffset > 400) {
         scrollBtn.classList.remove('hidden');
+        scrollBtn.style.display = 'block';
       } else {
         scrollBtn.classList.add('hidden');
+        scrollBtn.style.display = 'none';
       }
     });
   }
 }
 
+// ===== FUNCIÓN PARA CONTINUAR COMPRANDO =====
+function continueShopping() {
+  console.log('🛒 Continuar comprando - cerrando modales');
+  closeCart();
+  closeCheckout();
+  closeLogin();
+  navigateToSection('productos');
+  showNotification('¡Sigue explorando nuestros productos frescos!', 'info');
+}
+
 function initializeApp() {
-  console.log('🏪 Inicializando Mercado de Quibdó...');
+  console.log('🚀 Inicializando Mercado de Quibdó - Versión Completa y Universal...');
   
-  // Load data from localStorage
-  loadCart();
-  loadUser();
+  try {
+    // Cargar datos persistentes
+    loadCart();
+    loadUserData();
+    
+    // Detectar tipo de página
+    const currentPage = detectCurrentPage();
+    console.log('📄 Página detectada:', currentPage);
+    
+    // Render productos según la página
+    renderProductsForCurrentPage(currentPage);
+    
+    // Render barrios list (si existe el contenedor)
+    renderBarriosList();
+    
+    // Setup scroll to top
+    setupScrollToTop();
+    
+    // Crear elementos del carrito si no existen
+    ensureCartElements();
+    
+    // Configurar event listeners después de un pequeño delay
+    setTimeout(() => {
+      setupEventListeners();
+    }, 100);
+    
+    // Verificar elementos críticos y crearlos si no existen
+    ensureCriticalElements();
+    
+    // Update user display
+    updateUserDisplay();
+    
+    console.log('✅ Mercado de Quibdó inicializado correctamente');
+    console.log(`📦 Total productos disponibles: ${sampleProducts.length}`);
+    console.log(`🛒 Items en carrito: ${cart.length}`);
+    console.log(`👤 Usuario: ${user ? user.name : 'No logueado'}`);
+    console.log(`📱 WhatsApp negocio: ${CONFIG.whatsappBusiness}`);
+    console.log(`📧 Email: ${CONFIG.email}`);
+    
+    // Mostrar notificación de bienvenida adaptada
+    setTimeout(() => {
+      const welcomeMessage = getWelcomeMessage(currentPage);
+      showNotification(welcomeMessage, 'success');
+    }, 1000);
+    
+  } catch (error) {
+    console.error('❌ Error durante la inicialización:', error);
+    showNotification('Error al inicializar la aplicación', 'error');
+  }
+}
+
+function detectCurrentPage() {
+  const url = window.location.pathname.toLowerCase();
+  const title = document.title.toLowerCase();
   
-  // Render productos destacados (solo los primeros 15)
-  const featuredProducts = getFeaturedProducts();
-  renderProducts(featuredProducts, 'products-grid');
-  console.log('Productos destacados renderizados:', featuredProducts.length);
+  if (url.includes('frutas') || title.includes('frutas')) return 'frutas';
+  if (url.includes('verduras') || title.includes('verduras')) return 'verduras';
+  if (url.includes('pescados') || title.includes('pescados')) return 'pescados';
+  if (url.includes('granos') || title.includes('granos')) return 'granos';
+  if (url.includes('especias') || title.includes('especias')) return 'especias';
+  if (url.includes('lacteos') || title.includes('lacteos')) return 'lacteos';
   
-  // Render offers
-  const offerProducts = getProductsWithDiscounts();
-  renderProducts(offerProducts, 'offers-grid');
-  console.log('Ofertas renderizadas:', offerProducts.length);
+  return 'principal';
+}
+
+function renderProductsForCurrentPage(currentPage) {
+  // Render productos según la página actual
+  if (currentPage === 'principal') {
+    // Página principal - productos destacados
+    const featuredProducts = getFeaturedProducts();
+    renderProducts(featuredProducts, 'products-grid');
+    console.log('📦 Productos destacados renderizados:', featuredProducts.length);
+    
+    // Render ofertas si existe el contenedor
+    const offerProducts = getProductsWithDiscounts();
+    renderProducts(offerProducts, 'offers-grid');
+    console.log('💰 Ofertas renderizadas:', offerProducts.length);
+  } else {
+    // Página de categoría específica
+    const categoryProducts = getProductsByCategory(mapPageToCategory(currentPage));
+    renderProducts(categoryProducts, 'products-grid');
+    console.log(`📦 Productos de ${currentPage} renderizados:`, categoryProducts.length);
+  }
+}
+
+function mapPageToCategory(page) {
+  const categoryMap = {
+    'frutas': 'Frutas',
+    'verduras': 'Verduras', 
+    'pescados': 'Pescados',
+    'granos': 'Granos',
+    'especias': 'Especias',
+    'lacteos': 'Lácteos'
+  };
+  return categoryMap[page] || 'Frutas';
+}
+
+function getWelcomeMessage(currentPage) {
+  const messages = {
+    'principal': '¡Bienvenido al Mercado de Quibdó!',
+    'frutas': '🍌 ¡Frutas frescas del Chocó!',
+    'verduras': '🥕 ¡Verduras orgánicas y nutritivas!',
+    'pescados': '🐟 ¡Pescados frescos del Pacífico!',
+    'granos': '🌾 ¡Granos de alta calidad!',
+    'especias': '🌿 ¡Especias naturales del Chocó!',
+    'lacteos': '🧀 ¡Productos lácteos artesanales!'
+  };
+  return messages[currentPage] || '¡Bienvenido al Mercado de Quibdó!';
+}
+
+function ensureCartElements() {
+  console.log('🔧 Verificando elementos del carrito...');
   
-  // Render barrios list
-  renderBarriosList();
+  // Asegurar que existe el sidebar del carrito
+  if (!document.getElementById('cart-sidebar')) {
+    const cartSidebar = document.createElement('div');
+    cartSidebar.id = 'cart-sidebar';
+    cartSidebar.className = 'cart-sidebar';
+    
+    // Detectar si es móvil
+    const isMobile = window.innerWidth <= 768;
+    const cartWidth = isMobile ? '100%' : '400px';
+    
+    cartSidebar.style.cssText = `
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: ${cartWidth};
+      height: 100vh;
+      background: white;
+      box-shadow: -10px 0 25px -5px rgba(0, 0, 0, 0.1);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 60;
+      display: flex;
+      flex-direction: column;
+    `;
+    
+    // Añadir clase CSS para responsividad
+    cartSidebar.classList.add('cart-sidebar-responsive');
+    
+    document.body.appendChild(cartSidebar);
+    console.log('✅ Cart sidebar creado dinámicamente con responsividad');
+  }
   
-  // Setup scroll to top
-  setupScrollToTop();
+  // Asegurar que existe el overlay
+  if (!document.getElementById('overlay')) {
+    const overlay = document.createElement('div');
+    overlay.id = 'overlay';
+    overlay.className = 'hidden';
+    overlay.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 40;
+      display: none;
+    `;
+    document.body.appendChild(overlay);
+    console.log('✅ Overlay creado dinámicamente');
+  }
+}
+
+function ensureCriticalElements() {
+  const criticalElements = ['#cart-sidebar', '#overlay'];
   
-  // Update user display
-  updateUserDisplay();
+  criticalElements.forEach(selector => {
+    const element = document.querySelector(selector);
+    if (element) {
+      console.log(`✅ Elemento encontrado: ${selector}`);
+    } else {
+      console.warn(`⚠️ Elemento faltante: ${selector}`);
+      
+      // Crear elementos faltantes si es necesario
+      if (selector === '#cart-sidebar') {
+        ensureCartElements();
+      }
+    }
+  });
   
-  console.log('✅ Mercado de Quibdó inicializado correctamente');
-  console.log(`📦 Total productos disponibles: ${sampleProducts.length}`);
-  console.log(`⭐ Productos destacados: ${featuredProducts.length}`);
-  console.log(`💰 Productos en oferta: ${offerProducts.length}`);
+  console.log('✅ Verificación de elementos críticos completada');
 }
 
 // ===== FUNCIONES GLOBALES PARA HTML =====
-window.addToCart = addToCart;
-window.updateQuantity = updateQuantity;
-window.removeFromCart = removeFromCart;
-window.clearCart = clearCart;
-window.openCart = openCart;
-window.closeCart = closeCart;
-window.openCheckout = openCheckout;
-window.closeCheckout = closeCheckout;
-window.goToStep1 = goToStep1;
-window.goToStep2 = goToStep2;
-window.finalizeOrder = finalizeOrder;
+// Hacer funciones disponibles globalmente para los onclick del HTML
 window.openLogin = openLogin;
 window.closeLogin = closeLogin;
 window.showLoginForm = showLoginForm;
@@ -1476,6 +2641,18 @@ window.showRegisterForm = showRegisterForm;
 window.handleLogin = handleLogin;
 window.handleRegister = handleRegister;
 window.logout = logout;
+window.openCart = openCart;
+window.closeCart = closeCart;
+window.addToCart = addToCart;
+window.updateQuantity = updateQuantity;
+window.removeFromCart = removeFromCart;
+window.clearCart = clearCart;
+window.openCheckout = openCheckout;
+window.closeCheckout = closeCheckout;
+window.goToStep1 = goToStep1;
+window.goToStep2 = goToStep2;
+window.finalizeOrder = finalizeOrder;
+window.continueShopping = continueShopping;
 window.navigateToSection = navigateToSection;
 window.filterByCategory = filterByCategory;
 window.resetCategoryFilter = resetCategoryFilter;
@@ -1495,5 +2672,154 @@ window.addNewProduct = function(productData) {
   }
 };
 
-// ===== INICIALIZACIÓN AL CARGAR LA PÁGINA =====
-document.addEventListener('DOMContentLoaded', initializeApp);
+// ===== INICIALIZACIÓN AUTOMÁTICA =====
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('📄 DOM cargado - iniciando aplicación');
+  initializeApp();
+});
+
+// Respaldo en caso de que DOMContentLoaded ya haya pasado
+if (document.readyState === 'loading') {
+  // Aún cargando, usar DOMContentLoaded
+  console.log('⏳ Esperando que termine de cargar el DOM...');
+} else {
+  // DOM ya cargado
+  console.log('⚡ DOM ya estaba cargado - iniciando inmediatamente');
+  initializeApp();
+}
+
+// ===== ESTILOS CSS DINÁMICOS PARA MEJOR COMPATIBILIDAD =====
+function injectResponsiveStyles() {
+  // Solo inyectar estilos si no existen
+  if (document.getElementById('mercado-responsive-styles')) return;
+  
+  const styles = `
+    <style id="mercado-responsive-styles">
+      /* Estilos responsivos para el carrito y checkout */
+      @media (max-width: 768px) {
+        .cart-sidebar {
+          width: 100% !important;
+        }
+        
+        .checkout-content {
+          width: 95% !important;
+          margin: 0.5rem !important;
+        }
+        
+        .cart-item {
+          flex-direction: column !important;
+          align-items: flex-start !important;
+          gap: 0.75rem !important;
+        }
+        
+        .cart-controls {
+          width: 100% !important;
+          justify-content: space-between !important;
+        }
+        
+        .checkout-step form {
+          grid-template-columns: 1fr !important;
+        }
+        
+        .checkout-step form > div[style*="grid-template-columns"] {
+          grid-template-columns: 1fr !important;
+        }
+      }
+      
+      /* Animaciones suaves */
+      .cart-sidebar.open {
+        transform: translateX(0) !important;
+      }
+      
+      .modal.show {
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+      
+      /* Botones hover mejorados */
+      .quantity-btn:hover {
+        transform: scale(1.05);
+      }
+      
+      .btn-primary:hover {
+        background: #059669 !important;
+        transform: translateY(-1px);
+      }
+      
+      .btn-secondary:hover {
+        background: #f3f4f6 !important;
+        border-color: #9ca3af !important;
+      }
+      
+      /* Notificaciones responsivas */
+      @media (max-width: 480px) {
+        .notification {
+          right: 0.5rem !important;
+          left: 0.5rem !important;
+          max-width: none !important;
+        }
+      }
+      
+      /* Mejoras visuales */
+      .cart-item:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+      }
+      
+      .product-btn:hover {
+        background: #059669 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+      }
+      
+      /* Checkout modal responsivo */
+      .checkout-content {
+        max-height: 95vh !important;
+        overflow-y: auto !important;
+      }
+      
+      .progress-steps {
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+      }
+      
+      /* Smooth scrolling para mejor UX */
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  `;
+  
+  document.head.insertAdjacentHTML('beforeend', styles);
+  console.log('✅ Estilos responsivos inyectados');
+}
+
+// ===== MANEJO DE EVENTOS DE REDIMENSIONAMIENTO =====
+function handleWindowResize() {
+  const cartSidebar = document.getElementById('cart-sidebar');
+  if (cartSidebar) {
+    const isMobile = window.innerWidth <= 768;
+    cartSidebar.style.width = isMobile ? '100%' : '400px';
+  }
+}
+
+// ===== INICIALIZACIÓN DE ESTILOS Y EVENTOS =====
+document.addEventListener('DOMContentLoaded', function() {
+  injectResponsiveStyles();
+  window.addEventListener('resize', handleWindowResize);
+});
+
+// Inyectar estilos inmediatamente si el DOM ya está cargado
+if (document.readyState !== 'loading') {
+  injectResponsiveStyles();
+  window.addEventListener('resize', handleWindowResize);
+}
+
+console.log('📜 JavaScript del Mercado de Quibdó cargado exitosamente - Versión Completa y Responsiva');
+console.log('🎨 Incluye: Carrito mejorado, Checkout estilizado, WhatsApp y Email automáticos, Responsividad completa');
+console.log('📱 Compatible con todas las subpáginas y dispositivos móviles');
+console.log('🔧 Configuración actual:', {
+  whatsappNegocio: CONFIG.whatsappBusiness,
+  whatsappSoporte: CONFIG.whatsapp,
+  email: CONFIG.email,
+  creadores: CONFIG.creadores.length + ' personas'
+});
