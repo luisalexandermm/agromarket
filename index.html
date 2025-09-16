@@ -14,163 +14,176 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏪</text></svg>">
 </head>
 <body>
-    <!-- ==================== HEADER ==================== -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <!-- Logo -->
-                <div class="logo">
-                    <div class="logo-icon">📍</div>
-                    <div class="logo-text">
-                        <h1>Mercado de Quibdó</h1>
-                        <p>Productos frescos del Chocó</p>
-                    </div>
-                </div>
-
-                <!-- Búsqueda -->
-                <div class="search">
-                    <input 
-                        type="text" 
-                        id="search-input" 
-                        placeholder="Buscar productos frescos..." 
-                        autocomplete="off"
-                    >
-                </div>
-
-                <!-- Navegación -->
-                <nav class="nav">
-                    <button class="btn btn-ghost" onclick="navigateToSection('inicio')">Inicio</button>
-                    <button class="btn btn-ghost" onclick="navigateToSection('productos')">Productos</button>
-                    <button class="btn btn-ghost" onclick="navigateToSection('categorias')">Categorías</button>
-                    <button class="btn btn-ghost" onclick="navigateToSection('domicilios')">Domicilios</button>
-                    <button class="btn btn-ghost" onclick="navigateToSection('ofertas')">Ofertas</button>
-                    <button class="btn btn-ghost" onclick="navigateToSection('contacto')">Contacto</button>
-                </nav>
-
-                <!-- Usuario y Carrito -->
-                <div class="user-cart-section">
-                    <!-- Sección de usuario logueado -->
-                    <div id="user-section" class="hidden">
-                        <span id="user-name" class="user-name"></span>
-                        <button class="btn btn-ghost btn-sm" onclick="logout()" title="Cerrar Sesión">🚪</button>
-                    </div>
-                    
-                    <!-- Botón de login -->
-                    <button id="login-btn" class="btn btn-ghost btn-sm" onclick="openLogin()">
-                        👤 <span class="login-text">Entrar</span>
-                    </button>
-                    
-                    <!-- Botón de carrito -->
-                    <button id="cart-btn" class="btn btn-ghost btn-sm cart-button" onclick="openCart()">
-                        🛒
-                        <span id="cart-count" class="cart-count hidden">0</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- ==================== MAIN CONTENT ==================== -->
-    <main>
-        <!-- ========== HERO SECTION ========== -->
-        <section id="inicio" class="hero">
-            <img 
-                src="img/malecon.png" 
-                alt="Malecón de Quibdó - Río Atrato" 
-                class="hero-bg"
-            >
-            
+    <!-- ==================== VISTA PRINCIPAL ==================== -->
+    <div id="main-view">
+        <!-- ==================== HEADER ==================== -->
+        <header class="header">
             <div class="container">
-                <div class="hero-content">
-                    <div class="hero-location">
-                        📍 <span>Quibdó, Chocó - Colombia</span>
-                    </div>
-                    
-                    <h1>Mercado de <span class="hero-accent">Quibdó</span></h1>
-                    
-                    <p>
-                        Descubre los sabores auténticos del Pacífico colombiano. 
-                        Productos frescos, orgánicos y directos del productor.
-                    </p>
-
-                    <div class="hero-features">
-                        <div class="hero-feature">
-                            🌿 <span>100% Orgánico</span>
-                        </div>
-                        <div class="hero-feature">
-                            ⏰ <span>Fresco del día</span>
-                        </div>
-                        <div class="hero-feature">
-                            🚚 <span>Domicilios en Quibdó</span>
+                <div class="header-content">
+                    <!-- Logo -->
+                    <div class="logo">
+                        <div class="logo-icon">📍</div>
+                        <div class="logo-text">
+                            <h1>Mercado de Quibdó</h1>
+                            <p>Productos frescos del Chocó</p>
                         </div>
                     </div>
 
-                    <div class="hero-buttons">
-                        <button class="btn btn-primary btn-lg" onclick="navigateToSection('productos')">
-                            Ver productos ➡️
+                    <!-- Búsqueda -->
+                    <div class="search">
+                        <input 
+                            type="text" 
+                            id="search-input" 
+                            placeholder="Buscar productos frescos..." 
+                            autocomplete="off"
+                        >
+                    </div>
+
+                    <!-- Navegación -->
+                    <nav class="nav">
+                        <button class="btn btn-ghost" onclick="navigateToSection('inicio')">Inicio</button>
+                        <button class="btn btn-ghost" onclick="navigateToSection('productos')">Productos</button>
+                        <button class="btn btn-ghost" onclick="navigateToSection('categorias')">Categorías</button>
+                        <button class="btn btn-ghost" onclick="navigateToSection('domicilios')">Domicilios</button>
+                        <button class="btn btn-ghost" onclick="navigateToSection('ofertas')">Ofertas</button>
+                        <button class="btn btn-ghost" onclick="navigateToSection('contacto')">Contacto</button>
+                    </nav>
+
+                    <!-- Usuario y Carrito -->
+                    <div class="user-cart-section">
+                        <!-- Sección de usuario logueado -->
+                        <div id="user-section" class="hidden">
+                            <span id="user-name" class="user-name"></span>
+                            <span id="user-type" class="user-type"></span>
+                            
+                            <!-- Botones de dashboard según tipo de usuario -->
+                            <button id="vendor-dashboard-btn" class="btn btn-primary btn-sm hidden" onclick="showVendorView()" title="Panel de Vendedor">
+                                🏪 Panel
+                            </button>
+                            <button id="delivery-dashboard-btn" class="btn btn-secondary btn-sm hidden" onclick="showDeliveryView()" title="Panel de Repartidor">
+                                🚚 Panel
+                            </button>
+                            
+                            <button class="btn btn-ghost btn-sm" onclick="logout()" title="Cerrar Sesión">🚪</button>
+                        </div>
+                        
+                        <!-- Botón de login -->
+                        <button id="login-btn" class="btn btn-ghost btn-sm" onclick="openLogin()">
+                            👤 <span class="login-text">Entrar</span>
                         </button>
                         
-                        <button class="btn btn-secondary btn-lg" onclick="navigateToSection('categorias')">
-                            Explorar categorías
+                        <!-- Botón de carrito -->
+                        <button id="cart-btn" class="btn btn-ghost btn-sm cart-button" onclick="openCart()">
+                            🛒
+                            <span id="cart-count" class="cart-count hidden">0</span>
                         </button>
                     </div>
                 </div>
             </div>
-        </section>
+        </header>
 
-        <!-- ========== PRODUCTOS DESTACADOS ========== -->
-        <section id="productos" class="section">
-            <div class="container">
-                <div class="section-header">
-                    <div class="section-title">
-                        ⭐ <h2 id="productos-title">Productos Destacados</h2> ⭐
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <main>
+            <!-- ========== HERO SECTION ========== -->
+            <section id="inicio" class="hero">
+                <img 
+                    src="img/malecon.png" 
+                    alt="Malecón de Quibdó - Río Atrato" 
+                    class="hero-bg"
+                >
+                
+                <div class="container">
+                    <div class="hero-content">
+                        <div class="hero-location">
+                            📍 <span>Quibdó, Chocó - Colombia</span>
+                        </div>
+                        
+                        <h1>Mercado de <span class="hero-accent">Quibdó</span></h1>
+                        
+                        <p>
+                            Descubre los sabores auténticos del Pacífico colombiano. 
+                            Productos frescos, orgánicos y directos del productor.
+                        </p>
+
+                        <div class="hero-features">
+                            <div class="hero-feature">
+                                🌿 <span>100% Orgánico</span>
+                            </div>
+                            <div class="hero-feature">
+                                ⏰ <span>Fresco del día</span>
+                            </div>
+                            <div class="hero-feature">
+                                🚚 <span>Domicilios en Quibdó</span>
+                            </div>
+                        </div>
+
+                        <div class="hero-buttons">
+                            <button class="btn btn-primary btn-lg" onclick="navigateToSection('productos')">
+                                Ver productos ➡️
+                            </button>
+                            
+                            <button class="btn btn-secondary btn-lg" onclick="navigateToSection('categorias')">
+                                Explorar categorías
+                            </button>
+                        </div>
                     </div>
-                    <p id="productos-description" class="section-description">
-                        Los mejores productos frescos de la región, seleccionados especialmente para ti
-                    </p>
-                    
-                    <!-- Botón de reset categoria -->
-                    <button 
-                        id="reset-category-btn" 
-                        class="btn btn-secondary" 
-                        onclick="resetCategoryFilter()" 
-                        style="display: none; margin-top: 1rem;"
-                    >
-                        ← Ver todos los productos
-                    </button>
                 </div>
+            </section>
 
-                <!-- Grid de productos destacados (15 productos) -->
-                <div id="products-grid" class="products-grid">
-                    <!-- Los 15 productos destacados se cargarán dinámicamente aquí -->
+            <!-- ========== PRODUCTOS DESTACADOS ========== -->
+            <section id="productos" class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="section-title">
+                            ⭐ <h2 id="productos-title">Productos Destacados</h2> ⭐
+                        </div>
+                        <p id="productos-description" class="section-description">
+                            Los mejores productos frescos de la región, seleccionados especialmente para ti
+                        </p>
+                        
+                        <!-- Botón de reset categoria -->
+                        <button 
+                            id="reset-category-btn" 
+                            class="btn btn-secondary" 
+                            onclick="resetCategoryFilter()" 
+                            style="display: none; margin-top: 1rem;"
+                        >
+                            ← Ver todos los productos
+                        </button>
+                    </div>
+
+                    <!-- Grid de productos destacados (15 productos) -->
+                    <div id="products-grid" class="products-grid">
+                        <!-- Los 15 productos destacados se cargarán dinámicamente aquí -->
+                    </div>
+
+                    <!-- Botón de acción para explorar más -->
+                    <div class="text-center">
+                        <button 
+                            class="btn btn-primary btn-lg btn-explore-categories" 
+                            onclick="navigateToSection('categorias')"
+                        >
+                            🔍 Explorar todas las categorías
+                        </button>
+                        <p style="margin-top: 1rem; color: #6b7280; font-size: 0.875rem;">
+                            💡 <strong>¿Buscas más productos?</strong> Visita nuestras páginas de categorías para ver el catálogo completo
+                        </p>
+                    </div>
                 </div>
+            </section>
 
-                <!-- Botón de acción para explorar más -->
-                <div class="text-center">
-                    <button 
-                        class="btn btn-primary btn-lg btn-explore-categories" 
-                        onclick="navigateToSection('categorias')"
-                    >
-                        🔍 Explorar todas las categorías
-                    </button>
-                    <p style="margin-top: 1rem; color: #6b7280; font-size: 0.875rem;">
-                        💡 <strong>¿Buscas más productos?</strong> Visita nuestras páginas de categorías para ver el catálogo completo
-                    </p>
-                </div>
-            </div>
-        </section>
+            <!-- ========== CATEGORÍAS ========== -->
+            <section id="categorias" class="section section-categories">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Categorías de Productos</h2>
+                        <p class="section-description">
+                            Explora nuestras categorías y encuentra exactamente lo que necesitas
+                        </p>
+                    </div>
 
-        <!-- ========== CATEGORÍAS ========== -->
-        <section id="categorias" class="section section-categories">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Categorías de Productos</h2>
-                    <p class="section-description">
-                        Explora nuestras categorías y encuentra exactamente lo que necesitas
-                    </p>
-                </div>
-
-                <div class="categories-grid"> 
+                    <div class="categories-grid"> 
+                          <div class="categories-grid"> 
                     <a href="frutas.html" class="category-card" onclick="filterByCategory('Frutas')">
                         <div class="category-emoji">🍌</div>
                         <h3 class="category-name">Frutas</h3>
@@ -206,263 +219,934 @@
                         <h3 class="category-name">Lácteos</h3>
                         <p class="category-description">Quesos artesanales</p>
                     </a>
+                    </div>
                 </div>
+            </section>
 
-                <!-- Imagen de categorías -->
-                <div class="text-center" style="margin-top: 3rem;">
-                    
-                </div>
-            </div>
-        </section>
-
-        <!-- ========== DOMICILIOS ========== -->
-        <section id="domicilios" class="section">
-            <div class="container">
-                <div class="section-header">
-                    <div class="section-title">
-                        🚚 <h2>Servicio de Domicilios</h2> 🚚
-                    </div>
-                    <p class="section-description">
-                        Llevamos los productos frescos del Chocó directamente a tu hogar en Quibdó
-                    </p>
-                </div>
-
-                <div class="grid">
-                    <!-- Imagen de domicilio -->
-                    <div class="delivery-image-container">
-                        <img 
-                            src="https://images.unsplash.com/photo-1574781330855-d0db3580ec41?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZWxpdmVyeSUyMG1vdG9yY3ljbGUlMjBjb2xvbWJpYXxlbnwxfHx8fDE3NTcwMjk1MDB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" 
-                            alt="Servicio de domicilios en Quibdó" 
-                            class="delivery-image"
-                        >
-                    </div>
-
-                    <!-- Cómo funciona -->
-                    <div class="how-it-works">
-                        <h3>¿Cómo funciona?</h3>
-                        <div class="step-container">
-                            <div class="step-item">
-                                <div class="step-number">1</div>
-                                <span class="step-text">Selecciona tus productos favoritos</span>
-                            </div>
-                            <div class="step-item">
-                                <div class="step-number">2</div>
-                                <span class="step-text">Agrega tu dirección de entrega</span>
-                            </div>
-                            <div class="step-item">
-                                <div class="step-number">3</div>
-                                <span class="step-text">Confirma tu pedido y método de pago</span>
-                            </div>
-                            <div class="step-item">
-                                <div class="step-number final">4</div>
-                                <span class="step-text">Recibe tus productos frescos en casa</span>
-                            </div>
+            <!-- ========== DOMICILIOS ========== -->
+            <section id="domicilios" class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="section-title">
+                            🚚 <h2>Servicio de Domicilios</h2> 🚚
                         </div>
+                        <p class="section-description">
+                            Llevamos los productos frescos del Chocó directamente a tu hogar en Quibdó
+                        </p>
                     </div>
 
-                    <!-- Información del servicio -->
-                    <div class="grid service-info-grid">
-                        <div class="service-info-card">
-                            ⏰
-                            <h4>Tiempo de entrega</h4>
-                            <p>30-60 minutos</p>
-                        </div>
-                        <div class="service-info-card">
-                            💰
-                            <h4>Costo domicilio</h4>
-                            <p>$3.000 - $5.500</p>
-                        </div>
-                    </div>
-
-                    <!-- Zonas de cobertura -->
-                    <div class="coverage-zones">
-                        <h3>Zonas de cobertura en Quibdó</h3>
-                        <div class="zone-list" id="barrios-list">
-                            <!-- Se cargan dinámicamente con JavaScript -->
-                        </div>
-                    </div>
-
-                    <!-- Contacto para pedidos -->
-                    <div class="contact-for-orders">
-                        <h3>¿Listo para ordenar?</h3>
-                        <p>Contacta directamente para hacer tu pedido</p>
-                        <div class="contact-buttons">
-                            <a 
-                                href="https://wa.me/573226654844" 
-                                class="btn contact-btn-primary"
-                                target="_blank"
+                    <div class="grid">
+                        <!-- Imagen de domicilio -->
+                        <div class="delivery-image-container">
+                            <img 
+                                src="https://images.unsplash.com/photo-1574781330855-d0db3580ec41?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZWxpdmVyeSUyMG1vdG9yY3ljbGUlMjBjb2xvbWJpYXxlbnwxfHx8fDE3NTcwMjk1MDB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" 
+                                alt="Servicio de domicilios en Quibdó" 
+                                class="delivery-image"
                             >
-                                💬 WhatsApp: +57 322 6654844
-                            </a>
-                            <a 
-                                href="tel:+573226654844" 
-                                class="btn contact-btn-secondary"
-                            >
-                                📞 Llamar: +57 322 6654844
-                            </a>
+                        </div>
+
+                        <!-- Contacto para pedidos -->
+                        <div class="contact-for-orders">
+                            <h3>¿Listo para ordenar?</h3>
+                            <p>Contacta directamente para hacer tu pedido</p>
+                            <div class="contact-buttons">
+                                <a 
+                                    href="https://wa.me/573226654844" 
+                                    class="btn contact-btn-primary"
+                                    target="_blank"
+                                >
+                                    💬 WhatsApp: +57 322 6654844
+                                </a>
+                                <a 
+                                    href="tel:+573226654844" 
+                                    class="btn contact-btn-secondary"
+                                >
+                                    📞 Llamar: +57 322 6654844
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Zonas de cobertura -->
+                        <div class="coverage-zones">
+                            <h3>Zonas de cobertura en Quibdó</h3>
+                            <div class="zone-list" id="barrios-list">
+                                <!-- Se cargan dinámicamente con JavaScript -->
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- ========== OFERTAS ESPECIALES ========== -->
-        <section id="ofertas" class="section offers-section">
-            <div class="container">
-                <div class="section-header">
-                    <div class="section-title">
-                        💥 <h2>Ofertas Especiales</h2> 💥
+            <!-- ========== OFERTAS ESPECIALES ========== -->
+            <section id="ofertas" class="section offers-section">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="section-title">
+                            💥 <h2>Ofertas Especiales</h2> 💥
+                        </div>
+                        <p class="section-description">
+                            Aprovecha nuestras ofertas limitadas en productos frescos
+                        </p>
                     </div>
-                    <p class="section-description">
-                        Aprovecha nuestras ofertas limitadas en productos frescos
-                    </p>
-                </div>
 
-                <div id="offers-grid" class="products-grid">
-                    <!-- Las ofertas se cargarán dinámicamente aquí -->
-                </div>
-
-                <!-- Imagen de ofertas -->
-                <div class="text-center" style="margin-top: 3rem;">
-                    <img 
-                        src="https://images.unsplash.com/photo-1607082349566-187342175e2f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080" 
-                        alt="Ofertas especiales en productos frescos" 
-                        class="offers-image"
-                    >
-                </div>
-            </div>
-        </section>
-
-        <!-- ========== HISTORIA Y NOSOTROS ========== -->
-        <section id="acerca-de" class="section about-section">
-            <div class="container">
-                <div class="section-header">
-                    <div class="section-title">
-                        👥 <h2>Nuestro Equipo</h2> 👥
+                    <div id="offers-grid" class="products-grid">
+                        <!-- Las ofertas se cargarán dinámicamente aquí -->
                     </div>
-                    <p class="section-description">
-                        Conoce al equipo que hace posible el Mercado de Quibdó
-                    </p>
                 </div>
+            </section>
 
-                <div class="about-content">
-                    <div class="team-section">
-                        <h3>Los Creadores</h3>
-                        <div class="team-grid">
-                            <div class="team-member">
-                                <div class="member-avatar">👨‍💻</div>
-                                <h4>Luis Alexander</h4>
-                                <p class="member-role">Fundador y Desarrollador Principal</p>
-                                <p class="member-description">
-                                    Visionario del proyecto, encargado del desarrollo tecnológico y la 
-                                    estrategia digital del mercado. Especialista en sistemas de información 
-                                    y comercio electrónico.
-                                </p>
-                                <div class="member-contact">
-                                    📧 alrxandermaturana76@gmail.com
+            <!-- ========== HISTORIA Y NOSOTROS ========== -->
+            <section id="acerca-de" class="section about-section">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="section-title">
+                            👥 <h2>Nuestro Equipo</h2> 👥
+                        </div>
+                        <p class="section-description">
+                            Conoce al equipo que hace posible el Mercado de Quibdó
+                        </p>
+                    </div>
+
+                    <div class="about-content">
+                        <div class="team-section">
+                            <h3>Los Creadores</h3>
+                            <div class="team-grid">
+                                <div class="team-member">
+                                    <div class="member-avatar">👨‍💻</div>
+                                    <h4>Luis Alexander</h4>
+                                    <p class="member-role">Fundador y Desarrollador Principal</p>
+                                    <p class="member-description">
+                                        Visionario del proyecto, encargado del desarrollo tecnológico y la 
+                                        estrategia digital del mercado. Especialista en sistemas de información 
+                                        y comercio electrónico.
+                                    </p>
+                                    <div class="member-contact">
+                                        📧 alrxandermaturana76@gmail.com
+                                    </div>
+                                </div>
+
+                                <div class="team-member">
+                                    <div class="member-avatar">👩‍💼</div>
+                                    <h4>Edith Yaritza</h4>
+                                    <p class="member-role">Coordinadora de Operaciones</p>
+                                    <p class="member-description">
+                                        Especialista en logística y coordinación de entregas, garantiza que 
+                                        cada producto llegue fresco y a tiempo a nuestros clientes. Experta 
+                                        en gestión de cadena de suministro.
+                                    </p>
+                                </div>
+
+                                <div class="team-member">
+                                    <div class="member-avatar">👩‍🌾</div>
+                                    <h4>Jhorfanys Andrea</h4>
+                                    <p class="member-role">Especialista en Productos Locales</p>
+                                    <p class="member-description">
+                                        Experta en productos del Chocó, se encarga de la selección y 
+                                        calidad de nuestros productos, manteniendo vínculos directos con 
+                                        productores y garantizando la autenticidad.
+                                    </p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
 
-                            <div class="team-member">
-                                <div class="member-avatar">👩‍💼</div>
-                                <h4>Edith Yaritza</h4>
-                                <p class="member-role">Coordinadora de Operaciones</p>
-                                <p class="member-description">
-                                    Especialista en logística y coordinación de entregas, garantiza que 
-                                    cada producto llegue fresco y a tiempo a nuestros clientes. Experta 
-                                    en gestión de cadena de suministro.
-                                </p>
+        <!-- ==================== FOOTER ==================== -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Mercado de Quibdó</h3>
+                        <p>Productos frescos del Chocó directo a tu mesa</p>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Enlaces</h4>
+                        <ul>
+                            <li><a href="#inicio" onclick="navigateToSection('inicio')">Inicio</a></li>
+                            <li><a href="#productos" onclick="navigateToSection('productos')">Productos</a></li>
+                            <li><a href="#categorias" onclick="navigateToSection('categorias')">Categorías</a></li>
+                            <li><a href="#domicilios" onclick="navigateToSection('domicilios')">Domicilios</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Contacto</h4>
+                        <p>📱 +57 322 6654844</p>
+                        <p>📧 alrxandermaturana76@gmail.com</p>
+                        <p>📍 Quibdó, Chocó - Colombia</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Mercado de Quibdó. Productos frescos del Pacífico colombiano.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ==================== VISTA DEL VENDEDOR ==================== -->
+    <div id="vendor-view" class="dashboard-view hidden">
+        <div class="dashboard-header-main">
+            <div class="container">
+                <div class="dashboard-nav">
+                    <div class="dashboard-brand">
+                        <h1>🏪 Panel del Vendedor</h1>
+                        <p>Gestiona tu negocio en el Mercado de Quibdó</p>
+                    </div>
+                    <div class="dashboard-user-actions">
+                        <span id="vendor-name" class="dashboard-user-name"></span>
+                        <button class="btn btn-secondary btn-sm" onclick="showMainView()">🏠 Volver al Mercado</button>
+                        <button class="btn btn-ghost btn-sm" onclick="logout()">🚪 Salir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-container">
+            <div class="dashboard-sidebar">
+                <nav class="dashboard-menu">
+                    <button class="dashboard-menu-item active" onclick="showVendorTab('dashboard')" data-tab="dashboard">
+                        📊 Dashboard
+                    </button>
+                    <button class="dashboard-menu-item" onclick="showVendorTab('products')" data-tab="products">
+                        📦 Mis Productos
+                    </button>
+                    <button class="dashboard-menu-item" onclick="showVendorTab('add-product')" data-tab="add-product">
+                        ➕ Agregar Producto
+                    </button>
+                    <button class="dashboard-menu-item" onclick="showVendorTab('orders')" data-tab="orders">
+                        📋 Pedidos
+                    </button>
+                    <button class="dashboard-menu-item" onclick="showVendorTab('analytics')" data-tab="analytics">
+                        📈 Análisis
+                    </button>
+                    <button class="dashboard-menu-item" onclick="showVendorTab('profile')" data-tab="profile">
+                        👤 Mi Perfil
+                    </button>
+                </nav>
+            </div>
+
+            <div class="dashboard-content">
+                <!-- Dashboard Principal -->
+                <div id="vendor-dashboard-tab" class="vendor-tab-content active">
+                    <div class="dashboard-welcome">
+                        <h2>¡Bienvenido a tu Panel de Vendedor!</h2>
+                        <p>Aquí puedes gestionar todos los aspectos de tu negocio en el Mercado de Quibdó</p>
+                    </div>
+
+                    <div class="dashboard-stats">
+                        <div class="stat-card stat-primary">
+                            <div class="stat-icon">📦</div>
+                            <div class="stat-info">
+                                <h3>Productos Activos</h3>
+                                <div class="stat-number" id="vendor-total-products">0</div>
+                                <p class="stat-description">Productos en tu catálogo</p>
                             </div>
+                        </div>
 
-                            <div class="team-member">
-                                <div class="member-avatar">👩‍🌾</div>
-                                <h4>Jhorfanys Andrea</h4>
-                                <p class="member-role">Especialista en Productos Locales</p>
-                                <p class="member-description">
-                                    Experta en productos del Chocó, se encarga de la selección y 
-                                    calidad de nuestros productos, manteniendo vínculos directos con 
-                                    productores y garantizando la autenticidad.
-                                </p>
+                        <div class="stat-card stat-success">
+                            <div class="stat-icon">🛒</div>
+                            <div class="stat-info">
+                                <h3>Pedidos Hoy</h3>
+                                <div class="stat-number" id="vendor-orders-today">0</div>
+                                <p class="stat-description">Pedidos recibidos hoy</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card stat-warning">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-info">
+                                <h3>Ventas del Mes</h3>
+                                <div class="stat-number" id="vendor-monthly-sales">$0</div>
+                                <p class="stat-description">Ingresos este mes</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card stat-info">
+                            <div class="stat-icon">⭐</div>
+                            <div class="stat-info">
+                                <h3>Calificación</h3>
+                                <div class="stat-number" id="vendor-rating">5.0</div>
+                                <p class="stat-description">Puntuación promedio</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-recent">
+                        <div class="dashboard-card">
+                            <h3>📋 Últimos Pedidos</h3>
+                            <div id="vendor-recent-orders" class="orders-list">
+                                <div class="empty-state">
+                                    <p>No hay pedidos recientes</p>
+                                    <small>Los pedidos aparecerán aquí cuando los clientes compren tus productos</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <h3>📦 Productos Más Vendidos</h3>
+                            <div id="vendor-top-products" class="products-list">
+                                <div class="empty-state">
+                                    <p>Aún no hay productos</p>
+                                    <small>Agrega productos para ver las estadísticas de ventas</small>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-   
-    </main>
+                <!-- Gestión de Productos -->
+                <div id="vendor-products-tab" class="vendor-tab-content">
+                    <div class="tab-header">
+                        <h2>📦 Mis Productos</h2>
+                        <button class="btn btn-primary" onclick="showVendorTab('add-product')">
+                            ➕ Agregar Producto
+                        </button>
+                    </div>
+                    <div id="vendor-products-list" class="products-manager">
+                        <!-- Se llena dinámicamente -->
+                    </div>
+                </div>
 
-    <!-- ==================== FOOTER ==================== -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Mercado de Quibdó</h3>
-                    <p>Productos frescos del Chocó directo a tu mesa</p>
+                <!-- Agregar Producto -->
+                <div id="vendor-add-product-tab" class="vendor-tab-content">
+                    <div class="tab-header">
+                        <h2>➕ Agregar Nuevo Producto</h2>
+                        <p>Completa la información de tu producto para agregarlo al catálogo</p>
+                    </div>
+
+                    <form id="add-product-form" class="product-form">
+                        <div class="form-section">
+                            <h3>Información Básica</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="product-name">Nombre del producto *</label>
+                                    <input type="text" id="product-name" name="name" required class="form-input" placeholder="Ej: Plátano Verde Orgánico">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="product-price">Precio (COP) *</label>
+                                    <input type="number" id="product-price" name="price" required class="form-input" min="0" step="100" placeholder="5000">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="product-category">Categoría *</label>
+                                    <select id="product-category" name="category" required class="form-select">
+                                        <option value="">Seleccionar categoría</option>
+                                        <option value="Frutas">🍌 Frutas</option>
+                                        <option value="Verduras">🥕 Verduras</option>
+                                        <option value="Pescados">🐟 Pescados</option>
+                                        <option value="Granos">🌾 Granos</option>
+                                        <option value="Especias">🌿 Especias</option>
+                                        <option value="Lácteos">🧀 Lácteos</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="product-location">Ubicación/Origen</label>
+                                    <input type="text" id="product-location" name="location" class="form-input" placeholder="Ej: Finca La Esperanza">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Detalles del Producto</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="product-expiration">Fecha de vencimiento</label>
+                                    <input type="date" id="product-expiration" name="expiration" class="form-input">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="product-original-price">Precio original (si hay descuento)</label>
+                                    <input type="number" id="product-original-price" name="originalPrice" class="form-input" min="0" step="100">
+                                </div>
+
+                                <div class="form-group form-group-full">
+                                    <label for="product-description">Descripción *</label>
+                                    <textarea id="product-description" name="description" required class="form-textarea" placeholder="Describe el producto, sus características y beneficios"></textarea>
+                                </div>
+                                
+                                <div class="form-group form-group-full">
+                                    <label for="product-image">URL de la imagen</label>
+                                    <input type="url" id="product-image" name="image" class="form-input" placeholder="https://ejemplo.com/imagen.jpg">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Características</h3>
+                            <div class="form-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="product-organic" name="organic">
+                                    <span class="checkmark"></span>
+                                    Producto orgánico
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="product-featured" name="featured">
+                                    <span class="checkmark"></span>
+                                    Producto destacado
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="resetProductForm()">
+                                🔄 Limpiar Formulario
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                ➕ Agregar Producto
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div class="footer-section">
-                    <h4>Enlaces</h4>
-                    <ul>
-                        <li><a href="#inicio" onclick="navigateToSection('inicio')">Inicio</a></li>
-                        <li><a href="#productos" onclick="navigateToSection('productos')">Productos</a></li>
-                        <li><a href="#categorias" onclick="navigateToSection('categorias')">Categorías</a></li>
-                        <li><a href="#domicilios" onclick="navigateToSection('domicilios')">Domicilios</a></li>
-                    </ul>
+
+                <!-- Pedidos -->
+                <div id="vendor-orders-tab" class="vendor-tab-content">
+                    <div class="tab-header">
+                        <h2>📋 Gestión de Pedidos</h2>
+                        <div class="tab-filters">
+                            <button class="filter-btn active" onclick="filterVendorOrders('all')">Todos</button>
+                            <button class="filter-btn" onclick="filterVendorOrders('pending')">Pendientes</button>
+                            <button class="filter-btn" onclick="filterVendorOrders('processing')">En Proceso</button>
+                            <button class="filter-btn" onclick="filterVendorOrders('completed')">Completados</button>
+                        </div>
+                    </div>
+                    <div id="vendor-orders-list" class="orders-manager">
+                        <!-- Se llena dinámicamente -->
+                    </div>
                 </div>
-                <div class="footer-section">
-                    <h4>Contacto</h4>
-                    <p>📱 +57 322 6654844</p>
-                    <p>📧 alrxandermaturana76@gmail.com</p>
-                    <p>📍 Quibdó, Chocó - Colombia</p>
+
+                <!-- Análisis -->
+                <div id="vendor-analytics-tab" class="vendor-tab-content">
+                    <div class="tab-header">
+                        <h2>📈 Análisis de Ventas</h2>
+                        <p>Revisa el rendimiento de tu negocio</p>
+                    </div>
+
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <h3>📊 Resumen Mensual</h3>
+                            <div class="analytics-stats">
+                                <div class="analytics-stat">
+                                    <span class="analytics-label">Productos Vendidos:</span>
+                                    <span class="analytics-value" id="monthly-products-sold">0</span>
+                                </div>
+                                <div class="analytics-stat">
+                                    <span class="analytics-label">Pedidos Completados:</span>
+                                    <span class="analytics-value" id="monthly-orders-completed">0</span>
+                                </div>
+                                <div class="analytics-stat">
+                                    <span class="analytics-label">Ingresos Totales:</span>
+                                    <span class="analytics-value" id="monthly-total-revenue">$0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="analytics-card">
+                            <h3>⭐ Satisfacción del Cliente</h3>
+                            <div class="rating-display">
+                                <div class="rating-stars" id="vendor-rating-stars">⭐⭐⭐⭐⭐</div>
+                                <div class="rating-text">5.0 de 5 estrellas</div>
+                                <div class="rating-count">Basado en 0 calificaciones</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Mercado de Quibdó. Productos frescos del Pacífico colombiano.</p>
+
+                <!-- Perfil -->
+                <div id="vendor-profile-tab" class="vendor-tab-content">
+                    <div class="tab-header">
+                        <h2>👤 Mi Perfil de Vendedor</h2>
+                        <p>Gestiona la información de tu negocio</p>
+                    </div>
+
+                    <form id="vendor-profile-form" class="profile-form">
+                        <div class="form-section">
+                            <h3>Información del Negocio</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="vendor-business-name">Nombre del negocio</label>
+                                    <input type="text" id="vendor-business-name" name="businessName" class="form-input">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="vendor-license-number">Número de licencia</label>
+                                    <input type="text" id="vendor-license-number" name="licenseNumber" class="form-input">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="vendor-contact-phone">Teléfono de contacto</label>
+                                    <input type="tel" id="vendor-contact-phone" name="contactPhone" class="form-input">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="vendor-contact-email">Email de contacto</label>
+                                    <input type="email" id="vendor-contact-email" name="contactEmail" class="form-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Ubicación</h3>
+                            <div class="form-grid">
+                                <div class="form-group form-group-full">
+                                    <label for="vendor-business-address">Dirección del negocio</label>
+                                    <textarea id="vendor-business-address" name="businessAddress" class="form-textarea"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                💾 Guardar Cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </footer>
+    </div>
+
+    <!-- ==================== VISTA DEL REPARTIDOR ==================== -->
+    <div id="delivery-view" class="dashboard-view hidden">
+        <div class="dashboard-header-main">
+            <div class="container">
+                <div class="dashboard-nav">
+                    <div class="dashboard-brand">
+                        <h1>🚚 Panel del Repartidor</h1>
+                        <p>Gestiona tus entregas en Quibdó</p>
+                    </div>
+                    <div class="dashboard-user-actions">
+                        <span id="delivery-name" class="dashboard-user-name"></span>
+                        <div class="delivery-status-toggle">
+                            <label class="status-toggle">
+                                <input type="checkbox" id="delivery-available" onchange="toggleDeliveryStatus()">
+                                <span class="status-slider"></span>
+                                <span class="status-text">Disponible</span>
+                            </label>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" onclick="showMainView()">🏠 Volver al Mercado</button>
+                        <button class="btn btn-ghost btn-sm" onclick="logout()">🚪 Salir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-container">
+            <div class="dashboard-sidebar">
+                <nav class="dashboard-menu">
+                    <button class="dashboard-menu-item active" onclick="showDeliveryTab('dashboard')" data-tab="dashboard">
+                        📊 Dashboard
+                    </button>
+                    <button class="dashboard-menu-item" onclick="showDeliveryTab('active')" data-tab="active">
+                        🎯 Entregas Activas
+                    </button>
+                    <button class="dashboard-menu-item" onclick="showDeliveryTab('available')" data-tab="available">
+                        📦 Disponibles
+                    </button>
+                    <button class="dashboard-menu-item" onclick="showDeliveryTab('completed')" data-tab="completed">
+                        ✅ Completadas
+                    </button>
+                    <button class="dashboard-menu-item" onclick="showDeliveryTab('earnings')" data-tab="earnings">
+                        💰 Ganancias
+                    </button>
+                    <button class="dashboard-menu-item" onclick="showDeliveryTab('profile')" data-tab="profile">
+                        👤 Mi Perfil
+                    </button>
+                </nav>
+            </div>
+
+            <div class="dashboard-content">
+                <!-- Dashboard Principal -->
+                <div id="delivery-dashboard-tab" class="delivery-tab-content active">
+                    <div class="dashboard-welcome">
+                        <h2>¡Bienvenido Repartidor!</h2>
+                        <p>Gestiona tus entregas y maximiza tus ganancias en Quibdó</p>
+                    </div>
+
+                    <div class="dashboard-stats">
+                        <div class="stat-card stat-primary">
+                            <div class="stat-icon">🚚</div>
+                            <div class="stat-info">
+                                <h3>Entregas Hoy</h3>
+                                <div class="stat-number" id="delivery-today-count">0</div>
+                                <p class="stat-description">Entregas realizadas hoy</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card stat-success">
+                            <div class="stat-icon">⏱️</div>
+                            <div class="stat-info">
+                                <h3>Tiempo Promedio</h3>
+                                <div class="stat-number" id="delivery-avg-time">0 min</div>
+                                <p class="stat-description">Por entrega</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card stat-warning">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-info">
+                                <h3>Ganancias Hoy</h3>
+                                <div class="stat-number" id="delivery-today-earnings">$0</div>
+                                <p class="stat-description">Ingresos del día</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card stat-info">
+                            <div class="stat-icon">⭐</div>
+                            <div class="stat-info">
+                                <h3>Calificación</h3>
+                                <div class="stat-number" id="delivery-rating">5.0</div>
+                                <p class="stat-description">Puntuación promedio</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="delivery-map-section">
+                        <div class="dashboard-card">
+                            <h3>🗺️ Zona de Trabajo</h3>
+                            <div class="zone-info">
+                                <div class="current-zone">
+                                    <span class="zone-label">Zona Actual:</span>
+                                    <span class="zone-name" id="delivery-current-zone">Centro de Quibdó</span>
+                                </div>
+                                <div class="coverage-areas">
+                                    <h4>Áreas de Cobertura:</h4>
+                                    <div class="areas-list" id="delivery-coverage-areas">
+                                        <span class="area-tag">Centro</span>
+                                        <span class="area-tag">Kennedy</span>
+                                        <span class="area-tag">Medrano</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-recent">
+                        <div class="dashboard-card">
+                            <h3>🎯 Entregas Activas</h3>
+                            <div id="delivery-active-list" class="deliveries-list">
+                                <div class="empty-state">
+                                    <p>No hay entregas activas</p>
+                                    <small>Las entregas asignadas aparecerán aquí</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <h3>📦 Entregas Disponibles</h3>
+                            <div id="delivery-available-list" class="deliveries-list">
+                                <div class="empty-state">
+                                    <p>No hay entregas disponibles</p>
+                                    <small>Mantente atento a nuevos pedidos</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Entregas Activas -->
+                <div id="delivery-active-tab" class="delivery-tab-content">
+                    <div class="tab-header">
+                        <h2>🎯 Entregas Activas</h2>
+                        <div class="active-status">
+                            <span class="status-dot active"></span>
+                            <span>En servicio</span>
+                        </div>
+                    </div>
+                    <div id="active-deliveries-list" class="deliveries-manager">
+                        <!-- Se llena dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Entregas Disponibles -->
+                <div id="delivery-available-tab" class="delivery-tab-content">
+                    <div class="tab-header">
+                        <h2>📦 Entregas Disponibles</h2>
+                        <p>Acepta entregas en tu zona de cobertura</p>
+                    </div>
+                    <div id="available-deliveries-list" class="deliveries-manager">
+                        <!-- Se llena dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Entregas Completadas -->
+                <div id="delivery-completed-tab" class="delivery-tab-content">
+                    <div class="tab-header">
+                        <h2>✅ Entregas Completadas</h2>
+                        <div class="tab-filters">
+                            <button class="filter-btn active" onclick="filterCompletedDeliveries('today')">Hoy</button>
+                            <button class="filter-btn" onclick="filterCompletedDeliveries('week')">Esta Semana</button>
+                            <button class="filter-btn" onclick="filterCompletedDeliveries('month')">Este Mes</button>
+                        </div>
+                    </div>
+                    <div id="completed-deliveries-list" class="deliveries-manager">
+                        <!-- Se llena dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Ganancias -->
+                <div id="delivery-earnings-tab" class="delivery-tab-content">
+                    <div class="tab-header">
+                        <h2>💰 Mis Ganancias</h2>
+                        <p>Revisa tus ingresos y estadísticas de pago</p>
+                    </div>
+
+                    <div class="earnings-grid">
+                        <div class="earnings-card">
+                            <h3>📊 Resumen de Ganancias</h3>
+                            <div class="earnings-stats">
+                                <div class="earnings-stat">
+                                    <span class="earnings-label">Hoy:</span>
+                                    <span class="earnings-value" id="earnings-today">$0</span>
+                                </div>
+                                <div class="earnings-stat">
+                                    <span class="earnings-label">Esta Semana:</span>
+                                    <span class="earnings-value" id="earnings-week">$0</span>
+                                </div>
+                                <div class="earnings-stat">
+                                    <span class="earnings-label">Este Mes:</span>
+                                    <span class="earnings-value" id="earnings-month">$0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="earnings-card">
+                            <h3>📈 Estadísticas de Rendimiento</h3>
+                            <div class="performance-stats">
+                                <div class="performance-stat">
+                                    <span class="performance-label">Entregas Totales:</span>
+                                    <span class="performance-value" id="total-deliveries">0</span>
+                                </div>
+                                <div class="performance-stat">
+                                    <span class="performance-label">Promedio por Entrega:</span>
+                                    <span class="performance-value" id="avg-earning-per-delivery">$0</span>
+                                </div>
+                                <div class="performance-stat">
+                                    <span class="performance-label">Calificación Promedio:</span>
+                                    <span class="performance-value" id="delivery-avg-rating">5.0 ⭐</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perfil del Repartidor -->
+                <div id="delivery-profile-tab" class="delivery-tab-content">
+                    <div class="tab-header">
+                        <h2>👤 Mi Perfil de Repartidor</h2>
+                        <p>Actualiza tu información de trabajo</p>
+                    </div>
+
+                    <form id="delivery-profile-form" class="profile-form">
+                        <div class="form-section">
+                            <h3>Información Personal</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="delivery-full-name">Nombre completo</label>
+                                    <input type="text" id="delivery-full-name" name="fullName" class="form-input">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="delivery-phone">Teléfono</label>
+                                    <input type="tel" id="delivery-phone" name="phone" class="form-input">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="delivery-email">Email</label>
+                                    <input type="email" id="delivery-email" name="email" class="form-input">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="delivery-vehicle-type">Tipo de vehículo</label>
+                                    <select id="delivery-vehicle-type" name="vehicleType" class="form-select">
+                                        <option value="motocicleta">🏍️ Motocicleta</option>
+                                        <option value="bicicleta">🚲 Bicicleta</option>
+                                        <option value="carro">🚗 Carro</option>
+                                        <option value="a-pie">🚶‍♂️ A pie</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Zona de Trabajo</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="delivery-work-zone">Zona principal</label>
+                                    <select id="delivery-work-zone" name="workZone" class="form-select">
+                                        <option value="centro">🏛️ Centro</option>
+                                        <option value="kennedy">🏘️ Kennedy</option>
+                                        <option value="medrano">🏘️ Medrano</option>
+                                        <option value="todas">🗺️ Todas las zonas</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group form-group-full">
+                                    <label for="delivery-additional-areas">Áreas adicionales de cobertura</label>
+                                    <textarea id="delivery-additional-areas" name="additionalAreas" class="form-textarea" placeholder="Describe otras áreas donde puedes hacer entregas"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                💾 Guardar Cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ==================== MODALES ==================== -->
     
-    <!-- ========== MODAL DE LOGIN/REGISTRO ========== -->
+    <!-- ========== MODAL DE LOGIN/REGISTRO MEJORADO ========== -->
     <div id="login-modal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Bienvenido al Mercado de Quibdó</h2>
-                <button class="modal-close" onclick="closeLogin()" data-action="close">✕</button>
+        <div class="modal-content login-modal-content">
+            <div class="modal-header login-modal-header">
+                <div class="login-header-content">
+                    <div class="login-logo">🌱</div>
+                    <div class="login-title-section">
+                        <h2>Mercado de Quibdó</h2>
+                        <p>Tu acceso al Pacífico colombiano</p>
+                    </div>
+                </div>
+                <button class="modal-close login-close-btn" onclick="closeLogin()">✕</button>
             </div>
             
-            <div class="modal-body">
-                <!-- Formulario de Login -->
-                <div id="login-form" class="auth-form">
-                    <h3>Iniciar Sesión</h3>
-                    <form onsubmit="handleLogin(event)">
-                        <div class="form-group">
-                            <label for="login-email">Correo electrónico</label>
-                            <input type="email" id="login-email" name="email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="login-password">Contraseña</label>
-                            <input type="password" id="login-password" name="password" required>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary btn-full">
-                            🔑 Iniciar Sesión
+            <div class="modal-body login-modal-body">
+                <!-- Selector de tipo de usuario mejorado -->
+                <div id="user-type-selector" class="user-type-selector enhanced">
+                    <div class="selector-header">
+                        <h3>¿Cómo quieres acceder?</h3>
+                        <p>Selecciona tu tipo de cuenta para continuar</p>
+                    </div>
+                    <div class="user-type-buttons enhanced-buttons">
+                        <button class="user-type-btn enhanced-btn cliente-btn" onclick="selectUserType('usuario')">
+                            <div class="btn-icon">👤</div>
+                            <div class="btn-content">
+                                <span class="btn-title">Cliente</span>
+                                <span class="btn-subtitle">Comprar productos frescos</span>
+                            </div>
+                            <div class="btn-arrow">→</div>
                         </button>
+                        <button class="user-type-btn enhanced-btn vendedor-btn" onclick="selectUserType('vendedor')">
+                            <div class="btn-icon">🏪</div>
+                            <div class="btn-content">
+                                <span class="btn-title">Vendedor</span>
+                                <span class="btn-subtitle">Gestionar mi negocio</span>
+                            </div>
+                            <div class="btn-arrow">→</div>
+                        </button>
+                        <button class="user-type-btn enhanced-btn repartidor-btn" onclick="selectUserType('repartidor')">
+                            <div class="btn-icon">🚚</div>
+                            <div class="btn-content">
+                                <span class="btn-title">Repartidor</span>
+                                <span class="btn-subtitle">Realizar entregas</span>
+                            </div>
+                            <div class="btn-arrow">→</div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Formulario de Login Mejorado -->
+                <div id="login-form" class="auth-form enhanced-form hidden">
+                    <div class="form-header">
+                        <div class="form-icon-wrapper">
+                            <div class="form-icon" id="login-form-icon">👤</div>
+                        </div>
+                        <h3 id="login-title">Iniciar Sesión</h3>
+                        <p class="form-subtitle" id="login-subtitle">Ingresa a tu cuenta</p>
+                    </div>
+                    
+                    <form id="login-form-element" class="enhanced-login-form">
+                        <div class="form-row">
+                            <div class="form-group enhanced-group">
+                                <div class="input-icon">📧</div>
+                                <div class="input-wrapper">
+                                    <input type="email" id="login-email" name="email" required class="enhanced-input">
+                                    <label for="login-email" class="floating-label">Correo electrónico</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group enhanced-group">
+                                <div class="input-icon">🔒</div>
+                                <div class="input-wrapper">
+                                    <input type="password" id="login-password" name="password" required class="enhanced-input">
+                                    <label for="login-password" class="floating-label">Contraseña</label>
+                                    <button type="button" class="password-toggle" onclick="togglePassword('login-password')">
+                                        👁️
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Campos adicionales para vendedor -->
+                        <div id="vendor-fields" class="additional-fields hidden">
+                            <div class="fields-header">
+                                <h4>🏪 Información del Vendedor</h4>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group enhanced-group">
+                                    <div class="input-icon">🏢</div>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="vendor-store-name" name="storeName" class="enhanced-input">
+                                        <label for="vendor-store-name" class="floating-label">Nombre del Negocio</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Campos adicionales para repartidor -->
+                        <div id="delivery-fields" class="additional-fields hidden">
+                            <div class="fields-header">
+                                <h4>🚚 Información del Repartidor</h4>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group enhanced-group">
+                                    <div class="input-icon">🏍️</div>
+                                    <div class="select-wrapper">
+                                        <select id="delivery-vehicle" name="vehicle" class="enhanced-select">
+                                            <option value="">Seleccionar vehículo</option>
+                                            <option value="motocicleta">🏍️ Motocicleta</option>
+                                            <option value="bicicleta">🚲 Bicicleta</option>
+                                            <option value="carro">🚗 Carro</option>
+                                            <option value="a-pie">🚶‍♂️ A pie</option>
+                                        </select>
+                                        <label for="delivery-vehicle" class="floating-label">Tipo de Vehículo</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" id="selected-user-type" name="userType" value="usuario">
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-full enhanced-submit">
+                                <span class="btn-text">🔑 Iniciar Sesión</span>
+                                <div class="btn-loader hidden"></div>
+                            </button>
+                        </div>
                     </form>
                     
-                    <p class="auth-switch">
-                        ¿No tienes cuenta? 
-                        <a href="#" onclick="showRegisterForm()">Regístrate aquí</a>
-                    </p>
+                    <div class="auth-switch enhanced-switch">
+                        <p>¿No tienes cuenta? <a href="#" onclick="showRegisterForm()" class="switch-link">Regístrate aquí</a></p>
+                    </div>
+                    
+                    <button class="btn btn-ghost btn-full back-to-selector" onclick="showUserTypeSelector()">
+                        ← Cambiar tipo de usuario
+                    </button>
                 </div>
                 
                 <!-- Formulario de Registro -->
                 <div id="register-form" class="auth-form hidden">
-                    <h3>Crear Cuenta</h3>
-                    <form onsubmit="handleRegister(event)">
+                    <h3 id="register-title">Crear Cuenta</h3>
+                    <form id="register-form-element">
                         <div class="form-group">
                             <label for="register-name">Nombre completo</label>
                             <input type="text" id="register-name" name="name" required>
@@ -482,6 +1166,29 @@
                             <label for="register-password">Contraseña</label>
                             <input type="password" id="register-password" name="password" required>
                         </div>
+
+                        <!-- Campos adicionales según tipo de usuario -->
+                        <div id="register-vendor-fields" class="hidden">
+                            <div class="form-group">
+                                <label for="register-vendor-store">Nombre del Negocio</label>
+                                <input type="text" id="register-vendor-store" name="storeName">
+                            </div>
+                        </div>
+
+                        <div id="register-delivery-fields" class="hidden">
+                            <div class="form-group">
+                                <label for="register-delivery-vehicle">Tipo de Vehículo</label>
+                                <select id="register-delivery-vehicle" name="vehicle">
+                                    <option value="">Seleccionar</option>
+                                    <option value="motocicleta">Motocicleta</option>
+                                    <option value="bicicleta">Bicicleta</option>
+                                    <option value="carro">Carro</option>
+                                    <option value="a-pie">A pie</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" id="register-selected-user-type" name="userType" value="usuario">
                         
                         <button type="submit" class="btn btn-primary btn-full">
                             👤 Crear Cuenta
@@ -492,194 +1199,120 @@
                         ¿Ya tienes cuenta? 
                         <a href="#" onclick="showLoginForm()">Inicia sesión aquí</a>
                     </p>
+                    <button class="btn btn-secondary btn-full" onclick="showUserTypeSelector()">
+                        ← Cambiar tipo de usuario
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ========== SIDEBAR DE CARRITO ========== -->
+    <!-- ========== SIDEBAR DE CARRITO AMPLIADO ========== -->
     <div id="cart-sidebar" class="cart-sidebar">
         <div class="cart-header">
-            <h2>🛒 Tu Carrito</h2>
-            <button class="cart-close" onclick="closeCart()" data-action="close">✕</button>
+            <h2>🛒 Mi Carrito</h2>
+            <button class="cart-close" onclick="closeCart()">✕</button>
         </div>
         
         <div class="cart-body" id="cart-items">
             <div class="cart-empty">
+                <div class="empty-cart-icon">🛒</div>
                 <p>Tu carrito está vacío</p>
                 <p>¡Agrega algunos productos frescos!</p>
+                <button class="btn btn-primary" onclick="navigateToSection('productos'); closeCart();">
+                    🛍️ Ver productos
+                </button>
             </div>
         </div>
         
-        <div class="cart-footer">
-            <div class="cart-total">
+        <!-- Resumen ampliado del carrito -->
+        <div class="cart-summary">
+            <div class="cart-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Productos:</span>
+                    <span id="cart-items-count">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total unidades:</span>
+                    <span id="cart-total-units">0</span>
+                </div>
+            </div>
+            
+            <div class="cart-totals">
                 <div class="total-line">
                     <span>Subtotal:</span>
                     <span id="cart-subtotal">$0</span>
                 </div>
+                <div class="total-line">
+                    <span>Envío estimado:</span>
+                    <span id="cart-shipping">$3.000</span>
+                </div>
+                <div class="total-line total-main">
+                    <span><strong>Total estimado:</strong></span>
+                    <span><strong id="cart-total">$0</strong></span>
+                </div>
             </div>
-            
-            <div class="cart-actions">
-                <button class="btn btn-secondary" onclick="continueShopping()">
-                    🛒 Seguir comprando
-                </button>
-                <button class="btn btn-primary" onclick="openCheckout()">
-                    🚀 Finalizar compra
-                </button>
-            </div>
+        </div>
+        
+        <!-- Botones flotantes del carrito -->
+        <div class="cart-floating-buttons">
+            <button class="btn-continue-shopping" onclick="continueShopping()">
+                🛍️ Seguir comprando
+            </button>
+            <button class="btn-checkout" onclick="openCheckout()">
+                🚀 Finalizar compra
+            </button>
         </div>
     </div>
 
-    <!-- ========== MODAL DE CHECKOUT CON WHATSAPP ========== -->
+    <!-- ========== MODAL DE CHECKOUT MEJORADO ========== -->
     <div id="checkout-modal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header">
+        <div class="modal-content checkout-modal-content">
+            <div class="modal-header checkout-header">
                 <h2 id="checkout-title">Finalizar Pedido</h2>
-                <button class="modal-close" onclick="closeCheckout()" data-action="close">✕</button>
+                <button class="modal-close" onclick="closeCheckout()">✕</button>
             </div>
             
-            <div class="modal-body">
-                <!-- PASO 1: Información de entrega -->
-                <div id="step-1" class="checkout-step">
+            <div class="modal-body checkout-body">
+                <!-- Información básica de checkout -->
+                <div class="checkout-info">
                     <h3>📋 Información de Entrega</h3>
-                    <form id="checkout-form" class="checkout-form">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="customer-name">Nombre completo *</label>
-                                <input type="text" id="customer-name" name="name" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="customer-phone">Teléfono *</label>
-                                <input type="tel" id="customer-phone" name="phone" required placeholder="+57 300 123 4567">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="customer-whatsapp">WhatsApp (para recibir QR) *</label>
-                                <input type="tel" id="customer-whatsapp" name="whatsapp" required placeholder="+57 300 123 4567">
-                                <small>Te enviaremos tu código QR de validación a este número</small>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="customer-email">Correo electrónico</label>
-                                <input type="email" id="customer-email" name="email" placeholder="opcional">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="customer-address">Dirección específica *</label>
-                                <input type="text" id="customer-address" name="address" required placeholder="Ej: Carrera 5 # 23-45, Casa blanca">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="customer-neighborhood">Barrio *</label>
-                                <select id="customer-neighborhood" name="neighborhood" required>
-                                    <option value="">Selecciona tu barrio</option>
-                                    <!-- Se llena dinámicamente con JavaScript -->
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="payment-method">Método de pago *</label>
-                                <select id="payment-method" name="payment" required>
-                                    <option value="">Selecciona método de pago</option>
-                                    <option value="Efectivo">Efectivo contra entrega</option>
-                                    <option value="Transferencia">Transferencia bancaria</option>
-                                    <option value="Nequi">Nequi</option>
-                                    <option value="Daviplata">Daviplata</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group full-width">
-                                <label for="customer-notes">Notas adicionales</label>
-                                <textarea id="customer-notes" name="notes" placeholder="Instrucciones especiales para la entrega..."></textarea>
-                            </div>
+                    <form id="checkout-form">
+                        <div class="form-group">
+                            <label for="customer-name">Nombre completo *</label>
+                            <input type="text" id="customer-name" name="name" required>
                         </div>
                         
-                        <!-- Información de costo de envío -->
-                        <div id="delivery-cost-info"></div>
+                        <div class="form-group">
+                            <label for="customer-phone">Teléfono *</label>
+                            <input type="tel" id="customer-phone" name="phone" required placeholder="+57 300 123 4567">
+                        </div>
                         
-                        <div class="form-actions">
-                            <button type="button" class="btn btn-secondary" onclick="continueShopping()">
-                                🛒 Seguir comprando
-                            </button>
-                            <button type="button" class="btn btn-primary" onclick="goToStep2()">
-                                ➡️ Continuar
-                            </button>
+                        <div class="form-group">
+                            <label for="customer-whatsapp">WhatsApp (para recibir QR) *</label>
+                            <input type="tel" id="customer-whatsapp" name="whatsapp" required placeholder="+57 322 6654844">
                         </div>
-                    </form>
-                </div>
-                
-                <!-- PASO 2: Confirmación de pedido -->
-                <div id="step-2" class="checkout-step" style="display: none;">
-                    <h3>✅ Confirmar Pedido</h3>
-                    
-                    <!-- Resumen del cliente -->
-                    <div class="order-summary">
-                        <h4>📝 Datos de entrega</h4>
-                        <div class="summary-info">
-                            <p><strong>Cliente:</strong> <span id="summary-name"></span></p>
-                            <p><strong>Teléfono:</strong> <span id="summary-phone"></span></p>
-                            <p><strong>WhatsApp:</strong> <span id="summary-whatsapp"></span></p>
-                            <p><strong>Email:</strong> <span id="summary-email"></span></p>
-                            <p><strong>Dirección:</strong> <span id="summary-address"></span></p>
-                            <p><strong>Método de pago:</strong> <span id="summary-payment"></span></p>
-                            <div id="summary-notes-wrapper" style="display: none;">
-                                <p><strong>Notas:</strong> <span id="summary-notes"></span></p>
-                            </div>
+                        
+                        <div class="form-group">
+                            <label for="customer-address">Dirección *</label>
+                            <input type="text" id="customer-address" name="address" required>
                         </div>
-                    </div>
-                    
-                    <!-- Productos del pedido -->
-                    <div class="order-items">
-                        <h4>🛍️ Productos</h4>
-                        <div id="checkout-items"></div>
-                    </div>
-                    
-                    <!-- Totales -->
-                    <div class="order-totals">
-                        <div class="total-line">
-                            <span>Subtotal productos:</span>
-                            <span id="checkout-subtotal">$0</span>
+                        
+                        <div class="form-group">
+                            <label for="payment-method">Método de pago *</label>
+                            <select id="payment-method" name="payment" required>
+                                <option value="">Selecciona método de pago</option>
+                                <option value="Efectivo">💵 Efectivo</option>
+                                <option value="Transferencia">📱 Transferencia</option>
+                                <option value="Nequi">📲 Nequi</option>
+                            </select>
                         </div>
-                        <div class="total-line">
-                            <span>Costo de domicilio:</span>
-                            <span id="checkout-delivery">$0</span>
-                        </div>
-                        <div class="total-line total-final">
-                            <span><strong>TOTAL A PAGAR:</strong></span>
-                            <span><strong id="checkout-total">$0</strong></span>
-                        </div>
-                    </div>
-                    
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" onclick="goToStep1()">
-                            ⬅️ Volver
-                        </button>
-                        <button type="button" class="btn btn-success" onclick="finalizeOrder()">
+                        
+                        <button type="button" class="btn btn-primary btn-full" onclick="finalizeOrder()">
                             🚀 Finalizar Pedido
                         </button>
-                    </div>
-                </div>
-                
-                <!-- PASO 3: Pedido enviado -->
-                <div id="step-3" class="checkout-step" style="display: none;">
-                    <div class="success-message">
-                        <div class="success-icon">✅</div>
-                        <h3>¡Pedido Enviado Exitosamente!</h3>
-                        <p>Tu pedido ha sido enviado al equipo del Mercado de Quibdó.</p>
-                        <p><strong>¿Qué sigue?</strong></p>
-                        <ul class="success-steps">
-                            <li>📱 Recibirás tu código QR en WhatsApp</li>
-                            <li>📞 Te contactaremos para confirmar detalles</li>
-                            <li>🚚 Preparamos y enviamos tu pedido</li>
-                            <li>🏠 Recibes productos frescos en casa</li>
-                        </ul>
-                        <div class="form-actions">
-                            <button type="button" class="btn btn-primary" onclick="closeCheckout(); continueShopping();">
-                                🛒 Seguir comprando
-                            </button>
-                        </div>
-                    </div>
+                        
+                    </form>
                 </div>
             </div>
         </div>
@@ -694,12 +1327,6 @@
     </button>
 
     <!-- ==================== JAVASCRIPT ==================== -->
-    <script src="agro.js"></script>
-    <script>
-        // Inicializar la aplicación cuando se carga la página
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeApp();
-        });
-    </script>
+    <script src="mercado-quibdo-actualizado.js"></script>
 </body>
 </html>
