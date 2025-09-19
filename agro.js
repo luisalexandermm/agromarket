@@ -1,9 +1,9 @@
-// ===== AGRO MERCADO DIGITAL DE QUIBDÓ - JAVASCRIPT CORREGIDO Y OPTIMIZADO =====
-// Sistema completo con login de vendedor/repartidor, carrito ampliado,
-// generación de PDF, paneles de gestión y funcionalidades avanzadas
-// Versión 2.1 - Enero 2025 - CORREGIDO Y OPTIMIZADO
+// ===== MERCADO DIGITAL DE QUIBDÓ - JAVASCRIPT COMPLETO =====
+// Sistema completo con login mejorado, carrito ampliado,
+// generación de PDF, paneles de gestión y funcionalidades corregidas
+// Versión 3.0 - Enero 2025 - CORREGIDO Y OPTIMIZADO
 
-console.log('🚀 Iniciando Mercado de Quibdó - Versión 2.1 CORREGIDA');
+console.log('🚀 Iniciando Mercado de Quibdó - Versión 3.0 CORREGIDA');
 
 // ===== CONFIGURACIÓN DEL SISTEMA =====
 const CONFIG = {
@@ -432,7 +432,9 @@ function updateFormForUserType(type) {
   if (iconElement) iconElement.textContent = icons[type];
   
   const regTitleElement = document.getElementById('register-title');
+  const regIconElement = document.getElementById('register-form-icon');
   if (regTitleElement) regTitleElement.textContent = 'Crear Cuenta';
+  if (regIconElement) regIconElement.textContent = icons[type];
   
   const selectedUserType = document.getElementById('selected-user-type');
   if (selectedUserType) selectedUserType.value = type;
@@ -512,10 +514,8 @@ function handleLogin(event) {
   let additionalData = {};
   if (userType === 'vendedor') {
     additionalData.storeName = document.getElementById('vendor-store-name')?.value || '';
-    additionalData.license = document.getElementById('vendor-license')?.value || '';
   } else if (userType === 'repartidor') {
     additionalData.vehicle = document.getElementById('delivery-vehicle')?.value || '';
-    additionalData.zone = document.getElementById('delivery-zone')?.value || '';
   }
   
   const userData = {
@@ -531,7 +531,7 @@ function handleLogin(event) {
   
   // CORRECCIÓN: Guardar con manejo de errores
   try {
-    localStorage.setItem('agro-mercado-user', JSON.stringify(userData));
+    localStorage.setItem('mercado-quibdo-user', JSON.stringify(userData));
   } catch (error) {
     console.error('❌ Error al guardar usuario:', error);
     showNotification('Error al guardar sesión', 'error');
@@ -599,10 +599,8 @@ function handleRegister(event) {
   let additionalData = {};
   if (userType === 'vendedor') {
     additionalData.storeName = document.getElementById('register-vendor-store')?.value || '';
-    additionalData.license = document.getElementById('register-vendor-license')?.value || '';
   } else if (userType === 'repartidor') {
     additionalData.vehicle = document.getElementById('register-delivery-vehicle')?.value || '';
-    additionalData.zone = document.getElementById('register-delivery-zone')?.value || '';
   }
   
   const userData = {
@@ -619,7 +617,7 @@ function handleRegister(event) {
   
   // CORRECCIÓN: Guardar con manejo de errores
   try {
-    localStorage.setItem('agro-mercado-user', JSON.stringify(userData));
+    localStorage.setItem('mercado-quibdo-user', JSON.stringify(userData));
   } catch (error) {
     console.error('❌ Error al guardar usuario:', error);
     showNotification('Error al guardar registro', 'error');
@@ -639,7 +637,7 @@ function logout() {
   
   user = null;
   try {
-    localStorage.removeItem('agro-mercado-user');
+    localStorage.removeItem('mercado-quibdo-user');
   } catch (error) {
     console.error('❌ Error al limpiar localStorage:', error);
   }
@@ -651,9 +649,6 @@ function logout() {
 
 function updateUserDisplay() {
   console.log('👤 Actualizando display de usuario:', user);
-  
-  // CORRECCIÓN: Crear botón de login si no existe
-  createLoginButtonIfNeeded();
   
   const userSection = document.getElementById('user-section');
   const loginBtn = document.getElementById('login-btn');
@@ -685,7 +680,7 @@ function updateUserDisplay() {
     if (vendorBtn) {
       if (user.userType === 'vendedor') {
         vendorBtn.classList.remove('hidden');
-        vendorBtn.style.display = 'block';
+        vendorBtn.style.display = 'inline-flex';
       } else {
         vendorBtn.classList.add('hidden');
         vendorBtn.style.display = 'none';
@@ -695,7 +690,7 @@ function updateUserDisplay() {
     if (deliveryBtn) {
       if (user.userType === 'repartidor') {
         deliveryBtn.classList.remove('hidden');
-        deliveryBtn.style.display = 'block';
+        deliveryBtn.style.display = 'inline-flex';
       } else {
         deliveryBtn.classList.add('hidden');
         deliveryBtn.style.display = 'none';
@@ -720,9 +715,6 @@ function updateUserDisplay() {
       loginBtn.classList.remove('hidden');
       loginBtn.style.display = 'flex';
       console.log('✅ Usuario NO logueado - botón de login mostrado');
-    } else {
-      console.warn('⚠️ Botón de login no encontrado, creando uno nuevo');
-      createLoginButtonIfNeeded();
     }
     
     if (vendorBtn) {
@@ -734,65 +726,6 @@ function updateUserDisplay() {
       deliveryBtn.style.display = 'none';
     }
   }
-}
-
-// CORRECCIÓN: Función para crear el botón de login si no existe
-function createLoginButtonIfNeeded() {
-  let loginBtn = document.getElementById('login-btn');
-  
-  if (!loginBtn) {
-    console.log('🔧 Creando botón de login dinámicamente');
-    
-    // Buscar el header o crear contenedor
-    let headerContainer = document.querySelector('header') || 
-                         document.querySelector('.header') || 
-                         document.querySelector('nav') ||
-                         document.body;
-    
-    // Crear botón de login
-    loginBtn = document.createElement('button');
-    loginBtn.id = 'login-btn';
-    loginBtn.className = 'login-btn';
-    loginBtn.innerHTML = '👤 Iniciar Sesión';
-    loginBtn.onclick = openLogin;
-    
-    // Estilos del botón
-    loginBtn.style.cssText = `
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 100;
-      background: linear-gradient(135deg, #16a34a, #059669);
-      color: white;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    `;
-    
-    // Efectos hover
-    loginBtn.addEventListener('mouseenter', function() {
-      this.style.transform = 'translateY(-2px)';
-      this.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.15)';
-    });
-    
-    loginBtn.addEventListener('mouseleave', function() {
-      this.style.transform = 'translateY(0)';
-      this.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-    });
-    
-    headerContainer.appendChild(loginBtn);
-    console.log('✅ Botón de login creado y agregado al DOM');
-  }
-  
-  return loginBtn;
 }
 
 // ===== FUNCIONES DEL CARRITO AMPLIADAS CON VALIDACIONES =====
@@ -1130,7 +1063,7 @@ function updateCartDisplay() {
 // CORRECCIÓN: Guardar carrito con manejo de errores
 function saveCart() {
   try {
-    localStorage.setItem('agro-mercado-cart', JSON.stringify(cart));
+    localStorage.setItem('mercado-quibdo-cart', JSON.stringify(cart));
   } catch (error) {
     console.error('❌ Error al guardar carrito en localStorage:', error);
     showNotification('Error al guardar carrito', 'error');
@@ -1140,7 +1073,7 @@ function saveCart() {
 // CORRECCIÓN: Cargar carrito con validaciones
 function loadCart() {
   try {
-    const savedCart = localStorage.getItem('agro-mercado-cart');
+    const savedCart = localStorage.getItem('mercado-quibdo-cart');
     if (savedCart) {
       const parsedCart = JSON.parse(savedCart);
       cart = Array.isArray(parsedCart) ? parsedCart : [];
@@ -1148,7 +1081,7 @@ function loadCart() {
     }
   } catch (error) {
     console.error('❌ Error al cargar carrito desde localStorage:', error);
-    localStorage.removeItem('agro-mercado-cart');
+    localStorage.removeItem('mercado-quibdo-cart');
     cart = [];
     showNotification('Carrito restaurado por datos corruptos', 'warning');
   }
@@ -1166,21 +1099,9 @@ function openCheckout() {
   
   closeCart(); // Cerrar carrito primero
   
-  // Buscar o crear el modal de checkout
-  let checkoutModal = document.getElementById('checkout-modal');
-  if (!checkoutModal) {
-    createSimpleCheckoutModal();
-    checkoutModal = document.getElementById('checkout-modal');
-  }
+  const checkoutModal = document.getElementById('checkout-modal');
+  const overlay = document.getElementById('overlay');
   
-  // Buscar o crear overlay
-  let overlay = document.getElementById('overlay');
-  if (!overlay) {
-    createOverlay();
-    overlay = document.getElementById('overlay');
-  }
-  
-  // Mostrar modal y overlay
   if (checkoutModal) {
     checkoutModal.classList.remove('hidden');
     checkoutModal.classList.add('show');
@@ -1193,541 +1114,8 @@ function openCheckout() {
     overlay.style.display = 'block';
   }
   
-  // Inicializar checkout
-  initializeSimpleCheckout();
+  initializeCheckout();
   showNotification('Formulario de checkout abierto', 'info');
-}
-
-function createSimpleCheckoutModal() {
-  console.log('🔧 Creando modal de checkout estilizado y adaptado');
-  
-  const modal = document.createElement('div');
-  modal.id = 'checkout-modal';
-  modal.className = 'modal hidden';
-  
-  modal.innerHTML = `
-    <div class="checkout-overlay">
-      <div class="checkout-container">
-        
-        <!-- Header del modal -->
-        <div class="checkout-header">
-          <div class="header-decoration"></div>
-          <div class="header-content">
-            <div class="header-icon">💳</div>
-            <h2>Finalizar Pedido</h2>
-            <p>Completa tu información para el envío a domicilio</p>
-          </div>
-          <button onclick="closeCheckout()" class="close-button">✕</button>
-        </div>
-        
-        <!-- Formulario principal -->
-        <form id="checkout-form" class="checkout-form">
-          
-          <!-- Información Personal -->
-          <div class="form-section">
-            <div class="section-header">
-              <div class="section-icon personal-icon">👤</div>
-              <h3>Información Personal</h3>
-            </div>
-            
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="customer-name">Nombre completo *</label>
-                <input type="text" id="customer-name" placeholder="Ingresa tu nombre completo" required>
-              </div>
-              <div class="form-group">
-                <label for="customer-phone">Teléfono *</label>
-                <input type="tel" id="customer-phone" placeholder="+57 300 123 4567" required>
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label for="customer-whatsapp">WhatsApp (para recibir código QR) *</label>
-              <input type="tel" id="customer-whatsapp" placeholder="+57 322 665 4844" required>
-            </div>
-          </div>
-          
-          <!-- Dirección de Entrega -->
-          <div class="form-section">
-            <div class="section-header">
-              <div class="section-icon address-icon">📍</div>
-              <h3>Dirección de Entrega</h3>
-            </div>
-            
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="customer-neighborhood">Barrio *</label>
-                <select id="customer-neighborhood" required>
-                  <option value="">Selecciona tu barrio</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="payment-method">Método de pago *</label>
-                <select id="payment-method" required>
-                  <option value="">Selecciona método de pago</option>
-                  <option value="Efectivo">💵 Efectivo</option>
-                  <option value="Transferencia">🏦 Transferencia Bancaria</option>
-                  <option value="Nequi">📱 Nequi</option>
-                  <option value="Daviplata">💳 Daviplata</option>
-                </select>
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label for="customer-address">Dirección específica *</label>
-              <input type="text" id="customer-address" placeholder="Ej: Calle 23 #15-45, Casa azul con portón verde" required>
-            </div>
-          </div>
-          
-          <!-- Resumen del Pedido -->
-          <div class="order-summary">
-            <div class="section-header">
-              <div class="section-icon summary-icon">📦</div>
-              <h4>Resumen del Pedido</h4>
-            </div>
-            
-            <div id="checkout-items-summary" class="items-summary"></div>
-            
-            <div class="totals-section">
-              <div class="total-line">
-                <span>Subtotal productos:</span>
-                <span id="checkout-subtotal">$0</span>
-              </div>
-              <div class="total-line">
-                <span>Costo de envío:</span>
-                <span id="checkout-delivery">$0</span>
-              </div>
-              <div class="total-line total-final">
-                <span>TOTAL A PAGAR:</span>
-                <span id="checkout-total">$0</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Botón Finalizar -->
-          <button type="button" id="finalize-order-btn" onclick="finalizeOrder()" class="finalize-button">
-            <span class="button-text">🚀 Finalizar Pedido</span>
-            <div class="button-shine"></div>
-          </button>
-          
-        </form>
-      </div>
-    </div>
-    
-    <style>
-      /* Estilos del modal de checkout adaptados a la página */
-      .checkout-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(34, 197, 94, 0.2));
-        backdrop-filter: blur(8px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        padding: 1rem;
-        animation: fadeIn 0.3s ease-out;
-      }
-      
-      .checkout-container {
-        background: linear-gradient(145deg, #ffffff, #f8fafc);
-        border-radius: 1.5rem;
-        width: 100%;
-        max-width: 700px;
-        max-height: 95vh;
-        overflow: hidden;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        border: 2px solid rgba(34, 197, 94, 0.1);
-        transform: scale(0.95);
-        animation: modalSlideIn 0.4s ease-out forwards;
-      }
-      
-      /* Header del modal */
-      .checkout-header {
-        background: linear-gradient(135deg, #16a34a 0%, #059669 50%, #047857 100%);
-        color: white;
-        padding: 2rem 1.5rem 1.5rem;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-      }
-      
-      .header-decoration {
-        position: absolute;
-        top: -50%;
-        right: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-        pointer-events: none;
-      }
-      
-      .header-content {
-        position: relative;
-        z-index: 2;
-      }
-      
-      .header-icon {
-        width: 60px;
-        height: 60px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 1rem auto;
-        font-size: 1.8rem;
-        backdrop-filter: blur(10px);
-        border: 2px solid rgba(255, 255, 255, 0.3);
-      }
-      
-      .checkout-header h2 {
-        margin: 0;
-        font-size: 1.75rem;
-        font-weight: 700;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        letter-spacing: 0.5px;
-      }
-      
-      .checkout-header p {
-        margin: 0.75rem 0 0 0;
-        opacity: 0.95;
-        font-size: 1rem;
-        font-weight: 300;
-      }
-      
-      .close-button {
-        position: absolute;
-        top: 1.25rem;
-        right: 1.25rem;
-        background: rgba(255, 255, 255, 0.2);
-        border: none;
-        color: white;
-        width: 2.75rem;
-        height: 2.75rem;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 1.25rem;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        z-index: 3;
-      }
-      
-      .close-button:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transform: scale(1.1);
-      }
-      
-      /* Formulario */
-      .checkout-form {
-        padding: 2rem;
-        overflow-y: auto;
-        max-height: calc(95vh - 180px);
-        scrollbar-width: thin;
-        scrollbar-color: #16a34a #f1f5f9;
-      }
-      
-      .form-section {
-        margin-bottom: 2rem;
-      }
-      
-      .section-header {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        margin-bottom: 1.5rem;
-        padding-bottom: 0.75rem;
-        border-bottom: 2px solid #f0f9ff;
-      }
-      
-      .section-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.2rem;
-      }
-      
-      .personal-icon {
-        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-      }
-      
-      .address-icon {
-        background: linear-gradient(135deg, #f59e0b, #d97706);
-      }
-      
-      .summary-icon {
-        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-      }
-      
-      .section-header h3, .section-header h4 {
-        color: #1f2937;
-        margin: 0;
-        font-size: 1.25rem;
-        font-weight: 600;
-      }
-      
-      .form-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.25rem;
-        margin-bottom: 1.25rem;
-      }
-      
-      @media (max-width: 640px) {
-        .form-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-      
-      .form-group {
-        display: flex;
-        flex-direction: column;
-      }
-      
-      .form-group label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-        color: #374151;
-        font-size: 0.875rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-      
-      .form-group input,
-      .form-group select {
-        width: 100%;
-        padding: 0.875rem 1rem;
-        border: 2px solid #e5e7eb;
-        border-radius: 0.75rem;
-        font-size: 1rem;
-        box-sizing: border-box;
-        transition: all 0.3s ease;
-        background: #fafbfc;
-        color: #1f2937;
-      }
-      
-      .form-group input:focus,
-      .form-group select:focus {
-        outline: none;
-        border-color: #16a34a;
-        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
-        background: white;
-      }
-      
-      .form-group input:hover,
-      .form-group select:hover {
-        border-color: #16a34a;
-      }
-      
-      /* Resumen del pedido */
-      .order-summary {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        padding: 1.5rem;
-        border-radius: 1rem;
-        border: 2px solid #e2e8f0;
-        margin-bottom: 2rem;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      }
-      
-      .items-summary {
-        margin-bottom: 1rem;
-      }
-      
-      .totals-section {
-        border-top: 2px solid #e2e8f0;
-        padding-top: 1rem;
-        margin-top: 1rem;
-      }
-      
-      .total-line {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 0.75rem;
-        align-items: center;
-      }
-      
-      .total-line span:first-child {
-        color: #6b7280;
-        font-weight: 500;
-      }
-      
-      .total-line span:last-child {
-        font-weight: 700;
-        color: #1f2937;
-        font-size: 1rem;
-      }
-      
-      .total-final {
-        border-top: 3px solid #16a34a;
-        padding-top: 0.75rem;
-        font-weight: 800;
-        color: #16a34a;
-        font-size: 1.375rem;
-        background: rgba(34, 197, 94, 0.05);
-        margin: 0.75rem -0.5rem 0;
-        padding: 0.75rem 0.5rem;
-        border-radius: 0.5rem;
-      }
-      
-      .total-final span {
-        color: #16a34a !important;
-        font-weight: 800 !important;
-      }
-      
-      /* Botón finalizar */
-      .finalize-button {
-        width: 100%;
-        height: 3.5rem;
-        background: linear-gradient(135deg, #16a34a 0%, #059669 50%, #047857 100%);
-        color: white;
-        border: none;
-        border-radius: 1rem;
-        font-size: 1.25rem;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.4s ease;
-        box-shadow: 0 10px 15px -3px rgba(34, 197, 94, 0.4), 0 4px 6px -2px rgba(34, 197, 94, 0.2);
-        position: relative;
-        overflow: hidden;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
-      
-      .finalize-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 20px 25px -5px rgba(34, 197, 94, 0.4), 0 10px 10px -5px rgba(34, 197, 94, 0.2);
-      }
-      
-      .finalize-button:disabled {
-        background: linear-gradient(135deg, #6b7280, #4b5563);
-        cursor: not-allowed;
-        transform: none;
-      }
-      
-      .button-text {
-        position: relative;
-        z-index: 2;
-      }
-      
-      .button-shine {
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        transition: left 0.6s ease;
-      }
-      
-      .finalize-button:hover .button-shine {
-        left: 100%;
-      }
-      
-      /* Animaciones */
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-      
-      @keyframes modalSlideIn {
-        from { 
-          transform: scale(0.95) translateY(-20px);
-          opacity: 0;
-        }
-        to { 
-          transform: scale(1) translateY(0);
-          opacity: 1;
-        }
-      }
-      
-      /* Scrollbar personalizada */
-      .checkout-form::-webkit-scrollbar {
-        width: 6px;
-      }
-      
-      .checkout-form::-webkit-scrollbar-track {
-        background: #f1f5f9;
-        border-radius: 3px;
-      }
-      
-      .checkout-form::-webkit-scrollbar-thumb {
-        background: #16a34a;
-        border-radius: 3px;
-      }
-      
-      .checkout-form::-webkit-scrollbar-thumb:hover {
-        background: #059669;
-      }
-      
-      /* Responsividad */
-      @media (max-width: 768px) {
-        .checkout-container {
-          max-width: 95%;
-          margin: 0 1rem;
-        }
-        
-        .checkout-form {
-          padding: 1.5rem;
-        }
-        
-        .checkout-header {
-          padding: 1.5rem 1rem 1rem;
-        }
-        
-        .header-icon {
-          width: 50px;
-          height: 50px;
-          font-size: 1.5rem;
-        }
-        
-        .checkout-header h2 {
-          font-size: 1.5rem;
-        }
-        
-        .finalize-button {
-          height: 3rem;
-          font-size: 1.125rem;
-        }
-      }
-    </style>
-  `;
-  
-  document.body.appendChild(modal);
-  console.log('✅ Modal de checkout estilizado y adaptado creado');
-}
-
-function createOverlay() {
-  if (!document.getElementById('overlay')) {
-    const overlay = document.createElement('div');
-    overlay.id = 'overlay';
-    overlay.className = 'overlay hidden';
-    overlay.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 40;
-      display: none;
-    `;
-    document.body.appendChild(overlay);
-    
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) {
-        closeCheckout();
-      }
-    });
-  }
 }
 
 function closeCheckout() {
@@ -1749,7 +1137,7 @@ function closeCheckout() {
   }
 }
 
-function initializeSimpleCheckout() {
+function initializeCheckout() {
   console.log('🔧 Inicializando checkout con formulario estilizado');
   
   // Pre-llenar datos del usuario si está logueado
@@ -1760,15 +1148,12 @@ function initializeSimpleCheckout() {
     
     if (nameField && user.name) {
       nameField.value = user.name;
-      console.log('✅ Nombre pre-llenado:', user.name);
     }
     if (phoneField && user.phone) {
       phoneField.value = user.phone;
-      console.log('✅ Teléfono pre-llenado:', user.phone);
     }
     if (whatsappField && user.phone) {
       whatsappField.value = user.phone;
-      console.log('✅ WhatsApp pre-llenado:', user.phone);
     }
   }
   
@@ -1782,83 +1167,16 @@ function initializeSimpleCheckout() {
         </option>`
       ).join('');
     
-    // Evento para actualizar resumen cuando cambie el barrio
     neighborhoodSelect.addEventListener('change', function() {
       console.log('🏘️ Barrio seleccionado:', this.value);
-      updateSimpleCheckoutSummary();
+      updateCheckoutSummary();
     });
-    
-    console.log('✅ Select de barrios inicializado con', CONFIG.barrios.length, 'opciones');
   }
   
-  // Configurar eventos del formulario
-  const checkoutForm = document.getElementById('checkout-form');
-  if (checkoutForm) {
-    checkoutForm.addEventListener('submit', handleCheckoutSubmit);
-    console.log('✅ Event listener del formulario configurado');
-  }
-  
-  // Configurar evento del botón
-  const finalizeBtn = document.getElementById('finalize-order-btn');
-  if (finalizeBtn) {
-    finalizeBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      finalizeOrder();
-    });
-    console.log('✅ Event listener del botón configurado');
-  }
-  
-  // Agregar validación en tiempo real a los campos
-  addRealTimeValidation();
-  
-  // Mostrar resumen inicial
-  updateSimpleCheckoutSummary();
-  
-  console.log('✅ Checkout inicializado completamente');
+  updateCheckoutSummary();
 }
 
-// Función para agregar validación en tiempo real
-function addRealTimeValidation() {
-  const nameField = document.getElementById('customer-name');
-  const phoneField = document.getElementById('customer-phone');
-  const whatsappField = document.getElementById('customer-whatsapp');
-  const addressField = document.getElementById('customer-address');
-  
-  if (nameField) {
-    nameField.addEventListener('input', function() {
-      if (this.value.length < 3 && this.value.length > 0) {
-        this.style.borderColor = '#dc2626';
-      } else {
-        this.style.borderColor = this.value.length > 0 ? '#16a34a' : '#e5e7eb';
-      }
-    });
-  }
-  
-  if (phoneField) {
-    phoneField.addEventListener('input', function() {
-      const isValid = this.value.length >= 10;
-      this.style.borderColor = this.value.length > 0 ? (isValid ? '#16a34a' : '#dc2626') : '#e5e7eb';
-    });
-  }
-  
-  if (whatsappField) {
-    whatsappField.addEventListener('input', function() {
-      const isValid = this.value.length >= 10;
-      this.style.borderColor = this.value.length > 0 ? (isValid ? '#16a34a' : '#dc2626') : '#e5e7eb';
-    });
-  }
-  
-  if (addressField) {
-    addressField.addEventListener('input', function() {
-      const isValid = this.value.length >= 10;
-      this.style.borderColor = this.value.length > 0 ? (isValid ? '#16a34a' : '#dc2626') : '#e5e7eb';
-    });
-  }
-  
-  console.log('✅ Validación en tiempo real configurada');
-}
-
-function updateSimpleCheckoutSummary() {
+function updateCheckoutSummary() {
   console.log('💰 Actualizando resumen del checkout');
   
   const itemsSummary = document.getElementById('checkout-items-summary');
@@ -1872,12 +1190,7 @@ function updateSimpleCheckoutSummary() {
   if (itemsSummary) {
     if (cart.length === 0) {
       itemsSummary.innerHTML = `
-        <div style="
-          text-align: center;
-          padding: 1rem;
-          color: #6b7280;
-          font-style: italic;
-        ">
+        <div style="text-align: center; padding: 1rem; color: #6b7280; font-style: italic;">
           ⚠️ No hay productos en el carrito
         </div>
       `;
@@ -1924,7 +1237,6 @@ function updateSimpleCheckoutSummary() {
   
   if (neighborhood) {
     totals = calculateTotal(neighborhood);
-    console.log(`💰 Totales calculados para ${neighborhood}:`, totals);
   }
   
   // Actualizar elementos de precio
@@ -1943,21 +1255,13 @@ function updateSimpleCheckoutSummary() {
   if (totalEl) {
     totalEl.textContent = formatPrice(totals.total);
   }
-  
-  console.log('✅ Resumen actualizado:', {
-    productos: cart.length,
-    subtotal: totals.subtotal,
-    envio: totals.delivery,
-    total: totals.total,
-    barrio: neighborhood
-  });
 }
 
 // CORRECCIÓN: Finalizar pedido con validaciones mejoradas
-function finalizeSimpleOrder() {
-  console.log('🚀 Finalizando pedido simplificado');
+function finalizeOrder() {
+  console.log('🚀 Finalizando pedido con validaciones completas');
   
-  // CORRECCIÓN: Validaciones mejoradas
+  // Obtener y validar datos del formulario
   const name = document.getElementById('customer-name')?.value?.trim();
   const phone = document.getElementById('customer-phone')?.value?.trim();
   const whatsapp = document.getElementById('customer-whatsapp')?.value?.trim();
@@ -1965,39 +1269,51 @@ function finalizeSimpleOrder() {
   const neighborhood = document.getElementById('customer-neighborhood')?.value;
   const paymentMethod = document.getElementById('payment-method')?.value;
   
-  if (!name || name.length < 2) {
-    showNotification('Por favor ingresa un nombre válido (mínimo 2 caracteres)', 'error');
+  console.log('📋 Datos del formulario:', {
+    name, phone, whatsapp, address, neighborhood, paymentMethod
+  });
+  
+  // Validaciones paso a paso con focus automático
+  if (!name || name.length < 3) {
+    showNotification('❌ El nombre completo debe tener al menos 3 caracteres', 'error');
     document.getElementById('customer-name')?.focus();
     return;
   }
   
   if (!phone || phone.length < 10) {
-    showNotification('Por favor ingresa un teléfono válido', 'error');
+    showNotification('❌ Ingresa un número de teléfono válido', 'error');
     document.getElementById('customer-phone')?.focus();
     return;
   }
   
   if (!whatsapp || whatsapp.length < 10) {
-    showNotification('Por favor ingresa un WhatsApp válido para recibir el QR', 'error');
+    showNotification('❌ El WhatsApp es obligatorio para recibir el código QR', 'error');
     document.getElementById('customer-whatsapp')?.focus();
     return;
   }
   
   if (!address || address.length < 10) {
-    showNotification('Por favor ingresa una dirección completa y detallada', 'error');
+    showNotification('❌ Proporciona una dirección completa y detallada', 'error');
     document.getElementById('customer-address')?.focus();
     return;
   }
   
   if (!neighborhood) {
-    showNotification('Por favor selecciona tu barrio para calcular el envío', 'error');
+    showNotification('❌ Selecciona tu barrio para calcular el costo de envío', 'error');
     document.getElementById('customer-neighborhood')?.focus();
     return;
   }
   
   if (!paymentMethod) {
-    showNotification('Por favor selecciona un método de pago', 'error');
+    showNotification('❌ Selecciona un método de pago', 'error');
     document.getElementById('payment-method')?.focus();
+    return;
+  }
+  
+  // Validar carrito
+  if (!cart || cart.length === 0) {
+    showNotification('❌ Tu carrito está vacío. Agrega productos antes de finalizar', 'error');
+    closeCheckout();
     return;
   }
   
@@ -2010,17 +1326,11 @@ function finalizeSimpleOrder() {
     paymentMethod: paymentMethod
   };
   
-  processSimpleOrder(customerData);
+  processOrder(customerData);
 }
 
-function processSimpleOrder(customerData) {
-  console.log('🔄 Procesando pedido simplificado:', customerData);
-  
-  // CORRECCIÓN: Validar que el carrito no esté vacío
-  if (!cart || cart.length === 0) {
-    showNotification('El carrito está vacío', 'error');
-    return;
-  }
+function processOrder(customerData) {
+  console.log('🔄 Procesando pedido:', customerData);
   
   const totals = calculateTotal(customerData.neighborhood);
   const qrCode = generateQRCode();
@@ -2040,16 +1350,16 @@ function processSimpleOrder(customerData) {
   
   // Enviar WhatsApp
   setTimeout(() => {
-    sendSimpleWhatsApp(order);
+    sendWhatsApp(order);
   }, 1000);
   
   // Enviar email
   setTimeout(() => {
-    sendSimpleEmail(order);
+    sendEmail(order);
   }, 2000);
   
   // Mostrar confirmación
-  showSimpleOrderConfirmation(order);
+  showOrderConfirmation(order);
   
   // Limpiar carrito
   setTimeout(() => {
@@ -2060,8 +1370,7 @@ function processSimpleOrder(customerData) {
 }
 
 // ===== FUNCIONES DE GENERACIÓN DE PDF Y ENVÍO =====
-function sendSimpleWhatsApp(order) {
-  // Calcular totales de productos
+function sendWhatsApp(order) {
   const totalItems = order.products.reduce((sum, item) => sum + item.quantity, 0);
   const uniqueProducts = order.products.length;
   
@@ -2113,11 +1422,11 @@ ${order.products.map((item, index) =>
   window.open(whatsappUrl, '_blank');
   
   setTimeout(() => {
-    sendQRToCustomerSimple(order);
+    sendQRToCustomer(order);
   }, 2000);
 }
 
-function sendQRToCustomerSimple(order) {
+function sendQRToCustomer(order) {
   const customerMessage = `
 🌱 *CONFIRMACIÓN - MERCADO DE QUIBDÓ*
 
@@ -2151,8 +1460,7 @@ function sendQRToCustomerSimple(order) {
   window.open(customerWhatsappUrl, '_blank');
 }
 
-function sendSimpleEmail(order) {
-  // Calcular totales de productos
+function sendEmail(order) {
   const totalItems = order.products.reduce((sum, item) => sum + item.quantity, 0);
   const uniqueProducts = order.products.length;
   
@@ -2202,10 +1510,10 @@ Creado por: ${CONFIG.creadores.join(', ')}
   window.open(emailUrl, '_blank');
 }
 
-function showSimpleOrderConfirmation(order) {
+function showOrderConfirmation(order) {
   const modal = document.getElementById('checkout-modal');
   if (modal) {
-    const content = modal.querySelector('div[style*="padding: 1.5rem"]');
+    const content = modal.querySelector('.checkout-body');
     if (content) {
       content.innerHTML = `
         <div style="text-align: center; padding: 2rem 0;">
@@ -2325,7 +1633,7 @@ function showMainView() {
 function showVendorView() {
   console.log('🏪 Mostrando vista del vendedor');
   
-  // CORRECCIÓN: Verificar que el usuario sea vendedor
+  // Verificar que el usuario sea vendedor
   if (!user || user.userType !== 'vendedor') {
     showNotification('Solo los vendedores pueden acceder a este panel', 'error');
     return;
@@ -2356,7 +1664,7 @@ function showVendorView() {
 function showDeliveryView() {
   console.log('🚚 Mostrando vista del repartidor');
   
-  // CORRECCIÓN: Verificar que el usuario sea repartidor
+  // Verificar que el usuario sea repartidor
   if (!user || user.userType !== 'repartidor') {
     showNotification('Solo los repartidores pueden acceder a este panel', 'error');
     return;
@@ -2495,7 +1803,6 @@ function getVendorStats() {
   }
 }
 
-// CORRECCIÓN: Función de agregar producto con validaciones mejoradas
 function handleAddProduct(event) {
   event.preventDefault();
   
@@ -2518,7 +1825,7 @@ function handleAddProduct(event) {
     dateAdded: new Date().toISOString()
   };
   
-  // CORRECCIÓN: Validaciones mejoradas
+  // Validaciones mejoradas
   if (!productData.name || productData.name.trim().length < 2) {
     showNotification('El nombre del producto debe tener al menos 2 caracteres', 'error');
     return;
@@ -2542,7 +1849,7 @@ function handleAddProduct(event) {
   sampleProducts.push(productData);
   
   try {
-    localStorage.setItem('agro-mercado-products', JSON.stringify(sampleProducts));
+    localStorage.setItem('mercado-products', JSON.stringify(sampleProducts));
   } catch (error) {
     console.error('❌ Error al guardar productos:', error);
     showNotification('Error al guardar producto', 'error');
@@ -2653,14 +1960,10 @@ function loadVendorAnalytics() {
 function loadVendorProfile() {
   if (user) {
     const businessName = document.getElementById('vendor-business-name');
-    const licenseNumber = document.getElementById('vendor-license-number');
     const contactPhone = document.getElementById('vendor-contact-phone');
-    const contactEmail = document.getElementById('vendor-contact-email');
     
     if (businessName) businessName.value = user.storeName || '';
-    if (licenseNumber) licenseNumber.value = user.license || '';
     if (contactPhone) contactPhone.value = user.phone || '';
-    if (contactEmail) contactEmail.value = user.email || '';
   }
 }
 
@@ -2826,31 +2129,19 @@ function loadDeliveryEarnings() {
   const earningsToday = document.getElementById('earnings-today');
   const earningsWeek = document.getElementById('earnings-week');
   const earningsMonth = document.getElementById('earnings-month');
-  const totalDeliveries = document.getElementById('total-deliveries');
-  const avgEarningPerDelivery = document.getElementById('avg-earning-per-delivery');
-  const deliveryAvgRating = document.getElementById('delivery-avg-rating');
   
   if (earningsToday) earningsToday.textContent = formatPrice(stats.todayEarnings);
   if (earningsWeek) earningsWeek.textContent = formatPrice(stats.todayEarnings * 7);
   if (earningsMonth) earningsMonth.textContent = formatPrice(stats.todayEarnings * 30);
-  if (totalDeliveries) totalDeliveries.textContent = stats.todayCount;
-  if (avgEarningPerDelivery) avgEarningPerDelivery.textContent = formatPrice(3500);
-  if (deliveryAvgRating) deliveryAvgRating.textContent = `${stats.rating} ⭐`;
 }
 
 function loadDeliveryProfile() {
   if (user) {
     const fullName = document.getElementById('delivery-full-name');
-    const phone = document.getElementById('delivery-phone');
-    const email = document.getElementById('delivery-email');
     const vehicleType = document.getElementById('delivery-vehicle-type');
-    const workZone = document.getElementById('delivery-work-zone');
     
     if (fullName) fullName.value = user.name || '';
-    if (phone) phone.value = user.phone || '';
-    if (email) email.value = user.email || '';
     if (vehicleType) vehicleType.value = user.vehicle || '';
-    if (workZone) workZone.value = user.zone || '';
   }
 }
 
@@ -2992,33 +2283,30 @@ function continueShopping() {
 }
 
 // ===== FUNCIONES DE INICIALIZACIÓN MEJORADAS =====
-// CORRECCIÓN: Cargar datos del usuario con validaciones
 function loadUserData() {
   try {
-    const savedUser = localStorage.getItem('agro-mercado-user');
+    const savedUser = localStorage.getItem('mercado-quibdo-user');
     if (savedUser) {
       const parsedUser = JSON.parse(savedUser);
-      // CORRECCIÓN: Validar estructura del usuario
       if (parsedUser && typeof parsedUser === 'object' && parsedUser.id) {
         user = parsedUser;
         console.log('👤 Usuario cargado:', user.name, user.userType);
       } else {
         console.warn('⚠️ Datos de usuario inválidos en localStorage');
-        localStorage.removeItem('agro-mercado-user');
+        localStorage.removeItem('mercado-quibdo-user');
         user = null;
       }
     } else {
-      console.log('👤 No hay usuario guardado, se mostrará botón de login');
+      console.log('👤 No hay usuario guardado');
       user = null;
     }
   } catch (error) {
     console.error('❌ Error al cargar usuario desde localStorage:', error);
-    localStorage.removeItem('agro-mercado-user');
+    localStorage.removeItem('mercado-quibdo-user');
     user = null;
     showNotification('Sesión restaurada por datos corruptos', 'warning');
   }
   
-  // CORRECCIÓN: Siempre actualizar display después de cargar
   setTimeout(() => {
     updateUserDisplay();
   }, 100);
@@ -3055,7 +2343,6 @@ function setupScrollToTop() {
   }
 }
 
-// CORRECCIÓN: Event listeners mejorados con manejo de errores
 function setupEventListeners() {
   console.log('🔧 Configurando event listeners mejorados...');
   
@@ -3071,7 +2358,6 @@ function setupEventListeners() {
       });
     }
     
-    // CORRECCIÓN: Soporte para tecla Escape
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         closeLogin();
@@ -3080,7 +2366,6 @@ function setupEventListeners() {
       }
     });
     
-    // CORRECCIÓN: Detección de conectividad
     window.addEventListener('online', function() {
       showNotification('Conexión restaurada', 'success');
     });
@@ -3115,18 +2400,15 @@ function setupEventListeners() {
   }
 }
 
-// CORRECCIÓN: Inicialización mejorada con manejo de errores
 function initializeApp() {
-  console.log('🚀 Inicializando Mercado de Quibdó - Versión 2.2 CORREGIDA');
+  console.log('🚀 Inicializando Mercado de Quibdó - Versión 3.0 CORREGIDA');
   
   try {
-    // CORRECCIÓN: Cargar datos con validaciones
     loadCart();
     loadUserData();
     
-    // CORRECCIÓN: Cargar productos con validación
     try {
-      const savedProducts = localStorage.getItem('agro-mercado-products');
+      const savedProducts = localStorage.getItem('mercado-products');
       if (savedProducts) {
         const parsedProducts = JSON.parse(savedProducts);
         if (Array.isArray(parsedProducts)) {
@@ -3135,7 +2417,7 @@ function initializeApp() {
       }
     } catch (error) {
       console.error('❌ Error al cargar productos:', error);
-      localStorage.removeItem('agro-mercado-products');
+      localStorage.removeItem('mercado-products');
     }
     
     const featuredProducts = getFeaturedProducts();
@@ -3148,24 +2430,11 @@ function initializeApp() {
     setupScrollToTop();
     setupEventListeners();
     
-    // CORRECCIÓN: Asegurar que el botón de login aparezca
     setTimeout(() => {
       updateUserDisplay();
       updateCartCounter();
-      
-      // CORRECCIÓN: Verificar que el botón de login esté visible
-      const loginBtn = document.getElementById('login-btn');
-      if (!user && loginBtn) {
-        console.log('🔍 Verificando visibilidad del botón de login...');
-        if (loginBtn.style.display === 'none' || loginBtn.classList.contains('hidden')) {
-          console.log('🔧 Forzando visibilidad del botón de login');
-          loginBtn.classList.remove('hidden');
-          loginBtn.style.display = 'flex';
-        }
-      }
     }, 200);
     
-    // CORRECCIÓN: Verificar productos disponibles
     if (!sampleProducts || sampleProducts.length === 0) {
       console.warn('⚠️ No hay productos disponibles');
       showNotification('Sistema iniciado sin productos', 'warning');
@@ -3174,10 +2443,10 @@ function initializeApp() {
     console.log('✅ Aplicación inicializada correctamente');
     console.log(`📦 Productos: ${sampleProducts.length}`);
     console.log(`🛒 Items en carrito: ${cart.length}`);
-    console.log(`👤 Usuario: ${user ? `${user.name} (${user.userType})` : 'No logueado - Botón de login debe estar visible'}`);
+    console.log(`👤 Usuario: ${user ? `${user.name} (${user.userType})` : 'No logueado'}`);
     
     setTimeout(() => {
-      showNotification('¡Bienvenido al Mercado de Quibdó corregido!', 'success');
+      showNotification('¡Bienvenido al Mercado de Quibdó!', 'success');
     }, 1000);
     
   } catch (error) {
@@ -3185,218 +2454,6 @@ function initializeApp() {
     showNotification('Error crítico al inicializar la aplicación', 'error');
   }
 }
-
-// CORRECCIÓN: Función unificada para finalizar pedido con validaciones mejoradas
-function finalizeOrder() {
-  console.log('🚀 Finalizando pedido - Función principal corregida');
-  
-  // Prevenir que se ejecute múltiples veces
-  const submitButton = document.getElementById('finalize-order-btn');
-  if (submitButton && submitButton.disabled) {
-    console.log('⏳ Pedido ya está siendo procesado...');
-    return;
-  }
-  
-  return finalizeSimpleOrder();
-}
-
-function finalizeSimpleOrder() {
-  console.log('🚀 Procesando pedido con validaciones completas');
-  
-  // Indicador visual de procesamiento
-  const submitButton = document.getElementById('finalize-order-btn');
-  const originalContent = submitButton ? submitButton.innerHTML : '';
-  
-  const setLoadingState = () => {
-    if (submitButton) {
-      submitButton.disabled = true;
-      submitButton.className = submitButton.className + ' loading';
-      submitButton.innerHTML = `
-        <span class="button-text">
-          <div style="
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top: 2px solid white;
-            border-radius: 50%;
-            animation: buttonSpin 1s linear infinite;
-            margin-right: 8px;
-          "></div>
-          Procesando pedido...
-        </span>
-        <style>
-          @keyframes buttonSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        </style>
-      `;
-    }
-  };
-  
-  const restoreButton = () => {
-    if (submitButton) {
-      submitButton.disabled = false;
-      submitButton.className = submitButton.className.replace(' loading', '');
-      submitButton.innerHTML = originalContent;
-    }
-  };
-  
-  // Aplicar estado de carga
-  setLoadingState();
-  
-  // Obtener y validar datos del formulario
-  const name = document.getElementById('customer-name')?.value?.trim();
-  const phone = document.getElementById('customer-phone')?.value?.trim();
-  const whatsapp = document.getElementById('customer-whatsapp')?.value?.trim();
-  const address = document.getElementById('customer-address')?.value?.trim();
-  const neighborhood = document.getElementById('customer-neighborhood')?.value;
-  const paymentMethod = document.getElementById('payment-method')?.value;
-  
-  console.log('📋 Datos del formulario:', {
-    name, phone, whatsapp, address, neighborhood, paymentMethod
-  });
-  
-  // Validaciones paso a paso con focus automático
-  if (!name || name.length < 3) {
-    showNotification('❌ El nombre completo debe tener al menos 3 caracteres', 'error');
-    document.getElementById('customer-name')?.focus();
-    restoreButton();
-    return;
-  }
-  
-  if (!phone || phone.length < 10) {
-    showNotification('❌ Ingresa un número de teléfono válido', 'error');
-    document.getElementById('customer-phone')?.focus();
-    restoreButton();
-    return;
-  }
-  
-  if (!whatsapp || whatsapp.length < 10) {
-    showNotification('❌ El WhatsApp es obligatorio para recibir el código QR', 'error');
-    document.getElementById('customer-whatsapp')?.focus();
-    restoreButton();
-    return;
-  }
-  
-  if (!address || address.length < 10) {
-    showNotification('❌ Proporciona una dirección completa y detallada', 'error');
-    document.getElementById('customer-address')?.focus();
-    restoreButton();
-    return;
-  }
-  
-  if (!neighborhood) {
-    showNotification('❌ Selecciona tu barrio para calcular el costo de envío', 'error');
-    document.getElementById('customer-neighborhood')?.focus();
-    restoreButton();
-    return;
-  }
-  
-  if (!paymentMethod) {
-    showNotification('❌ Selecciona un método de pago', 'error');
-    document.getElementById('payment-method')?.focus();
-    restoreButton();
-    return;
-  }
-  
-  // Validar carrito
-  if (!cart || cart.length === 0) {
-    showNotification('❌ Tu carrito está vacío. Agrega productos antes de finalizar', 'error');
-    restoreButton();
-    closeCheckout();
-    return;
-  }
-  
-  // Crear objeto de datos del cliente
-  const customerData = {
-    name: name,
-    phone: phone,
-    whatsapp: whatsapp,
-    address: address,
-    neighborhood: neighborhood,
-    paymentMethod: paymentMethod,
-    timestamp: new Date().toISOString()
-  };
-  
-  console.log('✅ Validaciones completadas. Procesando pedido...');
-  console.log('📦 Productos en carrito:', cart.length);
-  console.log('👤 Datos del cliente:', customerData);
-  
-  showNotification('✅ Datos validados. Procesando tu pedido...', 'success');
-  
-  // Procesar el pedido con delay para UX
-  setTimeout(() => {
-    try {
-      processSimpleOrder(customerData);
-      console.log('✅ Pedido procesado exitosamente');
-    } catch (error) {
-      console.error('❌ Error al procesar pedido:', error);
-      showNotification('❌ Error al procesar el pedido. Inténtalo de nuevo.', 'error');
-      restoreButton();
-    }
-  }, 1500);
-}
-
-// Función auxiliar para manejar el evento del formulario
-function handleCheckoutSubmit(event) {
-  if (event) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-  finalizeOrder();
-  return false;
-}
-
-// ===== FUNCIONES GLOBALES PARA HTML =====
-window.openLogin = openLogin;
-window.closeLogin = closeLogin;
-window.showUserTypeSelector = showUserTypeSelector;
-window.selectUserType = selectUserType;
-window.showLoginForm = showLoginForm;
-window.showRegisterForm = showRegisterForm;
-window.handleLogin = handleLogin;
-window.handleRegister = handleRegister;
-window.logout = logout;
-window.openCart = openCart;
-window.closeCart = closeCart;
-window.addToCart = addToCart;
-window.updateQuantity = updateQuantity;
-window.removeFromCart = removeFromCart;
-window.clearCart = clearCart;
-window.openCheckout = openCheckout;
-window.closeCheckout = closeCheckout;
-window.finalizeOrder = finalizeOrder;
-window.finalizeSimpleOrder = finalizeSimpleOrder;
-window.continueShopping = continueShopping;
-window.navigateToSection = navigateToSection;
-window.filterByCategory = filterByCategory;
-window.resetCategoryFilter = resetCategoryFilter;
-window.scrollToTop = scrollToTop;
-window.showMainView = showMainView;
-window.showVendorView = showVendorView;
-window.showDeliveryView = showDeliveryView;
-window.showVendorTab = showVendorTab;
-window.showDeliveryTab = showDeliveryTab;
-window.handleAddProduct = handleAddProduct;
-window.resetProductForm = resetProductForm;
-window.editProduct = editProduct;
-window.deleteProduct = deleteProduct;
-window.toggleDeliveryStatus = toggleDeliveryStatus;
-window.togglePassword = togglePassword;
-// CORRECCIÓN: Agregar funciones de debug
-window.createLoginButtonIfNeeded = createLoginButtonIfNeeded;
-window.updateUserDisplay = updateUserDisplay;
-
-// CORRECCIÓN: Función de debug para verificar el estado
-window.debugLoginButton = function() {
-  console.log('🔍 DEBUG - Estado actual:');
-  console.log('👤 Usuario:', user);
-  console.log('🔲 Botón login:', document.getElementById('login-btn'));
-  console.log('👥 Sección usuario:', document.getElementById('user-section'));
-  updateUserDisplay();
-};
 
 // ===== INICIALIZACIÓN AUTOMÁTICA =====
 document.addEventListener('DOMContentLoaded', function() {
@@ -3418,20 +2475,21 @@ if (document.readyState === 'loading') {
 
 // ===== INFORMACIÓN DEL SISTEMA ACTUALIZADA =====
 console.log(`
-🌟 MERCADO DIGITAL DE QUIBDÓ - SISTEMA CORREGIDO Y MEJORADO v2.2
+🌟 MERCADO DIGITAL DE QUIBDÓ - SISTEMA CORREGIDO Y MEJORADO v3.0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ✅ Funcionalidades Implementadas y Corregidas:
 🔐 Login/registro por tipo de usuario (Cliente/Vendedor/Repartidor)
 🎯 Redirección automática según rol
 🛒 Carrito con funcionalidades avanzadas y validaciones
-💳 Checkout con validaciones robustas
+💳 Checkout con validaciones robustas y formulario estilizado
 📄 Generación de PDF automatizada (simulada)
 📱 Envío de WhatsApp automático al negocio y cliente
 📧 Envío de email para registro contable
 🔐 Código QR único por pedido
 📊 Gestión de inventario completa
 🏘️ Sistema de domicilios por barrios específicos de Quibdó
+📖 Historia completa sobre el origen del proyecto
 
 🔧 Correcciones Implementadas:
 ✅ Validaciones de stock antes de agregar al carrito
@@ -3442,6 +2500,8 @@ console.log(`
 ✅ Validaciones de acceso por tipo de usuario
 ✅ Detección de conectividad (online/offline)
 ✅ Limpieza automática de datos corruptos
+✅ Botones de dashboard visibles según tipo de usuario
+✅ Formulario de checkout completamente estilizado y funcional
 
 🛡️ Seguridad y Robustez:
 ✅ Validación de datos corruptos en localStorage
@@ -3462,67 +2522,8 @@ console.log(`
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 `);
 
-console.log(`
-🌟 MERCADO DIGITAL DE QUIBDÓ - SISTEMA CORREGIDO Y MEJORADO v2.5
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-✅ FORMULARIO DE CHECKOUT COMPLETAMENTE CORREGIDO Y ESTILIZADO ✅
-
-🎨 Correcciones de Formulario v2.5:
-✅ CSS COMPLETAMENTE RENOVADO Y ADAPTADO A LA PÁGINA
-✅ Estructura del modal reorganizada con clases CSS limpias
-✅ Formulario responsivo con grid CSS profesional
-✅ Botón "Finalizar Pedido" FUNCIONANDO AL 100%
-✅ Validaciones en tiempo real con feedback visual
-✅ Estados de carga del botón con spinner animado
-✅ Event listeners mejorados y protegidos contra doble click
-✅ Focus automático en campos con errores
-✅ Estilos adaptativos para móvil y escritorio
-
-🔧 Funcionalidades del Botón Corregidas:
-✅ finalizeOrder() - Función principal corregida
-✅ handleCheckoutSubmit() - Manejo de eventos del formulario
-✅ addRealTimeValidation() - Validación visual en tiempo real
-✅ Prevención de múltiples envíos con estados de botón
-✅ Restauración automática del botón en caso de error
-✅ Indicadores visuales de procesamiento mejorados
-
-🎯 Características del CSS Adaptado:
-✅ Clases CSS organizadas por componentes
-✅ Variables CSS para colores del tema
-✅ Animaciones suaves con @keyframes
-✅ Responsive design con media queries
-✅ Scrollbar personalizada para el contenido
-✅ Efectos hover e interacciones táctiles optimizadas
-✅ Gradientes y sombras profesionales
-
-🎨 Mejoras Visuales del Formulario:
-✅ Header con decoraciones y gradientes
-✅ Secciones organizadas con iconos coloridos
-✅ Campos de entrada con estados focus/hover
-✅ Resumen de pedido con totales destacados
-✅ Botón principal con efectos shine y animaciones
-✅ Validación visual con colores (rojo/verde)
-✅ Tipografía mejorada y jerarquía visual clara
-
-🔍 Funciones de Debug Disponibles:
-• debugLoginButton() - Para verificar estado del botón
-• createLoginButtonIfNeeded() - Crear botón dinámicamente
-• updateUserDisplay() - Actualizar display de usuario
-• finalizeOrder() - Función principal de finalización corregida
-• handleCheckoutSubmit() - Manejo de eventos del formulario
-
-👥 Creadores: ${CONFIG.creadores.join(', ')}
-📱 WhatsApp: ${CONFIG.whatsapp}
-📧 Email: ${CONFIG.email}
-🏘️ Barrios de cobertura: ${CONFIG.barrios.length}
-
-🚀 FORMULARIO DE CHECKOUT TOTALMENTE FUNCIONAL CON CSS ADAPTADO ✅
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-`);
-
-console.log('📜 JavaScript del Mercado de Quibdó v2.3 CORREGIDO cargado exitosamente');
-console.log('🔐 BOTÓN DE LOGIN CORREGIDO - Ahora aparece automáticamente');
+console.log('📜 JavaScript del Mercado de Quibdó v3.0 CORREGIDO cargado exitosamente');
+console.log('🔐 TODAS LAS FUNCIONALIDADES CORREGIDAS Y FUNCIONANDO');
 console.log('📱 Configuración:', {
   whatsapp: CONFIG.whatsappBusiness,
   email: CONFIG.email,
