@@ -127,50 +127,7 @@
                     </div>
                 </div>
             </section>
-
-            <!-- ========== PRODUCTOS DESTACADOS ========== -->
-            <section id="productos" class="section">
-                <div class="container">
-                    <div class="section-header">
-                        <div class="section-title">
-                            ⭐ <h2 id="productos-title">Productos Destacados</h2> ⭐
-                        </div>
-                        <p id="productos-description" class="section-description">
-                            Los mejores productos frescos de la región, seleccionados especialmente para ti
-                        </p>
-                        
-                        <!-- Botón de reset categoria -->
-                        <button 
-                            id="reset-category-btn" 
-                            class="btn btn-secondary reset-category-btn" 
-                            onclick="resetCategoryFilter()" 
-                            style="display: none; margin-top: 1rem;"
-                        >
-                            ← Ver todos los productos
-                        </button>
-                    </div>
-
-                    <!-- Grid de productos destacados -->
-                    <div id="products-grid" class="products-grid">
-                        <!-- Los productos se cargarán dinámicamente aquí -->
-                    </div>
-
-                    <!-- Botón de acción para explorar más -->
-                    <div class="text-center">
-                        <button 
-                            class="btn btn-primary btn-lg btn-explore-categories" 
-                            onclick="navigateToSection('categorias')"
-                        >
-                            🔍 Explorar todas las categorías
-                        </button>
-                        <p style="margin-top: 1rem; color: #6b7280; font-size: 0.875rem;">
-                            💡 <strong>¿Buscas más productos?</strong> Visita nuestras páginas de categorías para ver el catálogo completo
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ========== CATEGORÍAS ========== -->
+             <!-- ========== CATEGORÍAS ========== -->
             <section id="categorias" class="section section-categories">
                 <div class="container">
                     <div class="section-header">
@@ -226,7 +183,68 @@
                 </div>
             </section>
 
-            <!-- ========== DOMICILIOS ========== -->
+            <!-- ========== PRODUCTOS DESTACADOS ========== -->
+            <section id="productos" class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="section-title">
+                            ⭐ <h2 id="productos-title">Productos Destacados</h2> ⭐
+                        </div>
+                        <p id="productos-description" class="section-description">
+                            Los mejores productos frescos de la región, seleccionados especialmente para ti
+                        </p>
+                        
+                        <!-- Botón de reset categoria -->
+                        <button 
+                            id="reset-category-btn" 
+                            class="btn btn-secondary reset-category-btn" 
+                            onclick="resetCategoryFilter()" 
+                            style="display: none; margin-top: 1rem;"
+                        >
+                            ← Ver todos los productos
+                        </button>
+                    </div>
+
+                    <!-- Grid de productos destacados -->
+                    <div id="products-grid" class="products-grid">
+                        <!-- Los productos se cargarán dinámicamente aquí -->
+                    </div>
+
+                    <!-- Botón de acción para explorar más -->
+                    <div class="text-center">
+                        <button 
+                            class="btn btn-primary btn-lg btn-explore-categories" 
+                            onclick="navigateToSection('categorias')"
+                        >
+                            🔍 Explorar todas las categorías
+                        </button>
+                        <p style="margin-top: 1rem; color: #6b7280; font-size: 0.875rem;">
+                            💡 <strong>¿Buscas más productos?</strong> Visita nuestras páginas de categorías para ver el catálogo completo
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+           
+
+            <!-- ========== OFERTAS ESPECIALES ========== -->
+            <section id="ofertas" class="section offers-section">
+                <div class="container">
+                    <div class="section-header">
+                        <div class="section-title">
+                            💥 <h2>Ofertas Especiales</h2> 💥
+                        </div>
+                        <p class="section-description">
+                            Aprovecha nuestras ofertas limitadas en productos frescos
+                        </p>
+                    </div>
+
+                    <div id="offers-grid" class="products-grid">
+                        <!-- Las ofertas se cargarán dinámicamente aquí -->
+                    </div>
+                </div>
+            </section>
+             <!-- ========== DOMICILIOS ========== -->
             <section id="domicilios" class="section">
                 <div class="container">
                     <div class="section-header">
@@ -240,13 +258,7 @@
 
                     <div class="grid">
                         <!-- Imagen de domicilio -->
-                        <div class="delivery-image-container">
-                            <img 
-                                src="https://images.unsplash.com/photo-1574781330855-d0db3580ec41?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZWxpdmVyeSUyMG1vdG9yY3ljbGUlMjBjb2xvbWJpYXxlbnwxfHx8fDE3NTcwMjk1MDB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" 
-                                alt="Servicio de domicilios en Quibdó" 
-                                class="delivery-image"
-                            >
-                        </div>
+                    
 
                         <!-- Contacto para pedidos -->
                         <div class="contact-for-orders">
@@ -276,24 +288,6 @@
                                 <!-- Se cargan dinámicamente con JavaScript -->
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ========== OFERTAS ESPECIALES ========== -->
-            <section id="ofertas" class="section offers-section">
-                <div class="container">
-                    <div class="section-header">
-                        <div class="section-title">
-                            💥 <h2>Ofertas Especiales</h2> 💥
-                        </div>
-                        <p class="section-description">
-                            Aprovecha nuestras ofertas limitadas en productos frescos
-                        </p>
-                    </div>
-
-                    <div id="offers-grid" class="products-grid">
-                        <!-- Las ofertas se cargarán dinámicamente aquí -->
                     </div>
                 </div>
             </section>
