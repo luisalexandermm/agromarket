@@ -38,6 +38,7 @@
                         <button class="btn btn-ghost" onclick="navigateToSection('ofertas')">Ofertas</button>
                         <button class="btn btn-ghost" onclick="navigateToSection('contacto')">Contacto</button>
                         <button class="btn btn-ghost" onclick="navigateToSection('sobre nosotros')">sobre nosotros</button>
+                        <a href="manual.html" class="btn btn-ghost" style="text-decoration: none; display: inline-flex; align-items: center;">📖 Manual</a>
                     </nav>
 
                     <!-- Usuario y Carrito -->
@@ -217,11 +218,11 @@
                 </div>
             </section>
 
-           
+            
 
             <!-- ========== OFERTAS ESPECIALES ========== -->
             <section id="ofertas" class="section offers-section">
-                <div class="container">
+                <div class="container"> 
                     <div class="section-header">
                         <div class="section-title">
                             💥 <h2>Ofertas Especiales</h2> 💥
@@ -230,6 +231,7 @@
                             Aprovecha nuestras ofertas limitadas en productos frescos
                         </p>
                     </div>
+                  
 
                     <div id="offers-grid" class="products-grid">
                         <!-- Las ofertas se cargarán dinámicamente aquí -->
@@ -239,7 +241,7 @@
              <!-- ========== DOMICILIOS ========== -->
             <section id="domicilios" class="section">
                 <section id="contacto"></section>
-                <div class="container">
+                <div class="container"> 
                     <div class="section-header">
                         <div class="section-title">
                             🚚 <h2>Servicio de Domicilios</h2> 🚚
@@ -354,7 +356,7 @@
                             </div>
                         </div>
 
-                        <!-- Equipo creador -->
+                        <!-- Equipo creador CON IMÁGENES -->
                         <div class="team-section">
                             <h3>👥 Nuestro Equipo Creador</h3>
                             <p class="team-intro">
@@ -364,7 +366,9 @@
                             
                             <div class="team-grid">
                                 <div class="team-member">
-                                    <div class="member-avatar">👨‍💻</div>
+                                    <div class="member-avatar-image">
+                                        <img src="img/luis.jpg" alt="Luis Alexander" />
+                                    </div>
                                     <h4>Luis Alexander</h4>
                                     <p class="member-role">Fundador y Desarrollador Principal</p>
                                     <p class="member-description">
@@ -384,7 +388,9 @@
                                 </div>
 
                                 <div class="team-member">
-                                    <div class="member-avatar">👩‍💼</div>
+                                    <div class="member-avatar-image">
+                                        <img src="img/edith.jpg" alt="Edith Yaritza" />
+                                    </div>
                                     <h4>Edith Yaritza</h4>
                                     <p class="member-role">Coordinadora de Operaciones y Logística</p>
                                     <p class="member-description">
@@ -403,7 +409,9 @@
                                 </div>
 
                                 <div class="team-member">
-                                    <div class="member-avatar">👩‍🌾</div>
+                                    <div class="member-avatar-image">
+                                        <img src="img/jhrofanys.jpg" alt="Jhorfanys Andrea" />
+                                    </div>
                                     <h4>Jhorfanys Andrea</h4>
                                     <p class="member-role">Especialista en Productos Locales y Mercadeo</p>
                                     <p class="member-description">
@@ -444,7 +452,7 @@
                                     <p>Aplicamos tecnología de vanguardia para resolver problemas reales y mejorar la calidad de vida en nuestro territorio.</p>
                                 </div>
                                 <div class="value-item">
-                                    <div class="value-icon">🏆</div>
+                                    <div class="value-icon">��</div>
                                     <h4>Calidad</h4>
                                     <p>Mantenemos los más altos estándares de calidad en productos y servicios, honrando la excelencia chocoana.</p>
                                 </div>
@@ -472,6 +480,7 @@
                             <li><a href="#categorias" onclick="navigateToSection('categorias')">Categorías</a></li>
                             <li><a href="#domicilios" onclick="navigateToSection('domicilios')">Domicilios</a></li>
                             <li><a href="#acerca-de" onclick="navigateToSection('acerca-de')">Nuestra Historia</a></li>
+                            <li><a href="manual.html">📖 Manual de Usuario</a></li>
                         </ul>
                     </div>
                     <div class="footer-section">
@@ -834,6 +843,19 @@
                         <p>Gestiona tus entregas y maximiza tus ganancias en Quibdó</p>
                     </div>
 
+                    <!-- NÚMERO DEL DOMICILIARIO -->
+                    <div class="delivery-contact-card">
+                        <h3>📱 Número de Contacto del Repartidor</h3>
+                        <p>Los pedidos se envían automáticamente a tu WhatsApp:</p>
+                        <div class="delivery-phone-display">
+                            <a href="https://wa.me/573145312045" target="_blank" rel="noopener">
+                                <div class="phone-number">+57 314 531 2045</div>
+                                <p class="phone-description">Haz clic para abrir WhatsApp</p>
+                            </a>
+                        </div>
+                        <p class="phone-note">✅ Recibirás notificaciones de todos los pedidos de tu zona asignada</p>
+                    </div>
+
                     <div class="dashboard-stats">
                         <div class="stat-card stat-primary">
                             <div class="stat-icon">🚚</div>
@@ -969,12 +991,12 @@
                                     </select>
                                 </div>
                                   <div class="form-group">
-                                    <label for="delivery-vehicle-type">zona de domicilios </label>
-                                    <select id="delivery-vehicle-type" name="vehicleType" class="form-select">
-                                        <option value="motocicleta"> norte</option>
-                                        <option value="bicicleta"> sur</option>
-                                        <option value="carro"> centro</option>
-                                        <option value="a-pie"> caraño</option>
+                                    <label for="delivery-zone">Zona de domicilios</label>
+                                    <select id="delivery-zone" name="zone" class="form-select">
+                                        <option value="norte">Norte</option>
+                                        <option value="sur">Sur</option>
+                                        <option value="centro">Centro</option>
+                                        <option value="carano">Caraño</option>
                                     </select>
                                 </div>
                             </div>

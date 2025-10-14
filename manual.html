@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario - Mercado de Quibdó</title>
+    <meta name="description" content="Manual completo de usuario para el Mercado de Quibdó. Aprende a usar todas las funcionalidades de la plataforma.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="agro.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="img/logomarket-removebg-preview.png" type="image/png">
+    
+    <style>
+        /* Estilos específicos para el manual */
+        .manual-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .manual-header {
+            background: linear-gradient(135deg, #16a34a 0%, #059669 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 1.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(22, 163, 74, 0.3);
+        }
+        
+        .manual-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .manual-header p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .table-of-contents {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px solid #3b82f6;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .toc-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .toc-header h2 {
+            color: #1e40af;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .toc-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: white;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: #1e40af;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border: 1px solid #bfdbfe;
+        }
+        
+        .toc-link:hover {
+            transform: translateX(5px);
+            border-color: #3b82f6;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+        }
+        
+        .manual-section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 100px;
+        }
+        
+        .section-card {
+            border-left: 5px solid;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-intro {
+            border-color: #16a34a;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        }
+        
+        .section-cliente {
+            border-color: #2563eb;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        }
+        
+        .section-vendedor {
+            border-color: #f59e0b;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        }
+        
+        .section-repartidor {
+            border-color: #8b5cf6;
+            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+        }
+        
+        .section-contacto {
+            border-color: #dc2626;
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-icon {
+            font-size: 2.5rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .subsection {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .subsection h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin: 0 0 1rem 0;
+        }
+        
+        .subsection ol, .subsection ul {
+            line-height: 2;
+            padding-left: 1.5rem;
+            margin: 0;
+        }
+        
+        .subsection li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .subsection ul ul, .subsection ol ul {
+            margin-top: 0.5rem;
+        }
+        
+        .highlight-box {
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin: 1.5rem 0;
+        }
+        
+        .highlight-warning {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #f59e0b;
+        }
+        
+        .highlight-info {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px solid #3b82f6;
+        }
+        
+        .highlight-success {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 2px solid #16a34a;
+        }
+        
+        .highlight-box h3, .highlight-box h4 {
+            margin: 0 0 1rem 0;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        
+        .highlight-box p {
+            margin: 0;
+            line-height: 1.8;
+        }
+        
+        .contact-grid {
+            display: grid;
+            gap: 1.25rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #fef2f2;
+            border-radius: 0.5rem;
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+        }
+        
+        .contact-info a {
+            color: #dc2626;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .team-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .team-card h4 {
+            color: #1e40af;
+            margin: 0 0 0.5rem 0;
+            font-size: 1.25rem;
+        }
+        
+        .footer-manual {
+            text-align: center;
+            padding: 3rem 0 2rem 0;
+            border-top: 3px solid #e5e7eb;
+            margin-top: 4rem;
+        }
+        
+        .btn-back-top {
+            background: linear-gradient(135deg, #16a34a 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 1.25rem 3rem;
+            border-radius: 1rem;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .btn-back-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .manual-header h1 {
+                font-size: 1.75rem;
+                flex-direction: column;
+            }
+            
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="manual-container">
+        <!-- Header del Manual -->
+        <div class="manual-header">
+            <h1>
+                <span>📖</span>
+                <span>Manual de Usuario</span>
+            </h1>
+            <p>AgroMarket - Mercado de Quibdó</p>
+            <p style="font-size: 1rem; margin-top: 1rem; opacity: 0.9;">
+                Guía completa para usar todas las funcionalidades de la plataforma
+            </p>
+            <a href="index.html" class="back-button">
+                ← Volver al Mercado
+            </a>
+        </div>
+
+        <!-- Tabla de Contenido -->
+        <div class="table-of-contents">
+            <div class="toc-header">
+                <span style="font-size: 2rem;">📑</span>
+                <h2>Tabla de Contenido</h2>
+            </div>
+            
+            <div class="toc-grid">
+                <a href="#introduccion" class="toc-link">
+                    <span style="font-size: 1.25rem;">🌱</span>
+                    <span>Introducción</span>
+                </a>
+                
+                <a href="#cliente" class="toc-link">
+                    <span style="font-size: 1.25rem;">👤</span>
+                    <span>Guía para Clientes</span>
+                </a>
+                
+                <a href="#vendedor" class="toc-link">
+                    <span style="font-size: 1.25rem;">🏪</span>
+                    <span>Guía para Vendedores</span>
+                </a>
+                
+                <a href="#repartidor" class="toc-link">
+                    <span style="font-size: 1.25rem;">🚚</span>
+                    <span>Guía para Repartidores</span>
+                </a>
+                
+                <a href="#contacto" class="toc-link">
+                    <span style="font-size: 1.25rem;">📞</span>
+                    <span>Contacto y Soporte</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Sección: Introducción -->
+        <section id="introduccion" class="manual-section">
+            <div class="section-card section-intro">
+                <div class="section-header">
+                    <div class="section-icon">🌱</div>
+                    <h2 class="section-title" style="color: #14532d;">Introducción</h2>
+                </div>
+                
+                <p style="color: #15803d; line-height: 1.8; margin: 1rem 0; font-size: 1.05rem;">
+                    <strong>AgroMarket - Mercado de Quibdó</strong> es una plataforma digital revolucionaria 
+                    diseñada para conectar a productores locales del Chocó con clientes que buscan productos 
+                    frescos y de calidad. Nuestra misión es fortalecer la economía local y facilitar el 
+                    acceso a alimentos frescos del Pacífico colombiano.
+                </p>
+                
+                <div class="highlight-box highlight-success">
+                    <h3 style="color: #16a34a;">✨ Características Principales:</h3>
+                    <div style="display: grid; gap: 0.75rem;">
+                        <div style="display: flex; align-items: start; gap: 0.75rem;">
+                            <span style="font-size: 1.5rem;">🛒</span>
+                            <div>
+                                <strong>Compra de productos frescos:</strong> Acceso directo a productos locales de máxima calidad
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: start; gap: 0.75rem;">
+                            <span style="font-size: 1.5rem;">🏪</span>
+                            <div>
+                                <strong>Panel de gestión para vendedores:</strong> Administra tus productos e inventario fácilmente
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: start; gap: 0.75rem;">
+                            <span style="font-size: 1.5rem;">🚚</span>
+                            <div>
+                                <strong>Sistema de domicilios:</strong> Entregas a 16 barrios de Quibdó con costos diferenciados
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: start; gap: 0.75rem;">
+                            <span style="font-size: 1.5rem;">💳</span>
+                            <div>
+                                <strong>Múltiples métodos de pago:</strong> Efectivo, Nequi, Daviplata, Transferencia
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: start; gap: 0.75rem;">
+                            <span style="font-size: 1.5rem;">📱</span>
+                            <div>
+                                <strong>Notificaciones por WhatsApp:</strong> Confirmaciones automáticas de pedidos
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: start; gap: 0.75rem;">
+                            <span style="font-size: 1.5rem;">🔐</span>
+                            <div>
+                                <strong>Códigos QR únicos:</strong> Sistema de seguridad para cada pedido
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Guía para Clientes -->
+        <section id="cliente" class="manual-section">
+            <div class="section-card section-cliente">
+                <div class="section-header">
+                    <div class="section-icon">👤</div>
+                    <h2 class="section-title" style="color: #1e3a8a;">Guía para Clientes</h2>
+                </div>
+                
+                <div class="subsection">
+                    <h3 style="color: #1e40af;">1️⃣ Registro e Inicio de Sesión</h3>
+                    <ol style="color: #1e40af;">
+                        <li>Haz clic en <strong>"Iniciar Sesión"</strong> en la esquina superior derecha</li>
+                        <li>Selecciona el tipo de usuario <strong>"Cliente"</strong></li>
+                        <li>Para crear cuenta nueva, haz clic en <strong>"Crear Cuenta"</strong></li>
+                        <li>Completa el formulario:
+                            <ul>
+                                <li>Nombre completo (mínimo 2 caracteres)</li>
+                                <li>Correo electrónico válido</li>
+                                <li>Número de teléfono (10 dígitos)</li>
+                                <li>Contraseña segura (mínimo 6 caracteres)</li>
+                            </ul>
+                        </li>
+                        <li>Haz clic en <strong>"Crear Cuenta"</strong> y listo ✅</li>
+                    </ol>
+                </div>
+                
+                <div class="subsection">
+                    <h3 style="color: #1e40af;">2️⃣ Navegación y Búsqueda de Productos</h3>
+                    <ul style="color: #1e40af;">
+                        <li>Explora las <strong>6 categorías</strong>: Frutas, Verduras, Pescados, Granos, Especias, Lácteos</li>
+                        <li>Usa los <strong>botones de filtro</strong> para ver productos por categoría específica</li>
+                        <li>Revisa la sección <strong>"Ofertas del Día"</strong> para productos con descuento</li>
+                        <li>Cada producto muestra: precio, ubicación, fecha de vencimiento, si es orgánico</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection">
+                    <h3 style="color: #1e40af;">3️⃣ Agregar Productos al Carrito</h3>
+                    <ol style="color: #1e40af;">
+                        <li>Haz clic en <strong>"🛒 Agregar al Carrito"</strong> en el producto deseado</li>
+                        <li>Verás una confirmación y el contador del carrito se actualizará</li>
+                        <li>Puedes seguir comprando o ir al carrito haciendo clic en el ícono 🛒</li>
+                        <li>En el carrito puedes ajustar cantidades con los botones <strong>+</strong> y <strong>-</strong></li>
+                    </ol>
+                </div>
+                
+                <div class="subsection">
+                    <h3 style="color: #1e40af;">4️⃣ Finalizar Compra (Checkout)</h3>
+                    <ol style="color: #1e40af;">
+                        <li>Haz clic en <strong>"Proceder al Pago"</strong> desde el carrito</li>
+                        <li>Completa el formulario de checkout:
+                            <ul>
+                                <li><strong>Nombre completo</strong> (mínimo 3 caracteres)</li>
+                                <li><strong>Teléfono</strong> de contacto (10 dígitos)</li>
+                                <li><strong>WhatsApp</strong> (obligatorio para recibir código QR)</li>
+                                <li><strong>Dirección completa</strong> y detallada (mínimo 10 caracteres)</li>
+                                <li><strong>Selecciona tu barrio</strong> (el costo de envío se calcula automáticamente)</li>
+                                <li><strong>Método de pago:</strong> Efectivo, Nequi, Daviplata o Transferencia</li>
+                            </ul>
+                        </li>
+                        <li>Revisa el resumen: subtotal, envío y total</li>
+                        <li>Haz clic en <strong>"Finalizar Pedido"</strong></li>
+                    </ol>
+                </div>
+                
+                <div class="highlight-box highlight-warning">
+                    <h3 style="color: #92400e;">⚠️ IMPORTANTE: Código QR</h3>
+                    <p style="color: #92400e;">
+                        Después de finalizar tu pedido, recibirás un <strong>código QR único</strong> por WhatsApp. 
+                        <br><br>
+                        📱 <strong>Guarda este código</strong> y muéstralo al repartidor cuando llegue con tu pedido.
+                        <br><br>
+                        🔐 Es tu <strong>comprobante de compra</strong> y garantiza la seguridad de la transacción.
+                    </p>
+                </div>
+                
+                <div class="subsection">
+                    <h3 style="color: #1e40af;">5️⃣ Confirmación y Seguimiento</h3>
+                    <ul style="color: #1e40af;">
+                        <li>📱 Recibirás confirmación <strong>por WhatsApp</strong> con tu código QR único</li>
+                        <li>📧 Se enviará factura al correo <strong>alrxandermaturana76@gmail.com</strong> para registro contable</li>
+                        <li>🚚 <strong>Tiempo de entrega estimado:</strong>
+                            <ul>
+                                <li>Centro: 30-45 minutos</li>
+                                <li>Otros barrios: 45-75 minutos</li>
+                            </ul>
+                        </li>
+                        <li>Ten el <strong>dinero exacto listo</strong> si pagas en efectivo</li>
+                        <li>Verifica tus productos al recibirlos</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Guía para Vendedores -->
+        <section id="vendedor" class="manual-section">
+            <div class="section-card section-vendedor">
+                <div class="section-header">
+                    <div class="section-icon">🏪</div>
+                    <h2 class="section-title" style="color: #78350f;">Guía para Vendedores</h2>
+                </div>
+                
+                <div class="subsection">
+                    <h3 style="color: #d97706;">1️⃣ Acceso al Panel de Vendedor</h3>
+                    <ol style="color: #92400e;">
+                        <li>Regístrate como <strong>"Vendedor"</strong></li>
+                        <li>Proporciona el <strong>nombre de tu negocio</strong> durante el registro</li>
+                        <li>Inicia sesión y automáticamente accederás al <strong>Panel de Vendedor</strong></li>
+                        <li>También puedes hacer clic en <strong>"Panel Vendedor"</strong> en el menú superior</li>
+                    </ol>
+                </div>
+                
+                <div class="subsection">
+                    <h3 style="color: #d97706;">2️⃣ Agregar Productos al Catálogo</h3>
+                    <ol style="color: #92400e;">
+                        <li>Ve a la sección <strong>"Productos"</strong> en el menú lateral del panel</li>
+                        <li>Haz clic en <strong>"Agregar Producto"</strong></li>
+                        <li>Completa el formulario con información del producto:
+                            <ul>
+                                <li><strong>Nombre:</strong> Mínimo 2 caracteres</li>
+                                <li><strong>Precio:</strong> Obligatorio, mayor a cero</li>
+                                <li><strong>Categoría:</strong> Selecciona una de las 6 disponibles</li>
+                                <li><strong>Descripción:</strong> Detallada, mínimo 10 caracteres</li>
+                                <li><strong>Ubicación/origen:</strong> Dónde se cultiva o produce</li>
+                                <li><strong>Fecha de vencimiento:</strong> Para productos perecederos</li>
+                                <li><strong>URL de imagen:</strong> Foto del producto</li>
+                                <li><strong>Precio original:</strong> Opcional, para mostrar descuento</li>
+                                <li><strong>Orgánico:</strong> Marca si es producto orgánico 🌱</li>
+                            </ul>
+                        </li>
+                        <li>Haz clic en <strong>"Agregar Producto"</strong></li>
+                        <li>El producto aparecerá inmediatamente en el catálogo</li>
+                    </ol>
+                </div>
+                
+                <div class="subsection">
+                    <h3 style="color: #d97706;">3️⃣ Gestión de Pedidos</h3>
+                    <ul style="color: #92400e;">
+                        <li>Revisa pedidos en tiempo real en la sección <strong>"Pedidos"</strong></li>
+                        <li>Verifica información del cliente y productos solicitados</li>
+                        <li>Prepara los productos con cuidado</li>
+                        <li>Marca pedidos como <strong>"Preparado"</strong> cuando estén listos</li>
+                        <li>El repartidor será notificado automáticamente</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection">
+                    <h3 style="color: #d97706;">4️⃣ Estadísticas y Análisis</h3>
+                    <ul style="color: #92400e;">
+                        <li>📊 <strong>Dashboard:</strong> Resumen de ventas diarias y mensuales</li>
+                        <li>📈 <strong>Analíticas:</strong> Productos más vendidos, ingresos totales</li>
+                        <li>⭐ <strong>Calificaciones:</strong> Valoración de clientes sobre tus productos</li>
+                        <li>📦 <strong>Inventario:</strong> Control de stock disponible</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Guía para Repartidores -->
+        <section id="repartidor" class="manual-section">
+            <div class="section-card section-repartidor">
+                <div class="section-header">
+                    <div class="section-icon">🚚</div>
+                    <h2 class="section-title" style="color: #4c1d95;">Guía para Repartidores</h2>
+                </div>
+                
+                <div class="highlight-box highlight-info">
+                    <h3 style="color: #6d28d9;">📱 Número de Contacto del Domiciliario</h3>
+                    <p style="color: #5b21b6; font-size: 1.1rem;">
+                        Los clientes pueden comunicarse contigo al número:
+                        <br>
+                        <strong style="font-size: 1.5rem; color: #7c3aed;">📞 3145312045</strong>
+                        <br>
+                        Para coordinar la entrega de sus pedidos.
+                    </p>
+                </div>
+                
+                <div class="subsection">
+                    <h3 style="color: #7c3aed;">1️⃣ Configuración Inicial</h3>
+                    <ol style="color: #5b21b6;">
+                        <li>Regístrate como <strong>"Repartidor"</strong></li>
+                        <li>Proporciona tu tipo de vehículo: Moto, Bicicleta o A pie</li>
+                        <li>Inicia sesión y accede al <strong>Panel de Repartidor</strong></li>
+                        <li>Configura tu disponibilidad</li>
+                    </ol>
+                </div>
+                
+                <div class="subsection">
+                    <h3 style="color: #7c3aed;">2️⃣ Gestión de Entregas</h3>
+                    <ol style="color: #5b21b6;">
+                        <li>Activa tu estado como <strong>"Disponible"</strong> en el panel</li>
+                        <li>Ve entregas disponibles en la sección <strong>"Entregas Disponibles"</strong></li>
+                        <li>Revisa la información de cada entrega:
+                            <ul>
+                                <li>Dirección completa del cliente</li>
+                                <li>Barrio y costo de envío</li>
+                                <li>Productos a entregar</li>
+                                <li>Total a cobrar</li>
+                                <li>Método de pago (Efectivo, Nequi, etc.)</li>
+                            </ul>
+                        </li>
+                        <li>Haz clic en <strong>"Aceptar Entrega"</strong></li>
+                    </ol>
+                </div>
+                
+                <div class="subsection">
+                    <h3 style="color: #7c3aed;">3️⃣ Proceso de Entrega Paso a Paso</h3>
+                    <ol style="color: #5b21b6;">
+                        <li>🏪 Recoge el pedido en el punto de venta indicado</li>
+                        <li>✅ Verifica que todos los productos estén correctos</li>
+                        <li>🗺️ Dirígete a la dirección del cliente</li>
+                        <li>🔐 <strong>IMPORTANTE:</strong> Al llegar, solicita el <strong>código QR</strong> al cliente</li>
+                        <li>🔍 Verifica que el código QR coincida con el del pedido</li>
+                        <li>📦 Entrega los productos al cliente</li>
+                        <li>💵 Si es pago en efectivo, cobra el monto exacto</li>
+                        <li>✅ Marca la entrega como <strong>"Completada"</strong> en la app</li>
+                    </ol>
+                </div>
+                
+                <div class="highlight-box highlight-warning">
+                    <h3 style="color: #92400e;">⚠️ Seguridad: Código QR</h3>
+                    <p style="color: #92400e;">
+                        <strong>SIEMPRE verifica el código QR</strong> antes de entregar el pedido.
+                        <br><br>
+                        🔐 Esto garantiza que entregas al cliente correcto y protege tanto al cliente como a ti.
+                        <br><br>
+                        ❌ <strong>NO entregues</strong> sin verificar el código QR.
+                    </p>
+                </div>
+                
+                <div class="subsection">
+                    <h3 style="color: #7c3aed;">4️⃣ Seguimiento de Ganancias</h3>
+                    <ul style="color: #5b21b6;">
+                        <li>💰 Ve en <strong>"Ganancias"</strong> tus ingresos:
+                            <ul>
+                                <li>Diarios</li>
+                                <li>Semanales</li>
+                                <li>Mensuales</li>
+                            </ul>
+                        </li>
+                        <li>📊 Revisa estadísticas:
+                            <ul>
+                                <li>Entregas completadas</li>
+                                <li>Tiempo promedio por entrega</li>
+                                <li>Barrios más frecuentes</li>
+                            </ul>
+                        </li>
+                        <li>⭐ Mantén tu calificación alta para recibir más pedidos</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Contacto y Soporte -->
+        <section id="contacto" class="manual-section">
+            <div class="section-card section-contacto">
+                <div class="section-header">
+                    <div class="section-icon">📞</div>
+                    <h2 class="section-title" style="color: #7f1d1d;">Contacto y Soporte</h2>
+                </div>
+                
+                <div class="subsection">
+                    <h3 style="color: #dc2626; margin-bottom: 1.5rem;">💬 Canales de Soporte:</h3>
+                    
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <div class="contact-icon">📱</div>
+                            <div class="contact-info">
+                                <div style="font-weight: 700; color: #991b1b; margin-bottom: 0.25rem;">WhatsApp Business</div>
+                                <a href="https://wa.me/573226654844" target="_blank">+57 322 6654844</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div class="contact-info">
+                                <div style="font-weight: 700; color: #991b1b; margin-bottom: 0.25rem;">Email de Soporte</div>
+                                <a href="mailto:alrxandermaturana76@gmail.com">alrxandermaturana76@gmail.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">🕐</div>
+                            <div class="contact-info">
+                                <div style="font-weight: 700; color: #991b1b; margin-bottom: 0.25rem;">Horario de Atención</div>
+                                <div style="color: #7f1d1d;">
+                                    <strong>Lunes a Sábado:</strong> 7:00 AM - 6:00 PM
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box highlight-info" style="margin-top: 2rem;">
+                    <h3 style="color: #1e40af; text-align: center; margin-bottom: 1.5rem;">👥 Equipo de Desarrollo</h3>
+                    <div class="team-grid">
+                        <div class="team-card">
+                            <div class="team-icon">👨‍💻</div>
+                            <h4>Luis Alexander</h4>
+                        </div>
+                        <div class="team-card">
+                            <div class="team-icon">👩‍💻</div>
+                            <h4>Edith Yaritza</h4>
+                        </div>
+                        <div class="team-card">
+                            <div class="team-icon">👩‍💻</div>
+                            <h4>Jhorfanys Andrea</h4>
+                        </div>
+                    </div>
+                    <p style="color: #1e3a8a; margin: 1.5rem 0 0 0; font-size: 0.95rem; text-align: center;">
+                        <strong>Facultdad de ingenieria en sistemas- segundo semestre- 2025</strong>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer del Manual -->
+        <div class="footer-manual">
+            <a href="index.html" class="btn-back-top">
+                ← Volver al Mercado de Quibdó
+            </a>
+            
+            <p style="color: #6b7280; margin-top: 2rem; font-size: 0.875rem;">
+                ¿Necesitas ayuda? Contáctanos en WhatsApp: <strong><a href="https://wa.me/573226654844" target="_blank">+57 322 6654844</a></strong>
+            </p>
+            
+            <p style="color: #9ca3af; margin-top: 1rem; font-size: 0.8rem;">
+                &copy; 2025 Mercado de Quibdó. Todos los derechos reservados.
+            </p>
+        </div>
+    </div>
+
+    <!-- Botón flotante para volver arriba -->
+    <button 
+        id="scroll-top" 
+        class="scroll-top" 
+        onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+        style="display: none;"
+    >
+        ⬆️
+    </button>
+
+    <script>
+        // Mostrar/ocultar botón de scroll to top
+        window.addEventListener('scroll', function() {
+            const scrollBtn = document.getElementById('scroll-top');
+            if (window.pageYOffset > 400) {
+                scrollBtn.style.display = 'flex';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        });
+
+        // Smooth scroll para los enlaces del índice
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        console.log('📖 Manual de Usuario - Mercado de Quibdó v4.0');
+    </script>
+</body>
+</html>

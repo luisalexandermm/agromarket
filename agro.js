@@ -1741,6 +1741,28 @@ function logout() {
 }
 
 function updateUserDisplay() {
+  if (user && userSection && loginBtn && userName) {
+  // ...código existente...
+  userSection.classList.remove('hidden');
+  userSection.style.display = 'flex';
+  loginBtn.classList.add('hidden');
+  loginBtn.style.display = 'none';
+
+  // AGREGA AQUÍ EL BLOQUE DE CORRECCIÓN:
+  const loginModal = document.getElementById('login-modal');
+  const overlay = document.getElementById('overlay');
+  if (loginModal) {
+    loginModal.classList.add('hidden');
+    loginModal.classList.remove('show');
+    loginModal.style.display = 'none';
+  }
+  if (overlay) {
+    overlay.classList.add('hidden');
+    overlay.classList.remove('show');
+    overlay.style.display = 'none';
+  }
+  // ...código existente...
+}
   console.log('👤 Actualizando display de usuario:', user);
   
   const userSection = document.getElementById('user-section');
