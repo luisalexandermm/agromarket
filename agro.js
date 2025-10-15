@@ -20,19 +20,18 @@ const CONFIG = {
     { nombre: 'Kennedy', costoEnvio: 3000 },
     { nombre: 'Medrano', costoEnvio: 3000 },
     { nombre: 'Pandeyuca', costoEnvio: 5000 },
-    { nombre: 'San Vicente', costoEnvio: 5000 },
+    { nombre: 'yesquita', costoEnvio: 5000 },
     { nombre: 'La Yesca', costoEnvio: 4000 },
     { nombre: 'Roma', costoEnvio: 4000 },
     { nombre: 'Niño Jesús', costoEnvio: 3500 },
     { nombre: 'Alameda', costoEnvio: 3000 },
-    { nombre: 'buenos aires', costoEnvio: 4500 },
-    { nombre: 'yesquita', costoEnvio: 3500 },
+    { nombre: 'Yesca grande', costoEnvio: 4500 },
+    { nombre: 'Obrero', costoEnvio: 3500 },
     { nombre: 'Silencio', costoEnvio: 5000 },
-    { nombre: 'zona Norte', costoEnvio: 5500 },
-    { nombre: 'cristo rey', costoEnvio: 3500 },
-    { nombre: 'la esmelarda', costoEnvio: 4000 },
-    {nombre:  'los angeles', costoEnvio: 4000},
-    
+    { nombre: 'zona  Norte', costoEnvio: 5500 },
+    { nombre: 'nilo jesus', costoEnvio: 3500 },
+    { nombre: 'margaritas', costoEnvio: 4000 },
+    { nombre: 'esmeraldas', costoEnvio: 4000 },
   ]
 };
 
@@ -1272,7 +1271,7 @@ let sampleProducts = [
     expirationDate: '2024-09-18',
     location: 'Dulcería La Tradición',
     description: 'Arequipe casero cremoso y dulce. Dulce de leche tradicional colombiano.',
-    inStock: false,
+    inStock: false, 
     stock: 0
   },
   {
@@ -1303,11 +1302,13 @@ let sampleProducts = [
 ]; 
 
 
+
 // ===== VARIABLES GLOBALES =====
 let cart = [];
 let user = null;
 let selectedCategory = null;
 let deliveries = [];
+let pendingOrders = [];
 let currentUserType = 'usuario';
 let currentView = 'main';
 let activeVendorTab = 'dashboard';
@@ -1588,7 +1589,6 @@ function handleLogin(event) {
   
   console.log('🔐 Datos del login:', { email, userType, currentUserType });
   
-  // CORRECCIÓN: Validaciones mejoradas
   if (!email || !password) {
     showNotification('Por favor completa todos los campos', 'error');
     return false;
@@ -1622,7 +1622,6 @@ function handleLogin(event) {
   
   user = userData;
   
-  // CORRECCIÓN: Guardar con manejo de errores
   try {
     localStorage.setItem('mercado-quibdo-user', JSON.stringify(userData));
   } catch (error) {
@@ -1634,9 +1633,13 @@ function handleLogin(event) {
   console.log('✅ Login exitoso:', userData);
   closeLogin();
   showNotification(`Bienvenido ${userData.name} (${userType})`, 'success');
-  updateUserDisplay();
   
-  // REDIRECCIÓN AUTOMÁTICA SEGÚN TIPO DE USUARIO
+  // Forzar actualización del display después de un breve delay
+  setTimeout(() => {
+    updateUserDisplay();
+  }, 100);
+  
+  // Redirección automática según tipo de usuario
   setTimeout(() => {
     if (userType === 'vendedor') {
       showVendorView();
@@ -1663,7 +1666,6 @@ function handleRegister(event) {
   
   console.log('📝 Datos del registro:', { name, email, phone, userType });
   
-  // CORRECCIÓN: Validaciones mejoradas
   if (!name || !email || !phone || !password) {
     showNotification('Por favor completa todos los campos', 'error');
     return false;
@@ -1708,7 +1710,6 @@ function handleRegister(event) {
   
   user = userData;
   
-  // CORRECCIÓN: Guardar con manejo de errores
   try {
     localStorage.setItem('mercado-quibdo-user', JSON.stringify(userData));
   } catch (error) {
@@ -1720,7 +1721,22 @@ function handleRegister(event) {
   console.log('✅ Registro exitoso:', userData);
   closeLogin();
   showNotification(`Cuenta creada exitosamente como ${userType}`, 'success');
-  updateUserDisplay();
+  
+  // Forzar actualización del display después de un breve delay
+  setTimeout(() => {
+    updateUserDisplay();
+  }, 100);
+  
+  // Redirección automática según tipo de usuario
+  setTimeout(() => {
+    if (userType === 'vendedor') {
+      showVendorView();
+      showNotification('Redirigiendo al panel de vendedor...', 'info');
+    } else if (userType === 'repartidor') {
+      showDeliveryView();
+      showNotification('Redirigiendo al panel de repartidor...', 'info');
+    }
+  }, 1000);
   
   return false;
 }
@@ -1741,28 +1757,6 @@ function logout() {
 }
 
 function updateUserDisplay() {
-  if (user && userSection && loginBtn && userName) {
-  // ...código existente...
-  userSection.classList.remove('hidden');
-  userSection.style.display = 'flex';
-  loginBtn.classList.add('hidden');
-  loginBtn.style.display = 'none';
-
-  // AGREGA AQUÍ EL BLOQUE DE CORRECCIÓN:
-  const loginModal = document.getElementById('login-modal');
-  const overlay = document.getElementById('overlay');
-  if (loginModal) {
-    loginModal.classList.add('hidden');
-    loginModal.classList.remove('show');
-    loginModal.style.display = 'none';
-  }
-  if (overlay) {
-    overlay.classList.add('hidden');
-    overlay.classList.remove('show');
-    overlay.style.display = 'none';
-  }
-  // ...código existente...
-}
   console.log('👤 Actualizando display de usuario:', user);
   
   const userSection = document.getElementById('user-section');
@@ -1779,9 +1773,25 @@ function updateUserDisplay() {
     user: !!user
   });
   
-  if (user && userSection && loginBtn && userName) {
-    // Usuario logueado
-    userName.textContent = user.name;
+  // Cerrar modal y overlay primero
+  const loginModal = document.getElementById('login-modal');
+  const overlay = document.getElementById('overlay');
+  if (loginModal) {
+    loginModal.classList.add('hidden');
+    loginModal.classList.remove('show');
+    loginModal.style.display = 'none';
+  }
+  if (overlay) {
+    overlay.classList.add('hidden');
+    overlay.classList.remove('show');
+    overlay.style.display = 'none';
+  }
+  
+  if (user) {
+    // Usuario logueado - mostrar info del usuario
+    if (userName) {
+      userName.textContent = user.name;
+    }
     
     if (userType) {
       const typeLabels = {
@@ -1812,15 +1822,20 @@ function updateUserDisplay() {
       }
     }
     
-    // Mostrar sección de usuario, ocultar botón de login
-    userSection.classList.remove('hidden');
-    userSection.style.display = 'flex';
-    loginBtn.classList.add('hidden');
-    loginBtn.style.display = 'none';
+    // CORRECCIÓN CRÍTICA: Mostrar sección de usuario y OCULTAR botón de login
+    if (userSection) {
+      userSection.classList.remove('hidden');
+      userSection.style.display = 'flex';
+    }
     
-    console.log('✅ Usuario logueado - sección de usuario mostrada');
+    if (loginBtn) {
+      loginBtn.classList.add('hidden');
+      loginBtn.style.display = 'none';
+    }
+    
+    console.log('✅ Usuario logueado - sección de usuario mostrada, botón login OCULTO');
   } else {
-    // Usuario NO logueado
+    // Usuario NO logueado - mostrar botón de login
     if (userSection) {
       userSection.classList.add('hidden');
       userSection.style.display = 'none';
@@ -1881,7 +1896,6 @@ function closeCart() {
   }
 }
 
-// CORRECCIÓN: Función addToCart mejorada con validaciones
 function addToCart(productData) {
   console.log('🛒 Agregando producto al carrito:', productData);
   
@@ -1899,7 +1913,6 @@ function addToCart(productData) {
     return;
   }
   
-  // CORRECCIÓN: Validación mejorada de stock
   if (!product.inStock) {
     console.warn('⚠️ Producto sin stock:', product.name);
     showNotification('Producto sin stock', 'error');
@@ -2175,7 +2188,6 @@ function updateCartDisplay() {
   console.log('✅ Display del carrito ampliado actualizado');
 }
 
-// CORRECCIÓN: Guardar carrito con manejo de errores
 function saveCart() {
   try {
     localStorage.setItem('mercado-quibdo-cart', JSON.stringify(cart));
@@ -2185,7 +2197,6 @@ function saveCart() {
   }
 }
 
-// CORRECCIÓN: Cargar carrito con validaciones
 function loadCart() {
   try {
     const savedCart = localStorage.getItem('mercado-quibdo-cart');
@@ -2202,17 +2213,16 @@ function loadCart() {
   }
 }
 
-// ===== FUNCIONES DE CHECKOUT SIMPLIFICADAS Y CORREGIDAS =====
+// ===== FUNCIONES DE CHECKOUT CORREGIDAS =====
 function openCheckout() {
-  console.log('💳 Abriendo checkout simplificado y corregido');
+  console.log('💳 Abriendo checkout');
   
-  // CORRECCIÓN: Validar carrito antes de abrir
   if (!cart || cart.length === 0) {
     showNotification('Tu carrito está vacío', 'error');
     return;
   }
   
-  closeCart(); // Cerrar carrito primero
+  closeCart();
   
   const checkoutModal = document.getElementById('checkout-modal');
   const overlay = document.getElementById('overlay');
@@ -2253,9 +2263,8 @@ function closeCheckout() {
 }
 
 function initializeCheckout() {
-  console.log('🔧 Inicializando checkout con formulario estilizado');
+  console.log('🔧 Inicializando checkout');
   
-  // Pre-llenar datos del usuario si está logueado
   if (user) {
     const nameField = document.getElementById('customer-name');
     const phoneField = document.getElementById('customer-phone');
@@ -2272,7 +2281,6 @@ function initializeCheckout() {
     }
   }
   
-  // Llenar select de barrios con información de costos
   const neighborhoodSelect = document.getElementById('customer-neighborhood');
   if (neighborhoodSelect) {
     neighborhoodSelect.innerHTML = '<option value="">Selecciona tu barrio</option>' +
@@ -2301,7 +2309,6 @@ function updateCheckoutSummary() {
   
   const neighborhood = document.getElementById('customer-neighborhood')?.value;
   
-  // Mostrar productos en el resumen
   if (itemsSummary) {
     if (cart.length === 0) {
       itemsSummary.innerHTML = `
@@ -2346,7 +2353,6 @@ function updateCheckoutSummary() {
     }
   }
   
-  // Calcular totales
   const subtotal = calculateSubtotal();
   let totals = { subtotal, delivery: 3000, total: subtotal + 3000 };
   
@@ -2354,7 +2360,6 @@ function updateCheckoutSummary() {
     totals = calculateTotal(neighborhood);
   }
   
-  // Actualizar elementos de precio
   if (subtotalEl) {
     subtotalEl.textContent = formatPrice(totals.subtotal);
   }
@@ -2372,11 +2377,9 @@ function updateCheckoutSummary() {
   }
 }
 
-// CORRECCIÓN: Finalizar pedido con validaciones mejoradas
 function finalizeOrder() {
-  console.log('🚀 Finalizando pedido con validaciones completas');
+  console.log('🚀 Finalizando pedido');
   
-  // Obtener y validar datos del formulario
   const name = document.getElementById('customer-name')?.value?.trim();
   const phone = document.getElementById('customer-phone')?.value?.trim();
   const whatsapp = document.getElementById('customer-whatsapp')?.value?.trim();
@@ -2388,7 +2391,6 @@ function finalizeOrder() {
     name, phone, whatsapp, address, neighborhood, paymentMethod
   });
   
-  // Validaciones paso a paso con focus automático
   if (!name || name.length < 3) {
     showNotification('❌ El nombre completo debe tener al menos 3 caracteres', 'error');
     document.getElementById('customer-name')?.focus();
@@ -2425,7 +2427,6 @@ function finalizeOrder() {
     return;
   }
   
-  // Validar carrito
   if (!cart || cart.length === 0) {
     showNotification('❌ Tu carrito está vacío. Agrega productos antes de finalizar', 'error');
     closeCheckout();
@@ -2463,15 +2464,15 @@ function processOrder(customerData) {
   
   console.log('📋 Orden creada:', order);
   
-  // Enviar WhatsApp
-  setTimeout(() => {
-    sendWhatsApp(order);
-  }, 1000);
+  // Guardar pedido para domiciliarios
+  savePendingOrder(order);
   
-  // Enviar email
-  setTimeout(() => {
-    sendEmail(order);
-  }, 2000);
+  // Enviar notificaciones en secuencia
+  setTimeout(() => sendWhatsAppToCustomer(order), 500);
+  setTimeout(() => sendWhatsAppToBusiness(order), 1500);
+  setTimeout(() => sendWhatsAppToDelivery(order), 2500);
+  setTimeout(() => sendEmailToDelivery(order), 3500);
+  setTimeout(() => sendEmailToBusiness(order), 4500);
   
   // Mostrar confirmación
   showOrderConfirmation(order);
@@ -2484,65 +2485,24 @@ function processOrder(customerData) {
   }, 5000);
 }
 
-// ===== FUNCIONES DE GENERACIÓN DE PDF Y ENVÍO =====
-function sendWhatsApp(order) {
-  const totalItems = order.products.reduce((sum, item) => sum + item.quantity, 0);
-  const uniqueProducts = order.products.length;
-  
-  const message = `
-🌱 *NUEVO PEDIDO - MERCADO DE QUIBDÓ*
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📋 *Factura:* ${order.number}
-📅 *Fecha:* ${order.date}
-
-👤 *CLIENTE*
-• Nombre: ${order.customer.name}
-• Teléfono: ${order.customer.phone}
-• WhatsApp: ${order.customer.whatsapp}
-
-📍 *ENTREGA*
-• Dirección: ${order.customer.address}
-• Barrio: *${order.customer.neighborhood}*
-
-🛍️ *PRODUCTOS PEDIDOS*
-📦 Total de productos: ${uniqueProducts} tipo${uniqueProducts > 1 ? 's' : ''} diferentes
-🔢 Cantidad total: ${totalItems} unidad${totalItems > 1 ? 'es' : ''}
-
-*Detalle del pedido:*
-${order.products.map((item, index) => 
-  `${index + 1}. ${item.name}
-   Cantidad: ${item.quantity} unidad${item.quantity > 1 ? 'es' : ''}
-   Precio: ${formatPrice(item.price * item.quantity)}`
-).join('\n\n')}
-
-💰 *RESUMEN DE PAGO*
-• Subtotal productos: ${formatPrice(order.totals.subtotal)}
-• Costo de envío: ${formatPrice(order.totals.delivery)}
-• *TOTAL A PAGAR: ${formatPrice(order.totals.total)}*
-
-💳 *Pago:* ${order.customer.paymentMethod}
-
-🔐 *CÓDIGO QR:* *${order.qrCode}*
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🌱 *Mercado de Quibdó*
-📱 ${CONFIG.whatsappBusiness}
-  `.trim();
-  
-  const encodedMessage = encodeURIComponent(message);
-  const whatsappUrl = `https://wa.me/${CONFIG.whatsappBusiness.replace('+', '')}?text=${encodedMessage}`;
-  
-  console.log('📱 Enviando WhatsApp al negocio');
-  window.open(whatsappUrl, '_blank');
-  
-  setTimeout(() => {
-    sendQRToCustomer(order);
-  }, 2000);
+// ===== FUNCIONES DE ENVÍO CORREGIDAS =====
+function savePendingOrder(order) {
+  try {
+    pendingOrders.push({
+      ...order,
+      status: 'pending',
+      assignedTo: null,
+      createdAt: new Date().toISOString()
+    });
+    localStorage.setItem('mercado-pending-orders', JSON.stringify(pendingOrders));
+    console.log('✅ Pedido guardado para domiciliarios');
+  } catch (error) {
+    console.error('Error al guardar pedido:', error);
+  }
 }
 
-function sendQRToCustomer(order) {
-  const customerMessage = `
+function sendWhatsAppToCustomer(order) {
+  const message = `
 🌱 *CONFIRMACIÓN - MERCADO DE QUIBDÓ*
 
 ¡Hola ${order.customer.name}! 👋
@@ -2568,16 +2528,136 @@ function sendQRToCustomer(order) {
 *Mercado de Quibdó*
   `.trim();
   
-  const encodedCustomerMessage = encodeURIComponent(customerMessage);
-  const customerWhatsappUrl = `https://wa.me/${order.customer.whatsapp.replace('+', '')}?text=${encodedCustomerMessage}`;
-  
-  console.log('📱 Enviando QR al cliente');
-  window.open(customerWhatsappUrl, '_blank');
+  const url = `https://wa.me/${order.customer.whatsapp.replace('+', '')}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
+  console.log('📱 WhatsApp enviado al cliente');
 }
 
-function sendEmail(order) {
+function sendWhatsAppToBusiness(order) {
   const totalItems = order.products.reduce((sum, item) => sum + item.quantity, 0);
-  const uniqueProducts = order.products.length;
+  
+  const message = `
+🌱 *NUEVO PEDIDO - MERCADO DE QUIBDÓ*
+
+📋 *Factura:* ${order.number}
+📅 *Fecha:* ${order.date}
+
+👤 *CLIENTE*
+• Nombre: ${order.customer.name}
+• Teléfono: ${order.customer.phone}
+• WhatsApp: ${order.customer.whatsapp}
+
+📍 *ENTREGA*
+• Dirección: ${order.customer.address}
+• Barrio: *${order.customer.neighborhood}*
+
+🛍️ *PRODUCTOS*
+Total unidades: ${totalItems}
+
+${order.products.map((item, i) => 
+  `${i + 1}. ${item.name} x${item.quantity} - ${formatPrice(item.price * item.quantity)}`
+).join('\n')}
+
+💰 *TOTAL: ${formatPrice(order.totals.total)}*
+💳 Pago: ${order.customer.paymentMethod}
+
+🔐 *Código QR:* ${order.qrCode}
+
+🌱 Mercado de Quibdó
+  `.trim();
+  
+  const url = `https://wa.me/${CONFIG.whatsappBusiness.replace('+', '')}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
+  console.log('📱 WhatsApp enviado al negocio');
+}
+
+function sendWhatsAppToDelivery(order) {
+  const message = `
+🚚 *NUEVO DOMICILIO - MERCADO DE QUIBDÓ*
+
+📋 *Pedido:* ${order.number}
+⏰ *Hora:* ${order.date}
+
+📍 *DIRECCIÓN DE ENTREGA*
+• ${order.customer.address}
+• Barrio: *${order.customer.neighborhood}*
+
+👤 *CLIENTE*
+• Nombre: ${order.customer.name}
+• Teléfono: ${order.customer.phone}
+
+💰 *COBRAR:* ${formatPrice(order.totals.total)}
+💳 *Método:* ${order.customer.paymentMethod}
+
+🔐 *Código QR:* ${order.qrCode}
+
+📦 *PRODUCTOS A ENTREGAR:*
+${order.products.map((item, i) => 
+  `${i + 1}. ${item.name} x${item.quantity}`
+).join('\n')}
+
+🌿 Mercado de Quibdó
+  `.trim();
+  
+  const url = `https://wa.me/${CONFIG.domiciliarioWhatsApp.replace('+', '')}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
+  console.log('📱 WhatsApp enviado al domiciliario');
+}
+
+function sendEmailToDelivery(order) {
+  const subject = encodeURIComponent(`🚚 NUEVO DOMICILIO - ${order.number}`);
+  
+  const body = `
+🚚 NUEVO DOMICILIO ASIGNADO - MERCADO DE QUIBDÓ
+
+📋 PEDIDO: ${order.number}
+⏰ FECHA: ${order.date}
+
+📍 DIRECCIÓN DE ENTREGA:
+${order.customer.address}
+Barrio: ${order.customer.neighborhood}
+
+👤 DATOS DEL CLIENTE:
+Nombre: ${order.customer.name}
+Teléfono: ${order.customer.phone}
+WhatsApp: ${order.customer.whatsapp}
+
+💰 VALOR A COBRAR: ${formatPrice(order.totals.total)}
+💳 MÉTODO DE PAGO: ${order.customer.paymentMethod}
+
+🔐 CÓDIGO QR DE VERIFICACIÓN: ${order.qrCode}
+
+📦 PRODUCTOS A ENTREGAR:
+${order.products.map((item, i) => 
+  `${i + 1}. ${item.name}
+     Cantidad: ${item.quantity} unidades
+     Precio: ${formatPrice(item.price * item.quantity)}`
+).join('\n\n')}
+
+💵 DESGLOSE:
+• Subtotal: ${formatPrice(order.totals.subtotal)}
+• Domicilio: ${formatPrice(order.totals.delivery)}
+• TOTAL: ${formatPrice(order.totals.total)}
+
+INSTRUCCIONES:
+1. Verificar el código QR con el cliente
+2. Entregar los productos en buen estado
+3. Cobrar el valor exacto: ${formatPrice(order.totals.total)}
+4. Confirmar la entrega en el sistema
+
+═══════════════════════════════════════════
+🌱 Mercado de Quibdó - Sistema de Domicilios
+📱 ${CONFIG.domiciliarioWhatsApp}
+📧 ${CONFIG.domiciliarioEmail}
+  `.trim();
+  
+  const url = `mailto:${CONFIG.domiciliarioEmail}?subject=${subject}&body=${encodeURIComponent(body)}`;
+  window.open(url, '_blank');
+  console.log('📧 Email enviado al domiciliario');
+}
+
+function sendEmailToBusiness(order) {
+  const totalItems = order.products.reduce((sum, item) => sum + item.quantity, 0);
   
   const subject = encodeURIComponent(`💰 NUEVO INGRESO - ${formatPrice(order.totals.total)} - Pedido ${order.number}`);
   
@@ -2594,20 +2674,17 @@ function sendEmail(order) {
 💳 PAGO: ${order.customer.paymentMethod}
 
 🛍️ PRODUCTOS PEDIDOS:
-========================================
-Total de productos diferentes: ${uniqueProducts}
-Cantidad total de unidades: ${totalItems}
+Total de unidades: ${totalItems}
 
-DETALLE DEL PEDIDO:
 ${order.products.map((item, index) => 
   `${index + 1}. ${item.name}
-     Cantidad pedida: ${item.quantity} unidad${item.quantity > 1 ? 'es' : ''}
-     Precio total: ${formatPrice(item.price * item.quantity)}`
+     Cantidad: ${item.quantity} unidad${item.quantity > 1 ? 'es' : ''}
+     Precio: ${formatPrice(item.price * item.quantity)}`
 ).join('\n\n')}
 
 💵 DESGLOSE:
-• Subtotal de productos: ${formatPrice(order.totals.subtotal)}
-• Costo de envío: ${order.totals.delivery === 0 ? 'GRATIS' : formatPrice(order.totals.delivery)}
+• Subtotal: ${formatPrice(order.totals.subtotal)}
+• Envío: ${order.totals.delivery === 0 ? 'GRATIS' : formatPrice(order.totals.delivery)}
 • TOTAL: ${formatPrice(order.totals.total)}
 
 🔐 QR: ${order.qrCode}
@@ -2618,11 +2695,9 @@ ${order.products.map((item, index) =>
 Creado por: ${CONFIG.creadores.join(', ')}
   `.trim();
   
-  const encodedBody = encodeURIComponent(body);
-  const emailUrl = `mailto:${CONFIG.email}?subject=${subject}&body=${encodedBody}`;
-  
-  console.log('📧 Enviando email de registro');
-  window.open(emailUrl, '_blank');
+  const url = `mailto:${CONFIG.email}?subject=${subject}&body=${encodeURIComponent(body)}`;
+  window.open(url, '_blank');
+  console.log('📧 Email enviado al negocio');
 }
 
 function showOrderConfirmation(order) {
@@ -2632,8 +2707,6 @@ function showOrderConfirmation(order) {
     if (content) {
       content.innerHTML = `
         <div style="text-align: center; padding: 2rem 0;">
-          
-          <!-- Icono de éxito -->
           <div style="
             width: 5rem;
             height: 5rem;
@@ -2663,7 +2736,6 @@ function showOrderConfirmation(order) {
             Tu pedido <strong>${order.number}</strong> ha sido procesado correctamente.
           </p>
           
-          <!-- Código QR destacado -->
           <div style="
             background: linear-gradient(135deg, #f0f9ff, #dbeafe);
             border-radius: 0.75rem;
@@ -2694,7 +2766,6 @@ function showOrderConfirmation(order) {
             ">Enviado a tu WhatsApp: <strong>${order.customer.whatsapp}</strong></p>
           </div>
           
-          <!-- Información -->
           <div style="
             background: #f0fdf4;
             border-radius: 0.75rem;
@@ -2704,12 +2775,11 @@ function showOrderConfirmation(order) {
           ">
             <p style="color: #16a34a; font-weight: 600; margin: 0;">
               📱 Revisa tu WhatsApp para el código QR<br>
-              📧 Factura enviada para registro contable<br>
+              📧 Factura enviada al domiciliario<br>
               🚚 Entrega estimada: ${order.customer.neighborhood === 'Centro' ? '30-45' : '45-75'} minutos
             </p>
           </div>
           
-          <!-- Botón continuar -->
           <button onclick="closeCheckout(); continueShopping();" style="
             background: linear-gradient(135deg, #16a34a, #059669);
             color: white;
@@ -2741,21 +2811,17 @@ function showMainView() {
     mainView.classList.remove('hidden');
     mainView.style.display = 'block';
   }
-  
-  showNotification('Volviendo al mercado principal', 'info');
 }
 
 function showVendorView() {
   console.log('🏪 Mostrando vista del vendedor');
   
-  // Verificar que el usuario sea vendedor
   if (!user || user.userType !== 'vendedor') {
     showNotification('Solo los vendedores pueden acceder a este panel', 'error');
     return;
   }
   
   currentView = 'vendor';
-  
   hideAllViews();
   
   const vendorView = document.getElementById('vendor-view');
@@ -2779,14 +2845,12 @@ function showVendorView() {
 function showDeliveryView() {
   console.log('🚚 Mostrando vista del repartidor');
   
-  // Verificar que el usuario sea repartidor
   if (!user || user.userType !== 'repartidor') {
     showNotification('Solo los repartidores pueden acceder a este panel', 'error');
     return;
   }
   
   currentView = 'delivery';
-  
   hideAllViews();
   
   const deliveryView = document.getElementById('delivery-view');
@@ -2803,6 +2867,7 @@ function showDeliveryView() {
   
   initializeDeliveryDashboard();
   showDeliveryTab('dashboard');
+  loadPendingOrdersForDelivery();
   
   showNotification('Panel del repartidor cargado', 'success');
 }
@@ -2940,7 +3005,6 @@ function handleAddProduct(event) {
     dateAdded: new Date().toISOString()
   };
   
-  // Validaciones mejoradas
   if (!productData.name || productData.name.trim().length < 2) {
     showNotification('El nombre del producto debe tener al menos 2 caracteres', 'error');
     return;
@@ -3151,6 +3215,7 @@ function loadDeliveryTabContent(tabName) {
 function initializeDeliveryDashboard() {
   console.log('🚚 Inicializando dashboard del repartidor');
   updateDeliveryStats();
+  loadPendingOrdersForDelivery();
 }
 
 function updateDeliveryStats() {
@@ -3172,7 +3237,7 @@ function getDeliveryStats() {
     const deliveryData = JSON.parse(localStorage.getItem('delivery-data') || '{}');
     
     return {
-      todayCount: deliveryData.todayCount || 8,
+      todayCount: deliveryData.todayCount || pendingOrders.length,
       avgTime: deliveryData.avgTime || 35,
       todayEarnings: deliveryData.todayEarnings || 28000,
       rating: deliveryData.rating || 4.9
@@ -3180,7 +3245,7 @@ function getDeliveryStats() {
   } catch (error) {
     console.error('❌ Error al cargar estadísticas del repartidor:', error);
     return {
-      todayCount: 8,
+      todayCount: pendingOrders.length,
       avgTime: 35,
       todayEarnings: 28000,
       rating: 4.9
@@ -3198,32 +3263,100 @@ function toggleDeliveryStatus() {
   );
 }
 
+function loadPendingOrdersForDelivery() {
+  try {
+    const savedOrders = localStorage.getItem('mercado-pending-orders');
+    if (savedOrders) {
+      pendingOrders = JSON.parse(savedOrders);
+    }
+  } catch (error) {
+    console.error('Error al cargar pedidos:', error);
+    pendingOrders = [];
+  }
+  
+  const deliveryList = document.getElementById('delivery-available-list') || 
+                       document.getElementById('available-deliveries-list');
+  
+  if (!deliveryList) return;
+  
+  const availableOrders = pendingOrders.filter(o => o.status === 'pending');
+  
+  if (availableOrders.length === 0) {
+    deliveryList.innerHTML = `
+      <div class="empty-state">
+        <p>No hay entregas disponibles</p>
+        <small>Los pedidos aparecerán aquí automáticamente</small>
+      </div>
+    `;
+    return;
+  }
+  
+  deliveryList.innerHTML = availableOrders.map(order => `
+    <div class="delivery-card" style="border: 1px solid #e5e7eb; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem; background: white;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+        <strong>${order.number}</strong>
+        <span style="color: #16a34a; font-weight: 600;">${formatPrice(order.totals.total)}</span>
+      </div>
+      <p>👤 ${order.customer.name}</p>
+      <p>📍 ${order.customer.address}, ${order.customer.neighborhood}</p>
+      <p>📱 ${order.customer.phone}</p>
+      <p>🔐 QR: <strong>${order.qrCode}</strong></p>
+      <p>💳 ${order.customer.paymentMethod}</p>
+      <div style="margin-top: 1rem;">
+        <button onclick="acceptDelivery('${order.number}')" class="btn btn-primary" style="width: 100%;">
+          ✅ Aceptar entrega
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function acceptDelivery(orderNumber) {
+  const order = pendingOrders.find(o => o.number === orderNumber);
+  if (order) {
+    order.status = 'accepted';
+    order.assignedTo = user?.name || 'Repartidor';
+    localStorage.setItem('mercado-pending-orders', JSON.stringify(pendingOrders));
+    showNotification('Entrega aceptada', 'success');
+    loadPendingOrdersForDelivery();
+  }
+}
+
 function loadActiveDeliveries() {
   const deliveriesList = document.getElementById('delivery-active-list') || 
                          document.getElementById('active-deliveries-list');
   
   if (!deliveriesList) return;
   
-  deliveriesList.innerHTML = `
-    <div class="empty-state">
-      <p>No hay entregas activas</p>
-      <small>Las entregas asignadas aparecerán aquí</small>
+  const activeOrders = pendingOrders.filter(o => o.status === 'accepted' && o.assignedTo === user?.name);
+  
+  if (activeOrders.length === 0) {
+    deliveriesList.innerHTML = `
+      <div class="empty-state">
+        <p>No hay entregas activas</p>
+        <small>Las entregas asignadas aparecerán aquí</small>
+      </div>
+    `;
+    return;
+  }
+  
+  deliveriesList.innerHTML = activeOrders.map(order => `
+    <div class="delivery-card" style="border: 2px solid #16a34a; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem; background: #f0fdf4;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+        <strong>${order.number}</strong>
+        <span style="color: #16a34a; font-weight: 600;">${formatPrice(order.totals.total)}</span>
+      </div>
+      <p>👤 ${order.customer.name}</p>
+      <p>📍 ${order.customer.address}, ${order.customer.neighborhood}</p>
+      <p>📱 ${order.customer.phone}</p>
+      <p>🔐 QR: <strong>${order.qrCode}</strong></p>
+      <p>💳 ${order.customer.paymentMethod}</p>
     </div>
-  `;
+  `).join('');
 }
 
 function loadAvailableDeliveries() {
-  const deliveriesList = document.getElementById('delivery-available-list') || 
-                         document.getElementById('available-deliveries-list');
-  
-  if (!deliveriesList) return;
-  
-  deliveriesList.innerHTML = `
-    <div class="empty-state">
-      <p>No hay entregas disponibles</p>
-      <small>Mantente atento a nuevos pedidos</small>
-    </div>
-  `;
+  loadPendingOrdersForDelivery();
 }
 
 function loadCompletedDeliveries() {
@@ -3516,7 +3649,7 @@ function setupEventListeners() {
 }
 
 function initializeApp() {
-  console.log('🚀 Inicializando Mercado de Quibdó - Versión 3.0 CORREGIDA');
+  console.log('🚀 Inicializando Mercado de Quibdó - Versión 3.2 CORREGIDA');
   
   try {
     loadCart();
@@ -3526,13 +3659,23 @@ function initializeApp() {
       const savedProducts = localStorage.getItem('mercado-products');
       if (savedProducts) {
         const parsedProducts = JSON.parse(savedProducts);
-        if (Array.isArray(parsedProducts)) {
+        if (Array.isArray(parsedProducts) && parsedProducts.length > 0) {
           sampleProducts = parsedProducts;
         }
       }
     } catch (error) {
       console.error('❌ Error al cargar productos:', error);
       localStorage.removeItem('mercado-products');
+    }
+    
+    try {
+      const savedOrders = localStorage.getItem('mercado-pending-orders');
+      if (savedOrders) {
+        pendingOrders = JSON.parse(savedOrders);
+      }
+    } catch (error) {
+      console.error('❌ Error al cargar pedidos:', error);
+      pendingOrders = [];
     }
     
     const featuredProducts = getFeaturedProducts();
@@ -3550,14 +3693,10 @@ function initializeApp() {
       updateCartCounter();
     }, 200);
     
-    if (!sampleProducts || sampleProducts.length === 0) {
-      console.warn('⚠️ No hay productos disponibles');
-      showNotification('Sistema iniciado sin productos', 'warning');
-    }
-    
     console.log('✅ Aplicación inicializada correctamente');
     console.log(`📦 Productos: ${sampleProducts.length}`);
     console.log(`🛒 Items en carrito: ${cart.length}`);
+    console.log(`🚚 Pedidos pendientes: ${pendingOrders.length}`);
     console.log(`👤 Usuario: ${user ? `${user.name} (${user.userType})` : 'No logueado'}`);
     
     setTimeout(() => {
@@ -3569,7 +3708,6 @@ function initializeApp() {
     showNotification('Error crítico al inicializar la aplicación', 'error');
   }
 }
-
 
 // ===== INICIALIZACIÓN AUTOMÁTICA =====
 document.addEventListener('DOMContentLoaded', function() {
@@ -3589,60 +3727,25 @@ if (document.readyState === 'loading') {
   }, 100);
 }
 
-// ===== INFORMACIÓN DEL SISTEMA ACTUALIZADA =====
+// ===== INFORMACIÓN DEL SISTEMA =====
 console.log(`
-🌟 MERCADO DIGITAL DE QUIBDÓ - SISTEMA CORREGIDO Y MEJORADO v3.0
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌟 MERCADO DIGITAL DE QUIBDÓ - v3.2 TOTALMENTE FUNCIONAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-✅ Funcionalidades Implementadas y Corregidas:
-🔐 Login/registro por tipo de usuario (Cliente/Vendedor/Repartidor)
-🎯 Redirección automática según rol
-🛒 Carrito con funcionalidades avanzadas y validaciones
-💳 Checkout con validaciones robustas y formulario estilizado
-📄 Generación de PDF automatizada (simulada)
-📱 Envío de WhatsApp automático al negocio y cliente
-📧 Envío de email para registro contable
-🔐 Código QR único por pedido
-📊 Gestión de inventario completa
-🏘️ Sistema de domicilios por barrios específicos de Quibdó
-📖 Historia completa sobre el origen del proyecto
+✅ Sistema completo y corregido
+📱 Envío a domiciliario: WhatsApp + Email
+🔐 Autenticación por tipo de usuario
+🛒 Carrito con validaciones completas
+💳 Checkout con formularios estilizados
+🏪 Panel de vendedor funcional
+🚚 Panel de domiciliario con pedidos en tiempo real
 
-🔧 Correcciones Implementadas:
-✅ Validaciones de stock antes de agregar al carrito
-✅ Manejo de errores en localStorage con recuperación automática
-✅ Validaciones mejoradas en formularios (email, teléfono, etc.)
-✅ Event listeners con mejor gestión de eventos y soporte para Escape
-✅ Inicialización del sistema con manejo de errores críticos
-✅ Validaciones de acceso por tipo de usuario
-✅ Detección de conectividad (online/offline)
-✅ Limpieza automática de datos corruptos
-✅ Botones de dashboard visibles según tipo de usuario
-✅ Formulario de checkout completamente estilizado y funcional
-
-🛡️ Seguridad y Robustez:
-✅ Validación de datos corruptos en localStorage
-✅ Limpieza automática de datos inválidos
-✅ Manejo robusto de errores con notificaciones
-✅ Validaciones de entrada más estrictas
-✅ Verificación de permisos por tipo de usuario
-
-👥 Creadores:
-   • Luis Alexander
-   • Edith Yaritza
-   • Jhorfanys Andrea
-
-📱 Contacto: ${CONFIG.whatsapp}
+👥 Creadores: ${CONFIG.creadores.join(', ')}
+📱 WhatsApp: ${CONFIG.whatsappBusiness}
 📧 Email: ${CONFIG.email}
+🚚 Domiciliario: ${CONFIG.domiciliarioEmail}
 
-🎯 Sistema optimizado y completamente funcional para el Mercado de Quibdó
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 `);
 
-console.log('📜 JavaScript del Mercado de Quibdó v3.0 CORREGIDO cargado exitosamente');
-console.log('🔐 TODAS LAS FUNCIONALIDADES CORREGIDAS Y FUNCIONANDO');
-console.log('📱 Configuración:', {
-  whatsapp: CONFIG.whatsappBusiness,
-  email: CONFIG.email,
-  creadores: CONFIG.creadores.length + ' personas',
-  barrios: CONFIG.barrios.length + ' zonas'
-});
+console.log('✅ JavaScript del Mercado de Quibdó v3.2 cargado correctamente');
