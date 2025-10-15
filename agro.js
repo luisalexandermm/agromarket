@@ -10,6 +10,8 @@ const CONFIG = {
   whatsapp: '+573226654844',
   whatsappBusiness: '+573226654844',
   email: 'alrxandermaturana76@gmail.com',
+  domiciliarioEmail: 'alrxandermaturana76@gmail.com',
+  domiciliarioWhatsApp: '+573226654844',
   creadores: [
     'Luis Alexander',
     'Edith Yaritza', 
@@ -2467,12 +2469,9 @@ function processOrder(customerData) {
   // Guardar pedido para domiciliarios
   savePendingOrder(order);
   
-  // Enviar notificaciones en secuencia
-  setTimeout(() => sendWhatsAppToCustomer(order), 500);
-  setTimeout(() => sendWhatsAppToBusiness(order), 1500);
-  setTimeout(() => sendWhatsAppToDelivery(order), 2500);
-  setTimeout(() => sendEmailToDelivery(order), 3500);
-  setTimeout(() => sendEmailToBusiness(order), 4500);
+  // Enviar notificación SOLO al negocio
+  setTimeout(() => sendWhatsAppToBusinessComplete(order), 500);
+  setTimeout(() => sendEmailToBusiness(order), 1500);
   
   // Mostrar confirmación
   showOrderConfirmation(order);
@@ -2533,75 +2532,77 @@ function sendWhatsAppToCustomer(order) {
   console.log('📱 WhatsApp enviado al cliente');
 }
 
-function sendWhatsAppToBusiness(order) {
+// FUNCIÓN CONSOLIDADA - Envía UN SOLO mensaje completo al WhatsApp del negocio
+function sendWhatsAppToBusinessComplete(order) {
   const totalItems = order.products.reduce((sum, item) => sum + item.quantity, 0);
   
   const message = `
 🌱 *NUEVO PEDIDO - MERCADO DE QUIBDÓ*
 
-📋 *Factura:* ${order.number}
-📅 *Fecha:* ${order.date}
+━━━━━━━━━━━━━━━━━━━━━━
+📋 *INFORMACIÓN DEL PEDIDO*
+━━━━━━━━━━━━━━━━━━━━━━
 
-👤 *CLIENTE*
-• Nombre: ${order.customer.name}
+📄 *Factura:* ${order.number}
+📅 *Fecha:* ${order.date}
+🔐 *Código QR:* ${order.qrCode}
+
+━━━━━━━━━━━━━━━━━━━━━━
+👤 *DATOS DEL CLIENTE*
+━━━━━━━━━━━━━━━━━━━━━━
+
+• Nombre: *${order.customer.name}*
 • Teléfono: ${order.customer.phone}
 • WhatsApp: ${order.customer.whatsapp}
 
-📍 *ENTREGA*
-• Dirección: ${order.customer.address}
-• Barrio: *${order.customer.neighborhood}*
+━━━━━━━━━━━━━━━━━━━━━━
+📍 *INFORMACIÓN DE ENTREGA*
+━━━━━━━━━━━━━━━━━━━━━━
 
-🛍️ *PRODUCTOS*
-Total unidades: ${totalItems}
+• Dirección: *${order.customer.address}*
+• Barrio: *${order.customer.neighborhood}*
+• Costo de envío: ${formatPrice(order.totals.shipping)}
+
+━━━━━━━━━━━━━━━━━━━━━━
+🛍️ *PRODUCTOS (${totalItems} unidades)*
+━━━━━━━━━━━━━━━━━━━━━━
 
 ${order.products.map((item, i) => 
-  `${i + 1}. ${item.name} x${item.quantity} - ${formatPrice(item.price * item.quantity)}`
-).join('\n')}
+  `${i + 1}. *${item.name}*
+   Cantidad: x${item.quantity}
+   Precio unitario: ${formatPrice(item.price)}
+   Subtotal: ${formatPrice(item.price * item.quantity)}`
+).join('\n\n')}
 
-💰 *TOTAL: ${formatPrice(order.totals.total)}*
-💳 Pago: ${order.customer.paymentMethod}
+━━━━━━━━━━━━━━━━━━━━━━
+💰 *RESUMEN DE PAGO*
+━━━━━━━━━━━━━━━━━━━━━━
 
-🔐 *Código QR:* ${order.qrCode}
+• Subtotal productos: ${formatPrice(order.totals.subtotal)}
+• Costo de envío: ${formatPrice(order.totals.shipping)}
+• *TOTAL A COBRAR: ${formatPrice(order.totals.total)}*
+• Método de pago: *${order.customer.paymentMethod}*
 
-🌱 Mercado de Quibdó
+━━━━━━━━━━━━━━━━━━━━━━
+📦 *INSTRUCCIONES PARA DOMICILIO*
+━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Verificar código QR: *${order.qrCode}*
+✅ Cobrar: *${formatPrice(order.totals.total)}* (${order.customer.paymentMethod})
+✅ Confirmar productos con el cliente
+✅ Entregar en: ${order.customer.address}, ${order.customer.neighborhood}
+
+━━━━━━━━━━━━━━━━━━━━━━
+🌱 *Mercado de Quibdó*
+Sistema de domicilios automatizado
+📱 WhatsApp: ${CONFIG.whatsappBusiness}
+━━━━━━━━━━━━━━━━━━━━━━
   `.trim();
   
   const url = `https://wa.me/${CONFIG.whatsappBusiness.replace('+', '')}?text=${encodeURIComponent(message)}`;
   window.open(url, '_blank');
-  console.log('📱 WhatsApp enviado al negocio');
-}
-
-function sendWhatsAppToDelivery(order) {
-  const message = `
-🚚 *NUEVO DOMICILIO - MERCADO DE QUIBDÓ*
-
-📋 *Pedido:* ${order.number}
-⏰ *Hora:* ${order.date}
-
-📍 *DIRECCIÓN DE ENTREGA*
-• ${order.customer.address}
-• Barrio: *${order.customer.neighborhood}*
-
-👤 *CLIENTE*
-• Nombre: ${order.customer.name}
-• Teléfono: ${order.customer.phone}
-
-💰 *COBRAR:* ${formatPrice(order.totals.total)}
-💳 *Método:* ${order.customer.paymentMethod}
-
-🔐 *Código QR:* ${order.qrCode}
-
-📦 *PRODUCTOS A ENTREGAR:*
-${order.products.map((item, i) => 
-  `${i + 1}. ${item.name} x${item.quantity}`
-).join('\n')}
-
-🌿 Mercado de Quibdó
-  `.trim();
-  
-  const url = `https://wa.me/${CONFIG.domiciliarioWhatsApp.replace('+', '')}?text=${encodeURIComponent(message)}`;
-  window.open(url, '_blank');
-  console.log('📱 WhatsApp enviado al domiciliario');
+  console.log('📱 ✅ WhatsApp COMPLETO enviado al negocio (+57 322 6654844) con toda la información del pedido');
+  showNotification('📱 Pedido enviado al WhatsApp del negocio - Haz clic en ENVIAR', 'success');
 }
 
 function sendEmailToDelivery(order) {
@@ -2763,7 +2764,7 @@ function showOrderConfirmation(order) {
             <p style="
               font-size: 0.875rem;
               color: #6b7280;
-            ">Enviado a tu WhatsApp: <strong>${order.customer.whatsapp}</strong></p>
+            ">Guarda este código para mostrar al domiciliario</p>
           </div>
           
           <div style="
@@ -2773,10 +2774,11 @@ function showOrderConfirmation(order) {
             margin: 2rem 0;
             border: 2px solid #16a34a;
           ">
-            <p style="color: #16a34a; font-weight: 600; margin: 0;">
-              📱 Revisa tu WhatsApp para el código QR<br>
-              📧 Factura enviada al domiciliario<br>
-              🚚 Entrega estimada: ${order.customer.neighborhood === 'Centro' ? '30-45' : '45-75'} minutos
+            <p style="color: #16a34a; font-weight: 600; margin: 0; line-height: 1.8;">
+              ✅ Pedido enviado automáticamente al WhatsApp: <strong>+57 322 6654844</strong><br>
+              📧 Email de confirmación: <strong>alrxandermaturana76@gmail.com</strong><br>
+              🚚 Tiempo estimado de entrega: <strong>${order.customer.neighborhood === 'Centro' ? '30-45' : '45-75'} minutos</strong><br>
+              💬 Te contactaremos pronto para confirmar tu pedido
             </p>
           </div>
           
@@ -3729,11 +3731,12 @@ if (document.readyState === 'loading') {
 
 // ===== INFORMACIÓN DEL SISTEMA =====
 console.log(`
-🌟 MERCADO DIGITAL DE QUIBDÓ - v3.2 TOTALMENTE FUNCIONAL
+🌟 MERCADO DIGITAL DE QUIBDÓ - v3.4 FINAL
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ✅ Sistema completo y corregido
-📱 Envío a domiciliario: WhatsApp + Email
+📱 OPTIMIZADO: WhatsApp SOLO al negocio +57 322 6654844
+📧 Email automático de respaldo
 🔐 Autenticación por tipo de usuario
 🛒 Carrito con validaciones completas
 💳 Checkout con formularios estilizados
@@ -3741,11 +3744,22 @@ console.log(`
 🚚 Panel de domiciliario con pedidos en tiempo real
 
 👥 Creadores: ${CONFIG.creadores.join(', ')}
-📱 WhatsApp: ${CONFIG.whatsappBusiness}
-📧 Email: ${CONFIG.email}
-🚚 Domiciliario: ${CONFIG.domiciliarioEmail}
+📱 WhatsApp del negocio: ${CONFIG.whatsappBusiness}
+📧 Email principal: ${CONFIG.email}
+
+🎯 FLUJO DE PEDIDOS:
+1️⃣ Cliente completa pedido en la página
+2️⃣ Información COMPLETA → WhatsApp +57 322 6654844 ⭐
+3️⃣ Email de respaldo → alrxandermaturana76@gmail.com
+4️⃣ Cliente ve código QR en pantalla (NO recibe WhatsApp)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 `);
 
-console.log('✅ JavaScript del Mercado de Quibdó v3.2 cargado correctamente');
+console.log('✅ JavaScript del Mercado de Quibdó v3.4 FINAL cargado correctamente');
+function showOrderConfirmation(order) {
+  if (order) {
+    closeCart();
+    closeCheckout();
+  }
+}
