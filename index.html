@@ -9,11 +9,17 @@
     <!-- CSS -->
     <link rel="stylesheet" href="agro.css">
     <link rel="stylesheet" href="login.css">
+
     
     <!-- Favicon -->
     <link rel="icon" href="img/logomarket-removebg-preview.png" type="image/png">
 </head>
-<body> 
+<body>
+    <script>
+        import { neon } from '@netlify/neon';
+        const sql = neon(); // automatically uses env NETLIFY_DATABASE_URL
+        const [post] = await sql`SELECT * FROM posts WHERE id = ${postId}`;
+    </script> 
     <!-- ==================== VISTA PRINCIPAL ==================== -->
     <div id="main-view">
         <!-- ==================== HEADER ==================== -->
@@ -482,7 +488,7 @@
                             <li><a href="#acerca-de" onclick="navigateToSection('acerca-de')">Nuestra Historia</a></li>
                             <li><a href="manual.html">📖 Manual de Usuario</a></li>
                         </ul>
-                    </div>
+                    </div> 
                     <div class="footer-section">
                         <h4>Contacto</h4>
                         <p>📱 +57 322 6654844</p>

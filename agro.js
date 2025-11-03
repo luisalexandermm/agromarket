@@ -3729,6 +3729,7 @@ if (document.readyState === 'loading') {
   }, 100);
 }
 
+
 // ===== INFORMACIÓN DEL SISTEMA =====
 console.log(`
 🌟 MERCADO DIGITAL DE QUIBDÓ - v3.4 FINAL

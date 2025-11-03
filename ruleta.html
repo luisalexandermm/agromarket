@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruleta Aleatoria</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      text-align: center;
+      background-color: #f0f4f7;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      color: #2e7d32;
+      margin-bottom: 20px;
+    }
+
+    #ruletaContenedor {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 20px auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      border-radius: 50%;
+      background-color: #f5f5f5;
+    }
+
+    #ruletaCanvas {
+      display: block;
+      border-radius: 50%;
+      transition: transform 5s cubic-bezier(0.25, 0.1, 0, 1);
+    }
+
+    /* Puntero verde */
+    .puntero {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-top: 30px solid #2e7d32;
+      z-index: 10;
+    }
+
+    /* Resultado */
+    .resultado {
+      margin-top: 20px;
+      padding: 15px;
+      font-size: 1.4em;
+      color: #2e7d32;
+      font-weight: bold;
+      background-color: #ecf0f1;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 400px;
+    }
+
+    /* Botones */
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 4px #1b5e20;
+      transition: all 0.1s;
+    }
+
+    button:active {
+      box-shadow: 0 2px #1b5e20;
+      transform: translateY(2px);
+    }
+
+    /* Campo de entrada */
+    #inputContainer {
+      margin-bottom: 15px;
+    }
+
+    input {
+      padding: 8px;
+      width: 200px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>🎡 Ruleta Aleatoria</h1>
+
+  <div id="inputContainer">
+    <input type="text" id="nombreInput" placeholder="Escribe un nombre">
+    <button id="agregarBtn">Agregar</button>
+  </div>
+
+  <div id="ruletaContenedor">
+    <canvas id="ruletaCanvas" width="300" height="300"></canvas>
+    <div class="puntero"></div>
+  </div>
+
+  <button id="girarBoton">GIRAR RULETA</button>
+
+  <div id="resultado" class="resultado">Presiona "GIRAR RULETA"</div>
+
+  <script>
+    const canvas = document.getElementById('ruletaCanvas');
+    const ctx = canvas.getContext('2d');
+    const girarBoton = document.getElementById('girarBoton');
+    const resultadoDiv = document.getElementById('resultado');
+    const agregarBtn = document.getElementById('agregarBtn');
+    const nombreInput = document.getElementById('nombreInput');
+
+    let nombres = ["José", "María", "Gabriel", "Fátima", "Rafael", "Ali", "Beatriz", "Charles"];
+    const colores = ['#9e9e9e', '#cfd8dc', '#b0bec5', '#78909c', '#607d8b', '#455a64', '#37474f', '#263238'];
+
+    const radio = canvas.width / 2;
+    const centroX = radio;
+    const centroY = radio;
+
+    let isSpinning = false;
+    let anguloActual = 0;
+
+    function dibujarRuleta() {
+      const numSegmentos = nombres.length;
+      const anguloSegmento = (2 * Math.PI) / numSegmentos;
+      let inicioAngulo = 0;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < numSegmentos; i++) {
+        let finAngulo = inicioAngulo + anguloSegmento;
+
+        ctx.beginPath();
+        ctx.moveTo(centroX, centroY);
+        ctx.arc(centroX, centroY, radio, inicioAngulo, finAngulo);
+        ctx.closePath();
+        ctx.fillStyle = colores[i % colores.length];
+        ctx.fill();
+
+        ctx.strokeStyle = '#2c3e50';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        ctx.save();
+        ctx.translate(centroX, centroY);
+        ctx.rotate(inicioAngulo + anguloSegmento / 2);
+        ctx.textAlign = 'right';
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 15px Segoe UI';
+        ctx.fillText(nombres[i], radio * 0.9, 10);
+        ctx.restore();
+
+        inicioAngulo = finAngulo;
+      }
+    }
+
+    function girarRuleta() {
+      if (isSpinning || nombres.length === 0) return;
+      isSpinning = true;
+      resultadoDiv.textContent = "¡Girando...!";
+
+      const numSegmentos = nombres.length;
+      const anguloSegmento = (2 * Math.PI) / numSegmentos;
+      const indiceGanador = Math.floor(Math.random() * numSegmentos);
+      const anguloGanador = (indiceGanador * anguloSegmento) + (anguloSegmento / 2);
+      const anguloAjuste = (Math.PI * 3 / 2);
+      const anguloParada = anguloAjuste - anguloGanador;
+      const vueltas = 10;
+      const anguloTotal = (vueltas * 2 * Math.PI) + anguloParada;
+
+      canvas.style.transform = `rotate(${anguloTotal}rad)`;
+
+      const nombreGanador = nombres[indiceGanador];
+
+      setTimeout(() => {
+        isSpinning = false;
+        resultadoDiv.innerHTML = `🎉 ¡El nombre escogido es: <strong>${nombreGanador}</strong>! 🎉`;
+      }, 5000);
+    }
+
+    function agregarNombre() {
+      const nuevo = nombreInput.value.trim();
+      if (nuevo !== "") {
+        if (nombres.includes(nuevo)) {
+          alert("Ese nombre ya está en la ruleta.");
+          return;
+        }
+        if (["José","María","Gabriel","Fátima","Rafael","Ali","Beatriz","Charles"].every(n => nombres.includes(n))) {
+          // Elimina los nombres por defecto si no se han quitado aún
+          nombres = [];
+        }
+        nombres.push(nuevo);
+        nombreInput.value = "";
+        dibujarRuleta();
+      }
+    }
+
+    // Inicializar
+    dibujarRuleta();
+    girarBoton.addEventListener('click', girarRuleta);
+    agregarBtn.addEventListener('click', agregarNombre);
+  </script>
+</body>
+</html>
